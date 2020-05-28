@@ -1,0 +1,14 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation deps.kotlin.core
+    implementation deps.kotlin.coroutine
+
+    implementation deps.koin.core
+
+    implementation project(':core')
+    implementation project(':domain')
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8

@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation deps.timber
+
+    implementation deps.kotlin.core
+    implementation deps.kotlin.coroutine
+
+    implementation deps.koin.core
+    implementation deps.koin.android
+
+    implementation deps.androidx.ktx
+
+    implementation deps.retrofit.core
+    implementation deps.retrofit.moshi
+    implementation deps.retrofit.loggingInterceptor
+
+    implementation project(":domain")
+    implementation project(":core")
+    implementation project(":repository")
+}

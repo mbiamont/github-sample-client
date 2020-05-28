@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.mbiamont.github"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            buildConfigField("String", "GITHUB_CLIENT_ID", "\"f4dc5769b51c3773899b\"")
+            buildConfigField("String", "GITHUB_SECRET", "\"74b7d2492d9715e2984ce9fc10ea689fb5b51a1f\"")
+            buildConfigField("String", "GITHUB_BASE_URL", "\"https://github.com\"")
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField("String", "GITHUB_CLIENT_ID", "\"f4dc5769b51c3773899b\"")
+            buildConfigField("String", "GITHUB_CLIENT_ID", "\"74b7d2492d9715e2984ce9fc10ea689fb5b51a1f\"")
+            buildConfigField("String", "GITHUB_BASE_URL", "\"https://github.com\"")
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation deps.timber
+
+    implementation deps.kotlin.core
+    implementation deps.kotlin.coroutine
+
+    implementation deps.koin.core
+    implementation deps.koin.android
+
+    implementation deps.androidx.appCompat
+    implementation deps.androidx.ktx
+    implementation deps.androidx.lifecycle
+
+    implementation project(':feature:splashscreen')
+    implementation project(':feature:login')
+    implementation project(':feature:main')
+
+    implementation project(':core')
+    implementation project(':core:android')
+
+    implementation project(':domain')
+    implementation project(':repository')
+    implementation project(':service')
+}
