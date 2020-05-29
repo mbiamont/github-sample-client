@@ -3,6 +3,7 @@ package com.mbiamont.github.service.di
 import com.apollographql.apollo.ApolloClient
 import com.mbiamont.github.core.qualifier.authenticationInterceptorQualifier
 import com.mbiamont.github.core.qualifier.bearerTokenQualifier
+import com.mbiamont.github.core.qualifier.githubGraphQlUrl
 import com.mbiamont.github.core.qualifier.graphQlQualifier
 import com.mbiamont.github.service.FetchUserRepositoriesQuery
 import com.mbiamont.github.service.remote.graphql.AuthenticationInterceptor
@@ -22,7 +23,7 @@ val graphQlModule = module {
 
     single {
         ApolloClient.builder()
-            .serverUrl("https://api.github.com/graphql")
+            .serverUrl(get<String>(githubGraphQlUrl))
             .okHttpClient(get(graphQlQualifier))
             .build()
     }

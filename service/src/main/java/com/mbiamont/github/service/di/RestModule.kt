@@ -1,6 +1,6 @@
 package com.mbiamont.github.service.di
 
-import com.mbiamont.github.core.qualifier.githubBaseUrl
+import com.mbiamont.github.core.qualifier.githubRestBaseUrl
 import com.mbiamont.github.core.qualifier.restQualifier
 import com.mbiamont.github.service.remote.rest.service.IUserWebService
 import okhttp3.OkHttpClient
@@ -16,7 +16,7 @@ val restModule = module {
 
     single {
         Retrofit.Builder()
-            .baseUrl(get<String>(githubBaseUrl))
+            .baseUrl(get<String>(githubRestBaseUrl))
             .client(get(restQualifier))
             .addConverterFactory(MoshiConverterFactory.create())
             .build()

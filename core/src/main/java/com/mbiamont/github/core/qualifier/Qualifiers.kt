@@ -10,4 +10,6 @@ val graphQlQualifier = qualifier("GRAPH_QL")
 
 val authenticationInterceptorQualifier = qualifier("AUTHENTICATION_INTERCEPTOR")
 
-val githubBaseUrl = qualifier("GITHUB_BASE_URL")
+val githubRestBaseUrl = qualifier("GITHUB_REST_BASE_URL")
+
+val githubGraphQlUrl = qualifier("GITHUB_GRAPH_QL_BASE_URL")
