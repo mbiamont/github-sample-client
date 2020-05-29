@@ -31,6 +31,7 @@ dependencies {
     implementation deps.ui.constraintLayout
 
     implementation deps.androidx.lifecycleViewModel
+    implementation deps.androidx.recyclerView
 
     implementation deps.kotlin.core
     implementation deps.kotlin.coroutine

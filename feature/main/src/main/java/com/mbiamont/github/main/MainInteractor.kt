@@ -10,7 +10,8 @@ import timber.log.Timber
 
 class MainInteractor(
     private val repositoryDataSource: IRepositoryDataSource,
-    private val issueDataSource: IIssueDataSource
+    private val issueDataSource: IIssueDataSource,
+    private val presenter: IMainPresenter
 ) : FetchUserPublicRepositoriesUseCase {
 
     override suspend fun fetchUserPublicRepositories() {
@@ -19,6 +20,7 @@ class MainInteractor(
             it.forEach {
                 Timber.i("[MELVIN] ${it.starsCount} ⭐︎ - ${it.name}")
             }
+            presenter.displayRepositoryExtracts(it)
         }.onFailure {
             Timber.e(it)
         }
