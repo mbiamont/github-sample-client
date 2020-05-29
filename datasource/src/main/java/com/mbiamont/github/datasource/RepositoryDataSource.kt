@@ -8,4 +8,7 @@ class RepositoryDataSource(
 ) : IRepositoryDataSource {
 
     override suspend fun getUserPublicRepositories() = remoteRepositoryService.getUserPublicRepositories()
+
+    override suspend fun getRepositoryWithNameAndOwner(name: String, ownerLogin: String) =
+        remoteRepositoryService.getRepositoryWithNameAndOwner(name, ownerLogin)
 }

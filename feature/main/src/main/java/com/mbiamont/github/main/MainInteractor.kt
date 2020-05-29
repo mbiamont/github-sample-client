@@ -14,8 +14,14 @@ class MainInteractor(
         repositoryDataSource.getUserPublicRepositories().onSuccess {
             Timber.i("[MELVIN] REPOSITORY COUNT : ${it.size}")
             it.forEach {
-                Timber.i("[MELVIN] ${it.url}")
+                Timber.i("[MELVIN] ${it.starsCount} ⭐︎ - ${it.name}")
             }
+        }.onFailure {
+            Timber.e(it)
+        }
+
+        repositoryDataSource.getRepositoryWithNameAndOwner("foo", "bar").onSuccess {
+            Timber.i("[MELVIN][DETAILS] $it")
         }.onFailure {
             Timber.e(it)
         }

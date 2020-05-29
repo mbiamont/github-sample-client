@@ -1,0 +1,22 @@
+query FetchRepositoryWithNameAndOwner {
+    repository(name: "google-analytics-annotations", owner: "mbiamont") {
+        description
+        owner {
+            avatarUrl
+            login
+        }
+        name
+        stargazers {
+            totalCount
+        }
+        issues {
+            totalCount
+        }
+        pullRequests {
+            totalCount
+        }
+        forks {
+            totalCount
+        }
+    }
+}

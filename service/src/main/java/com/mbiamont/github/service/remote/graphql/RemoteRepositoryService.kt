@@ -6,19 +6,22 @@ import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import com.mbiamont.github.core.Monad
 import com.mbiamont.github.core.failure
 import com.mbiamont.github.core.success
-import com.mbiamont.github.domain.entity.Repository
+import com.mbiamont.github.domain.entity.RepositoryExtract
 import com.mbiamont.github.datasource.service.IRemoteRepositoryService
-import com.mbiamont.github.service.FetchUserRepositoriesQuery
+import com.mbiamont.github.domain.entity.RepositoryDetails
+import com.mbiamont.github.service.FetchRepositoryWithNameAndOwnerQuery
+import com.mbiamont.github.service.FetchUserPublicRepositoriesQuery
 import com.mbiamont.github.service.mapper.IRemoteRepositoryMapper
 import java.lang.IllegalStateException
 
 class RemoteRepositoryService(
     private val apolloClient: ApolloClient,
-    private val fetchUserRepositoriesQuery: FetchUserRepositoriesQuery,
+    private val fetchUserRepositoriesQuery: FetchUserPublicRepositoriesQuery,
+    private val fetchRepositoryWithNameAndOwnerQuery: FetchRepositoryWithNameAndOwnerQuery,
     private val remoteRepositoryMapper: IRemoteRepositoryMapper
 ) : IRemoteRepositoryService {
 
-    override suspend fun getUserPublicRepositories(): Monad<List<Repository>> {
+    override suspend fun getUserPublicRepositories(): Monad<List<RepositoryExtract>> {
         val response = apolloClient.query(fetchUserRepositoriesQuery)
             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
             .toDeferred()
@@ -28,6 +31,21 @@ class RemoteRepositoryService(
             val repositories = it.repositories().nodes()?.mapNotNull {remoteRepositoryMapper.map(it) } ?: emptyList()
 
             return success(repositories)
+        }
+
+        return failure(IllegalStateException()) //TODO MORE INFO
+    }
+
+    override suspend fun getRepositoryWithNameAndOwner(name: String, ownerLogin: String): Monad<RepositoryDetails> {
+        val response = apolloClient.query(fetchRepositoryWithNameAndOwnerQuery)
+            .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
+            .toDeferred()
+            .await()
+
+        response.data?.repository()?.let {
+            val repo = remoteRepositoryMapper.map(it)
+
+            return success(repo)
         }
 
         return failure(IllegalStateException()) //TODO MORE INFO
