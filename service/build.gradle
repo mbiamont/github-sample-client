@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.apollographql.apollo'
 
 android {
     compileSdkVersion 29
@@ -23,6 +24,15 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
 }
 
 dependencies {
@@ -40,7 +50,10 @@ dependencies {
     implementation deps.retrofit.moshi
     implementation deps.retrofit.loggingInterceptor
 
+    implementation deps.apollo.runtime
+    implementation deps.apollo.coroutineSupport
+
     implementation project(":domain")
     implementation project(":core")
-    implementation project(":repository")
+    implementation project(':datasource')
 }

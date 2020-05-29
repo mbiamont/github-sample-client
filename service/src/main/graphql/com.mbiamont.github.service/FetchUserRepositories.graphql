@@ -1,0 +1,11 @@
+query FetchUserRepositories {
+  viewer {
+    avatarUrl
+    repositories(privacy: PUBLIC, first: 10) {
+      totalCount
+      nodes {
+        projectsUrl
+      }
+    }
+  }
+}

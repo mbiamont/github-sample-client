@@ -2,8 +2,8 @@ package com.mbiamont.github.login
 
 import com.mbiamont.github.core.failure
 import com.mbiamont.github.core.success
-import com.mbiamont.github.domain.repository.IConfigRepository
-import com.mbiamont.github.domain.repository.IUserRepository
+import com.mbiamont.github.domain.datasource.IConfigDataSource
+import com.mbiamont.github.domain.datasource.IUserDataSource
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -13,21 +13,21 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class LoginInteractorTest {
 
-    private val configRepository: IConfigRepository = mock()
-    private val userRepository: IUserRepository = mock()
+    private val configDataSource: IConfigDataSource = mock()
+    private val userDataSource: IUserDataSource = mock()
     private val presenter: ILoginPresenter = mock()
 
     private lateinit var interactor: LoginInteractor
 
     @Before
     fun setUp() {
-        interactor = LoginInteractor(configRepository, userRepository, presenter)
+        interactor = LoginInteractor(configDataSource, userDataSource, presenter)
     }
 
     @Test
     fun prepareWebView_NoScopes() = runBlockingTest {
-        whenever(configRepository.githubClientId).thenReturn("foo_bar")
-        whenever(configRepository.githubOAuthScopes).thenReturn(emptyArray())
+        whenever(configDataSource.githubClientId).thenReturn("foo_bar")
+        whenever(configDataSource.githubOAuthScopes).thenReturn(emptyArray())
 
         val expected = "${LoginInteractor.GITHUB_OAUTH_AUTHORIZE_URL}?client_id=foo_bar"
 
@@ -40,8 +40,8 @@ class LoginInteractorTest {
 
     @Test
     fun prepareWebView_Scopes() = runBlockingTest {
-        whenever(configRepository.githubClientId).thenReturn("foo_bar")
-        whenever(configRepository.githubOAuthScopes).thenReturn(arrayOf("foo", "bar"))
+        whenever(configDataSource.githubClientId).thenReturn("foo_bar")
+        whenever(configDataSource.githubOAuthScopes).thenReturn(arrayOf("foo", "bar"))
 
         val expected = "${LoginInteractor.GITHUB_OAUTH_AUTHORIZE_URL}?client_id=foo_bar&scope=foo,bar"
 
@@ -54,7 +54,7 @@ class LoginInteractorTest {
 
     @Test
     fun fetchOAuthToken_Success() = runBlockingTest {
-        whenever(userRepository.fetchAccessToken(any())).thenReturn(success(Unit))
+        whenever(userDataSource.fetchAccessToken(any())).thenReturn(success(Unit))
 
         interactor.fetchOAuthToken("barfoo")
 
@@ -63,7 +63,7 @@ class LoginInteractorTest {
 
     @Test
     fun fetchOAuthToken_Failure() = runBlockingTest {
-        whenever(userRepository.fetchAccessToken(any())).thenReturn(failure(RuntimeException("boom")))
+        whenever(userDataSource.fetchAccessToken(any())).thenReturn(failure(RuntimeException("boom")))
 
         interactor.fetchOAuthToken("barfoo")
 

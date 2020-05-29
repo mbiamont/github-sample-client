@@ -3,7 +3,7 @@ package com.mbiamont.github.service.cache
 import com.mbiamont.github.core.failure
 import com.mbiamont.github.core.success
 import com.mbiamont.github.domain.exception.CacheException
-import com.mbiamont.github.repository.service.ICacheUserService
+import com.mbiamont.github.datasource.service.ICacheUserService
 import com.mbiamont.github.service.prefs.StringPref
 
 class CacheUserService(

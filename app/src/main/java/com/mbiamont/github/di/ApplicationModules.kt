@@ -1,11 +1,9 @@
 package com.mbiamont.github.di
 
 import com.mbiamont.github.login.di.loginModule
-import com.mbiamont.github.repository.di.repositoryModule
-import com.mbiamont.github.service.di.cacheModule
-import com.mbiamont.github.service.di.jsonModule
-import com.mbiamont.github.service.di.preferencesModule
-import com.mbiamont.github.service.di.restModule
+import com.mbiamont.github.datasource.di.dataSourceModule
+import com.mbiamont.github.main.di.mainModule
+import com.mbiamont.github.service.di.*
 import com.mbiamont.github.splashscreen.di.splashModule
 
 val applicationModules = listOf(
@@ -14,10 +12,14 @@ val applicationModules = listOf(
     preferencesModule,
     cacheModule,
     restModule,
-    repositoryModule,
+    remoteModule,
+    graphQlModule,
+    dataSourceModule,
+    mapperModule,
     navigationModule,
     coroutineModule,
 
     splashModule,
-    loginModule
+    loginModule,
+    mainModule
 )

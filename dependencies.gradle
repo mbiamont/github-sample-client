@@ -39,6 +39,11 @@ ext {
                     loggingInterceptor  : "com.squareup.okhttp3:logging-interceptor:4.7.1"
             ],
 
+            apollo: [
+                    runtime: 'com.apollographql.apollo:apollo-runtime:2.1.0',
+                    coroutineSupport: 'com.apollographql.apollo:apollo-coroutines-support:2.1.0'
+            ],
+
             timber      : 'com.jakewharton.timber:timber:4.7.1'
     ]
 }

@@ -4,7 +4,7 @@ import com.mbiamont.github.core.Monad
 import com.mbiamont.github.core.failure
 import com.mbiamont.github.core.success
 import com.mbiamont.github.domain.exception.NetworkException
-import com.mbiamont.github.repository.service.IRemoteUserService
+import com.mbiamont.github.datasource.service.IRemoteUserService
 import com.mbiamont.github.service.extensions.networkException
 import com.mbiamont.github.service.remote.rest.model.AccessTokenResponse
 import com.mbiamont.github.service.remote.rest.service.IUserWebService

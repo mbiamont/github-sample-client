@@ -1,7 +1,7 @@
 package com.mbiamont.github.config
 
 import com.mbiamont.github.BuildConfig
-import com.mbiamont.github.repository.service.IConfigService
+import com.mbiamont.github.datasource.service.IConfigService
 
 class ConfigService: IConfigService {
 

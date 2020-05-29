@@ -66,6 +66,6 @@ dependencies {
     implementation project(':core:android')
 
     implementation project(':domain')
-    implementation project(':repository')
+    implementation project(':datasource')
     implementation project(':service')
 }

@@ -3,6 +3,9 @@ apply plugin: 'kotlin'
 dependencies {
     implementation deps.kotlin.core
     implementation deps.kotlin.coroutine
+
+    implementation deps.koin.core
+
     testImplementation deps.test.coroutinesTest
 }
 
