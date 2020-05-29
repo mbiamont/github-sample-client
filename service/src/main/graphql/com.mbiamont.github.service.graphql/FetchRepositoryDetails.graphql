@@ -1,5 +1,5 @@
-query FetchRepositoryWithNameAndOwner {
-    repository(name: "google-analytics-annotations", owner: "mbiamont") {
+query FetchRepositoryDetails {
+    repository(name: "kotlinx.coroutines", owner: "Kotlin") {
         description
         owner {
             avatarUrl

@@ -2,8 +2,8 @@ package com.mbiamont.github.service.mapper
 
 import com.mbiamont.github.domain.entity.RepositoryDetails
 import com.mbiamont.github.domain.entity.RepositoryExtract
-import com.mbiamont.github.service.FetchRepositoryWithNameAndOwnerQuery
-import com.mbiamont.github.service.FetchUserPublicRepositoriesQuery
+import com.mbiamont.github.service.graphql.FetchRepositoryDetailsQuery
+import com.mbiamont.github.service.graphql.FetchUserPublicRepositoriesQuery
 
 class RemoteRepositoryMapper(
     private val userMapper: IRemoteUserMapper
@@ -15,7 +15,7 @@ class RemoteRepositoryMapper(
         starsCount = node.stargazers().totalCount()
     )
 
-    override fun map(repo: FetchRepositoryWithNameAndOwnerQuery.Repository) = RepositoryDetails(
+    override fun map(repo: FetchRepositoryDetailsQuery.Repository) = RepositoryDetails(
         name = repo.name(),
         owner = userMapper.map(repo.owner()),
         starsCount = repo.stargazers().totalCount(),

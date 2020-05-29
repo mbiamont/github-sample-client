@@ -2,12 +2,15 @@ package com.mbiamont.github.main
 
 import com.mbiamont.github.core.onFailure
 import com.mbiamont.github.core.onSuccess
+import com.mbiamont.github.domain.datasource.IIssueDataSource
 import com.mbiamont.github.domain.datasource.IRepositoryDataSource
+import com.mbiamont.github.domain.entity.Issue
 import com.mbiamont.github.domain.feature.main.FetchUserPublicRepositoriesUseCase
 import timber.log.Timber
 
 class MainInteractor(
-    private val repositoryDataSource: IRepositoryDataSource
+    private val repositoryDataSource: IRepositoryDataSource,
+    private val issueDataSource: IIssueDataSource
 ) : FetchUserPublicRepositoriesUseCase {
 
     override suspend fun fetchUserPublicRepositories() {
@@ -22,6 +25,19 @@ class MainInteractor(
 
         repositoryDataSource.getRepositoryWithNameAndOwner("foo", "bar").onSuccess {
             Timber.i("[MELVIN][DETAILS] $it")
+        }.onFailure {
+            Timber.e(it)
+        }
+
+        issueDataSource.getRepositoryIssues("foo", "bar").onSuccess {
+            it.forEach { issue ->
+                val status = when(issue.state){
+                    Issue.State.OPEN -> "OPEN"
+                    Issue.State.CLOSED -> "CLOSED"
+                    Issue.State.UNKNOWN -> "UNKNOWN"
+                }
+                Timber.i("[MELVIN][ISSUE][$status] ${issue.title}")
+            }
         }.onFailure {
             Timber.e(it)
         }

@@ -1,0 +1,16 @@
+query FetchRepositoryIssues {
+    repository(name: "kotlinx.coroutines", owner: "Kotlin") {
+        issues(first: 10) {
+            totalCount
+            nodes {
+                state
+                title
+                createdAt
+            }
+            pageInfo {
+                endCursor
+                hasNextPage
+            }
+        }
+    }
+}

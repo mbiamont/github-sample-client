@@ -15,5 +15,5 @@ val mainModule = module {
 
     single<IMainController> { MainController(get()) }
 
-    single { MainInteractor(get()) } bind FetchUserPublicRepositoriesUseCase::class
+    single { MainInteractor(get(), get()) } bind FetchUserPublicRepositoriesUseCase::class
 }

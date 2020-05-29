@@ -3,8 +3,10 @@ package com.mbiamont.github.datasource.di
 import com.mbiamont.github.domain.datasource.IConfigDataSource
 import com.mbiamont.github.domain.datasource.IUserDataSource
 import com.mbiamont.github.datasource.ConfigDataSource
+import com.mbiamont.github.datasource.IssueDataSource
 import com.mbiamont.github.datasource.RepositoryDataSource
 import com.mbiamont.github.datasource.UserDataSource
+import com.mbiamont.github.domain.datasource.IIssueDataSource
 import com.mbiamont.github.domain.datasource.IRepositoryDataSource
 import org.koin.dsl.module
 
@@ -15,4 +17,6 @@ val dataSourceModule = module {
     single<IConfigDataSource> { ConfigDataSource(get()) }
 
     single<IRepositoryDataSource> { RepositoryDataSource(get()) }
+
+    single<IIssueDataSource> { IssueDataSource(get()) }
 }

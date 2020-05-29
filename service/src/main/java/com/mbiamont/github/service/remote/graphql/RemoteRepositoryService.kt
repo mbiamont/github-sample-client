@@ -9,15 +9,15 @@ import com.mbiamont.github.core.success
 import com.mbiamont.github.domain.entity.RepositoryExtract
 import com.mbiamont.github.datasource.service.IRemoteRepositoryService
 import com.mbiamont.github.domain.entity.RepositoryDetails
-import com.mbiamont.github.service.FetchRepositoryWithNameAndOwnerQuery
-import com.mbiamont.github.service.FetchUserPublicRepositoriesQuery
+import com.mbiamont.github.service.graphql.FetchRepositoryDetailsQuery
+import com.mbiamont.github.service.graphql.FetchUserPublicRepositoriesQuery
 import com.mbiamont.github.service.mapper.IRemoteRepositoryMapper
 import java.lang.IllegalStateException
 
 class RemoteRepositoryService(
     private val apolloClient: ApolloClient,
     private val fetchUserRepositoriesQuery: FetchUserPublicRepositoriesQuery,
-    private val fetchRepositoryWithNameAndOwnerQuery: FetchRepositoryWithNameAndOwnerQuery,
+    private val fetchRepositoryWithNameAndOwnerQuery: FetchRepositoryDetailsQuery,
     private val remoteRepositoryMapper: IRemoteRepositoryMapper
 ) : IRemoteRepositoryService {
 

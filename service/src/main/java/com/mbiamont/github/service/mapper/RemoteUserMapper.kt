@@ -1,8 +1,8 @@
 package com.mbiamont.github.service.mapper
 
 import com.mbiamont.github.domain.entity.User
-import com.mbiamont.github.service.FetchRepositoryWithNameAndOwnerQuery
-import com.mbiamont.github.service.FetchUserPublicRepositoriesQuery
+import com.mbiamont.github.service.graphql.FetchRepositoryDetailsQuery
+import com.mbiamont.github.service.graphql.FetchUserPublicRepositoriesQuery
 
 class RemoteUserMapper: IRemoteUserMapper {
 
@@ -11,7 +11,7 @@ class RemoteUserMapper: IRemoteUserMapper {
         return User(user.login(), avatarUrl)
     }
 
-    override fun map(user: FetchRepositoryWithNameAndOwnerQuery.Owner): User {
+    override fun map(user: FetchRepositoryDetailsQuery.Owner): User {
         val avatarUrl = (user.avatarUrl() as? String) ?: ""
         return User(user.login(), avatarUrl)
     }
