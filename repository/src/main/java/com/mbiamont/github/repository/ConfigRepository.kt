@@ -9,4 +9,7 @@ class ConfigRepository(
 
     override val githubClientId: String
         get() = configService.githubClientId
+
+    override val githubOAuthScopes: Array<String>
+        get() = configService.githubOAuthScopes
 }

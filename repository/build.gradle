@@ -6,6 +6,10 @@ dependencies {
 
     implementation deps.koin.core
 
+    testImplementation deps.test.junit
+    testImplementation deps.test.mockito
+    testImplementation deps.test.coroutinesTest
+
     implementation project(':core')
     implementation project(':domain')
 }

@@ -4,12 +4,14 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mbiamont.github.core.CoroutineContextProvider
 import com.mbiamont.github.core.android.livedata.SingleEventLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class LoginViewModel(
+    private val contextProvider: CoroutineContextProvider,
     private val controller: ILoginController,
     private val presenter: ILoginPresenter
 ) : ViewModel(), ILoginView {
@@ -34,7 +36,7 @@ class LoginViewModel(
             return false
         }
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(contextProvider.IO) {
             controller.onPageLoaded(codeQueryParam)
         }
 

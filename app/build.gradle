@@ -30,7 +30,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             buildConfigField("String", "GITHUB_CLIENT_ID", "\"f4dc5769b51c3773899b\"")
-            buildConfigField("String", "GITHUB_CLIENT_ID", "\"74b7d2492d9715e2984ce9fc10ea689fb5b51a1f\"")
+            buildConfigField("String", "GITHUB_SECRET", "\"74b7d2492d9715e2984ce9fc10ea689fb5b51a1f\"")
             buildConfigField("String", "GITHUB_BASE_URL", "\"https://github.com\"")
         }
     }

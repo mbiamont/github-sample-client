@@ -40,6 +40,11 @@ dependencies {
     implementation deps.koin.android
     implementation deps.koin.viewModel
 
+    testImplementation deps.test.junit
+    testImplementation deps.test.mockito
+    testImplementation deps.test.coroutinesTest
+    testImplementation project(":core:test")
+
     implementation project(":core")
     implementation project(":core:android")
     implementation project(":domain")

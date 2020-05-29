@@ -26,26 +26,15 @@ android {
 }
 
 dependencies {
-    implementation deps.timber
-
-    implementation deps.ui.constraintLayout
-
-    implementation deps.androidx.lifecycleViewModel
-
     implementation deps.kotlin.core
     implementation deps.kotlin.coroutine
-    implementation deps.kotlin.coroutineAndroid
 
-    implementation deps.koin.core
-    implementation deps.koin.android
-    implementation deps.koin.viewModel
-
-    testImplementation deps.test.junit
-    testImplementation deps.test.mockito
-    testImplementation deps.test.coroutinesTest
-    testImplementation project(":core:test")
-
+    implementation deps.test.junit
+    implementation deps.test.coroutinesTest
+    implementation deps.androidx.lifecycle
+    
     implementation project(":core")
-    implementation project(":core:android")
-    implementation project(":domain")
 }
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8

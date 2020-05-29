@@ -16,6 +16,7 @@ val applicationModules = listOf(
     restModule,
     repositoryModule,
     navigationModule,
+    coroutineModule,
 
     splashModule,
     loginModule

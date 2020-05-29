@@ -20,14 +20,15 @@ This project is the implementation of a hiring technical test for Datadog.
 
 ## ⚠️⚠️⚠️⚠️⚠️ To not forget ⚠️⚠️⚠️⚠️⚠️
 
-- [] Unit tests
-- [] Comments
-- [] Complete this README.md with architecture explanations
-- [] Remove this section
-- [] Explain clean archi dependencies (schema)
-- [] Explain classic request flow (schema)
-- [] Explain navigation
-- [] Explain role of each part of the Clean Archi (why a VM, why a controller, etc...)
+- [ ] Unit tests
+- [ ] Comments
+- [ ] Complete this README.md with architecture explanations
+- [ ] Remove this section
+- [ ] Explain clean archi dependencies (schema)
+- [ ] Explain classic request flow (schema)
+- [ ] Explain navigation
+- [ ] Explain role of each part of the Clean Archi (why a VM, why a controller, etc...)
+- [ ] What could be improved: ViewModel livedata can we written by the Activity, should be accessible read-only
 
 ## How could I improve the design:
 

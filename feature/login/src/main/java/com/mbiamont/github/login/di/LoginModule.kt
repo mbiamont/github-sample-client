@@ -9,7 +9,7 @@ import org.koin.dsl.module
 
 val loginModule = module {
 
-    viewModel { LoginViewModel(get(), get()) }
+    viewModel { LoginViewModel(get(), get(), get()) }
 
     single<ILoginPresenter> { LoginPresenter(get()) }
 

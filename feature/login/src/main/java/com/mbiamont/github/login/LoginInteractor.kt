@@ -15,6 +15,8 @@ class LoginInteractor(
 ) : PrepareWebViewUseCase, FetchOAuthTokenUseCase {
 
     override fun prepareWebView(callback: (url: String) -> Unit) {
+        val scopes = configRepository.githubOAuthScopes
+
         var url = "$GITHUB_OAUTH_AUTHORIZE_URL?client_id=${configRepository.githubClientId}"
         if (scopes.isNotEmpty()) {
             url += "&scope=${scopes.joinToString(",")}"
@@ -36,7 +38,5 @@ class LoginInteractor(
 
     companion object {
         const val GITHUB_OAUTH_AUTHORIZE_URL = "https://github.com/login/oauth/authorize"
-
-        val scopes = arrayOf<String>()
     }
 }

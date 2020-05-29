@@ -10,4 +10,7 @@ class ConfigService: IConfigService {
 
     override val githubSecret: String
         get() = BuildConfig.GITHUB_SECRET
+
+    override val githubOAuthScopes: Array<String>
+        get() = emptyArray()
 }
