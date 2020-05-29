@@ -7,7 +7,11 @@ val mapperModule = module {
 
     single<IRemoteUserMapper> { RemoteUserMapper() }
 
-    single<IRemoteRepositoryMapper> { RemoteRepositoryMapper(get()) }
+    single<IRemoteDateMapper> { RemoteDateMapper() }
 
-    single<IRemoteIssueMapper> { RemoteIssueMapper() }
+    single<IRemoteLanguageMapper> { RemoteLanguageMapper() }
+
+    single<IRemoteRepositoryMapper> { RemoteRepositoryMapper(get(), get()) }
+
+    single<IRemoteIssueMapper> { RemoteIssueMapper(get()) }
 }

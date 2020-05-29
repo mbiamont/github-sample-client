@@ -7,7 +7,7 @@ import com.mbiamont.github.service.graphql.FetchUserPublicRepositoriesQuery
 
 interface IRemoteRepositoryMapper {
 
-    fun map(node: FetchUserPublicRepositoriesQuery.Node): RepositoryExtract
+    fun map(repo: FetchUserPublicRepositoriesQuery.Node): RepositoryExtract
 
     fun map(repo: FetchRepositoryDetailsQuery.Repository): RepositoryDetails
 }

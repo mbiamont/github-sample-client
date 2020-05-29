@@ -6,18 +6,21 @@ import com.mbiamont.github.service.graphql.FetchRepositoryDetailsQuery
 import com.mbiamont.github.service.graphql.FetchUserPublicRepositoriesQuery
 
 class RemoteRepositoryMapper(
-    private val userMapper: IRemoteUserMapper
+    private val userMapper: IRemoteUserMapper,
+    private val languageMapper: IRemoteLanguageMapper
 ) : IRemoteRepositoryMapper {
 
-    override fun map(node: FetchUserPublicRepositoriesQuery.Node) = RepositoryExtract(
-        name = node.name(),
-        owner = userMapper.map(node.owner()),
-        starsCount = node.stargazers().totalCount()
+    override fun map(repo: FetchUserPublicRepositoriesQuery.Node) = RepositoryExtract(
+        name = repo.name(),
+        owner = userMapper.map(repo.owner()),
+        mainLanguage = languageMapper.map(repo.languages()?.nodes()?.firstOrNull()),
+        starsCount = repo.stargazers().totalCount()
     )
 
     override fun map(repo: FetchRepositoryDetailsQuery.Repository) = RepositoryDetails(
         name = repo.name(),
         owner = userMapper.map(repo.owner()),
+        mainLanguage = languageMapper.map(repo.languages()?.nodes()?.firstOrNull()),
         starsCount = repo.stargazers().totalCount(),
         issuesCount = repo.issues().totalCount(),
         pullRequestsCount = repo.pullRequests().totalCount(),

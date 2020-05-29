@@ -12,6 +12,12 @@ query FetchUserPublicRepositories {
         stargazers {
           totalCount
         }
+        languages(first: 1, orderBy: {field: SIZE, direction: DESC}) {
+          nodes {
+            color
+            name
+          }
+        }
       }
     }
   }
