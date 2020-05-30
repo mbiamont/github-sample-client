@@ -23,15 +23,6 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
 }
 
 dependencies {
@@ -39,8 +30,6 @@ dependencies {
 
     implementation deps.ui.constraintLayout
     implementation deps.ui.shimmerLayout
-    implementation deps.ui.materialDesign
-    implementation deps.ui.coil
 
     implementation deps.androidx.lifecycleViewModel
     implementation deps.androidx.recyclerView
@@ -57,7 +46,4 @@ dependencies {
     implementation project(":core:android")
     implementation project(":design")
     implementation project(":domain")
-    implementation project(":feature:repo-details:issues")
-    implementation project(':feature:repo-details:pull-requests')
-    implementation project(':feature:repo-details:forks')
 }

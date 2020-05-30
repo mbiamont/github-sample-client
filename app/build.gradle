@@ -65,6 +65,8 @@ dependencies {
     implementation project(':feature:repo-list')
     implementation project(':feature:repo-details')
     implementation project(':feature:repo-details:issues')
+    implementation project(':feature:repo-details:pull-requests')
+    implementation project(':feature:repo-details:forks')
 
     implementation project(':core')
     implementation project(':core:android')
