@@ -1,5 +1,5 @@
-query FetchRepositoryIssues {
-    repository(name: "kotlinx.coroutines", owner: "Kotlin") {
+query FetchRepositoryIssues($name: String! $ownerLogin: String!) {
+    repository(name: $name, owner: $ownerLogin) {
         issues(first: 10) {
             totalCount
             nodes {

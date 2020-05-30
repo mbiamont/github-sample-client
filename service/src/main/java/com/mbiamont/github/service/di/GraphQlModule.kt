@@ -29,10 +29,4 @@ val graphQlModule = module {
             .okHttpClient(get(graphQlQualifier))
             .build()
     }
-
-    single { FetchUserPublicRepositoriesQuery.builder().build() }
-
-    single { FetchRepositoryDetailsQuery.builder().build() }
-
-    single { FetchRepositoryIssuesQuery.builder().build() }
 }

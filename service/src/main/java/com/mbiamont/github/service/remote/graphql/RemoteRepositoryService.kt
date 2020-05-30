@@ -16,13 +16,13 @@ import java.lang.IllegalStateException
 
 class RemoteRepositoryService(
     private val apolloClient: ApolloClient,
-    private val fetchUserRepositoriesQuery: FetchUserPublicRepositoriesQuery,
-    private val fetchRepositoryWithNameAndOwnerQuery: FetchRepositoryDetailsQuery,
     private val remoteRepositoryMapper: IRemoteRepositoryMapper
 ) : IRemoteRepositoryService {
 
     override suspend fun getUserPublicRepositories(): Monad<List<RepositoryExtract>> {
-        val response = apolloClient.query(fetchUserRepositoriesQuery)
+        val query = FetchUserPublicRepositoriesQuery.builder().build()
+
+        val response = apolloClient.query(query)
             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
             .toDeferred()
             .await()
@@ -37,7 +37,9 @@ class RemoteRepositoryService(
     }
 
     override suspend fun getRepositoryWithNameAndOwner(name: String, ownerLogin: String): Monad<RepositoryDetails> {
-        val response = apolloClient.query(fetchRepositoryWithNameAndOwnerQuery)
+        val query = FetchRepositoryDetailsQuery.builder().name(name).ownerLogin(ownerLogin).build()
+
+        val response = apolloClient.query(query)
             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
             .toDeferred()
             .await()

@@ -12,7 +12,7 @@ val remoteModule = module {
 
     single<IRemoteUserService> { RemoteRestUserService(get()) }
 
-    single<IRemoteRepositoryService> { RemoteRepositoryService(get(), get(), get(), get()) }
+    single<IRemoteRepositoryService> { RemoteRepositoryService(get(), get()) }
 
-    single<IRemoteIssueService> { RemoteIssueService(get(), get(), get()) }
+    single<IRemoteIssueService> { RemoteIssueService(get(), get()) }
 }

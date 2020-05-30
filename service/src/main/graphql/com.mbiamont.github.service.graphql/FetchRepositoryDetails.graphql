@@ -1,5 +1,5 @@
-query FetchRepositoryDetails {
-    repository(name: "kotlinx.coroutines", owner: "Kotlin") {
+query FetchRepositoryDetails($name: String! $ownerLogin: String!) {
+    repository(name: $name, owner: $ownerLogin) {
         description
         owner {
             avatarUrl

@@ -14,12 +14,13 @@ import java.lang.IllegalStateException
 
 class RemoteIssueService(
     private val apolloClient: ApolloClient,
-    private val fetchRepositoryIssuesQuery: FetchRepositoryIssuesQuery,
     private val remoteIssueMapper: IRemoteIssueMapper
 ) : IRemoteIssueService {
 
     override suspend fun getRepositoryIssues(repositoryName: String, ownerLogin: String): Monad<List<Issue>> {
-        val response = apolloClient.query(fetchRepositoryIssuesQuery)
+        val query = FetchRepositoryIssuesQuery.builder().name(repositoryName).ownerLogin(ownerLogin).build()
+
+        val response = apolloClient.query(query)
             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
             .toDeferred()
             .await()
