@@ -1,4 +1,4 @@
-package com.mbiamont.github.main
+package com.mbiamont.github.repository.list
 
 import android.os.Bundle
 import android.view.View
@@ -7,20 +7,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mbiamont.github.core.android.BaseActivity
 import com.mbiamont.github.core.android.extensions.observe
 import com.mbiamont.github.core.android.extensions.with
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_repository_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity() {
+class RepositoryListActivity : BaseActivity() {
 
-    private val mainViewModel: MainViewModel by viewModel()
+    private val mainViewModel: RepositoryListViewModel by viewModel()
 
-    private val repositoryExtractAdapter = RepositoryExtractAdapter { name, ownerLogin ->
-        mainViewModel.onRepositoryExtractClicked(name, ownerLogin)
-    }
+    private val repositoryExtractAdapter =
+        RepositoryExtractAdapter { name, ownerLogin ->
+            mainViewModel.onRepositoryExtractClicked(name, ownerLogin)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_repository_list)
         setupView()
         setupObservers()
 
@@ -31,7 +32,7 @@ class MainActivity : BaseActivity() {
         shimmerLayout.startShimmerAnimation()
 
         with(repositoryList) {
-            layoutManager = LinearLayoutManager(this@MainActivity)
+            layoutManager = LinearLayoutManager(this@RepositoryListActivity)
             setHasFixedSize(true)
             isNestedScrollingEnabled = false
             adapter = repositoryExtractAdapter

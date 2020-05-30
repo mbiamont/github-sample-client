@@ -1,6 +1,6 @@
-package com.mbiamont.github.main
+package com.mbiamont.github.repository.list
 
-interface IMainView {
+interface IRepositoryListView {
 
     fun displayRepositoryExtractList(repositories: List<RepositoryExtractViewState>)
 

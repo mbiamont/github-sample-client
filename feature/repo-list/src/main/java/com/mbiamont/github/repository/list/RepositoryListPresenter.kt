@@ -1,12 +1,12 @@
-package com.mbiamont.github.main
+package com.mbiamont.github.repository.list
 
 import com.mbiamont.github.domain.entity.RepositoryExtract
 
-class MainPresenter(
-    private val viewStateMapper: IMainViewStateMapper
-) : IMainPresenter {
+class RepositoryListPresenter(
+    private val viewStateMapper: IRepositoryListViewStateMapper
+) : IRepositoryListPresenter {
 
-    override var view: IMainView? = null
+    override var view: IRepositoryListView? = null
 
     override fun displayRepositoryExtracts(repositories: List<RepositoryExtract>) {
         view?.displayRepositoryExtractList(repositories.map { viewStateMapper.map(it) })

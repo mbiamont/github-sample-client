@@ -1,8 +1,8 @@
-package com.mbiamont.github.main
+package com.mbiamont.github.repository.list
 
 import com.mbiamont.github.domain.entity.RepositoryExtract
 
-interface IMainViewStateMapper {
+interface IRepositoryListViewStateMapper {
 
     fun map(repositoryExtract: RepositoryExtract): RepositoryExtractViewState
 }

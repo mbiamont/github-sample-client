@@ -1,4 +1,4 @@
-package com.mbiamont.github.main
+package com.mbiamont.github.repository.list
 
 data class RepositoryExtractViewState(
     val name: String,

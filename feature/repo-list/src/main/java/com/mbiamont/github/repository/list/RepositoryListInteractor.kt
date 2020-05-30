@@ -1,25 +1,21 @@
-package com.mbiamont.github.main
+package com.mbiamont.github.repository.list
 
 import com.mbiamont.github.core.onFailure
 import com.mbiamont.github.core.onSuccess
 import com.mbiamont.github.domain.datasource.IIssueDataSource
 import com.mbiamont.github.domain.datasource.IRepositoryDataSource
 import com.mbiamont.github.domain.entity.Issue
-import com.mbiamont.github.domain.feature.main.FetchUserPublicRepositoriesUseCase
+import com.mbiamont.github.domain.feature.repository.list.FetchUserPublicRepositoriesUseCase
 import timber.log.Timber
 
-class MainInteractor(
+class RepositoryListInteractor(
     private val repositoryDataSource: IRepositoryDataSource,
     private val issueDataSource: IIssueDataSource,
-    private val presenter: IMainPresenter
+    private val presenter: IRepositoryListPresenter
 ) : FetchUserPublicRepositoriesUseCase {
 
     override suspend fun fetchUserPublicRepositories() {
         repositoryDataSource.getUserPublicRepositories().onSuccess {
-            Timber.i("[MELVIN] REPOSITORY COUNT : ${it.size}")
-            it.forEach {
-                Timber.i("[MELVIN] ${it.starsCount} ⭐︎ - ${it.name}")
-            }
             presenter.displayRepositoryExtracts(it)
         }.onFailure {
             Timber.e(it)

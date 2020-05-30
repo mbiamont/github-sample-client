@@ -1,11 +1,10 @@
-package com.mbiamont.github.main
+package com.mbiamont.github.repository.list
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mbiamont.github.design.card.RepositoryExtractCard
-import kotlinx.android.synthetic.main.card_repository.view.*
 
 class RepositoryExtractAdapter(private val onItemClickListener: (name: String, ownerLogin: String) -> Unit) :
     RecyclerView.Adapter<RepositoryExtractAdapter.ViewHolder>() {

@@ -28,7 +28,7 @@
             android:label="@string/app_name"/>
 
         <activity
-            android:name="com.mbiamont.github.main.MainActivity"
+            android:name="com.mbiamont.github.repository.list.RepositoryListActivity"
             android:label="@string/app_name"/>
 
     </application>

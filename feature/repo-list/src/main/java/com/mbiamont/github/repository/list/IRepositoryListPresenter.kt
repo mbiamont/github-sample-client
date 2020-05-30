@@ -1,9 +1,9 @@
-package com.mbiamont.github.main
+package com.mbiamont.github.repository.list
 
 import com.mbiamont.github.core.BasePresenter
 import com.mbiamont.github.domain.entity.RepositoryExtract
 
-interface IMainPresenter : BasePresenter<IMainView> {
+interface IRepositoryListPresenter : BasePresenter<IRepositoryListView> {
 
     fun displayRepositoryExtracts(repositories: List<RepositoryExtract>)
 

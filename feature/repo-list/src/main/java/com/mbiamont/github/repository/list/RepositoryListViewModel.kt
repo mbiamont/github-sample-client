@@ -1,18 +1,17 @@
-package com.mbiamont.github.main
+package com.mbiamont.github.repository.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mbiamont.github.core.CoroutineContextProvider
 import com.mbiamont.github.core.android.livedata.SingleEventLiveData
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MainViewModel(
+class RepositoryListViewModel(
     private val contextProvider: CoroutineContextProvider,
-    private val controller: IMainController,
-    private val presenter: IMainPresenter
-) : ViewModel(), IMainView {
+    private val controller: IRepositoryListController,
+    private val presenter: IRepositoryListPresenter
+) : ViewModel(), IRepositoryListView {
 
     val repositoriesLiveData = MutableLiveData<List<RepositoryExtractViewState>>()
 
