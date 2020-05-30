@@ -7,6 +7,8 @@ import coil.transform.CircleCropTransformation
 import com.mbiamont.github.core.android.BaseActivity
 import com.mbiamont.github.core.android.extensions.observe
 import com.mbiamont.github.core.android.extensions.with
+import com.mbiamont.github.design.navigation.TAB_ISSUES
+import com.mbiamont.github.repository.issues.IssuesFragment
 import kotlinx.android.synthetic.main.activity_repository_details.*
 import kotlinx.android.synthetic.main.layout_navigation_view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,11 +21,8 @@ class RepositoryDetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repository_details)
+        setupNavigation()
         setupObservers()
-
-        bottomNavigationBar.onTabItemSelected = {
-            Timber.i("[MELVIN] TAB SELECTED = $it")
-        }
 
         viewModel.onViewReady(intent.extras)
     }
@@ -50,6 +49,27 @@ class RepositoryDetailsActivity : BaseActivity() {
             lblStarCountValue.text = it.starCountLabel
             lblPullRequestsCountValue.text = it.pullRequestCountLabel
             lblForkCountValue.text = it.forkCountLabel
+        }
+    }
+
+    private fun setupNavigation() {
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentHost, IssuesFragment.create(intent.extras)).commit()
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            when (supportFragmentManager.findFragmentById(R.id.fragmentHost)) {
+                is IssuesFragment -> bottomNavigationBar.selectedTab = TAB_ISSUES
+                //TODO OTHER TABS
+            }
+        }
+
+        bottomNavigationBar.onTabItemSelected = {
+            Timber.i("[MELVIN] TAB SELECTED = $it")
+            supportFragmentManager.beginTransaction().replace(
+                R.id.fragmentHost, when (it) {
+                    TAB_ISSUES -> IssuesFragment.create(intent.extras)
+                    else -> error("Tab not managed")
+                }
+            ).addToBackStack(null).commit()
         }
     }
 }

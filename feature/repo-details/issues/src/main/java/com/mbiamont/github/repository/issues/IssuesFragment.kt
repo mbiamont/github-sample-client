@@ -18,4 +18,10 @@ class IssuesFragment : Fragment() {
 
         viewModel.onViewReady(arguments)
     }
+
+    companion object {
+        fun create(extras: Bundle?) = IssuesFragment().apply {
+            arguments = extras
+        }
+    }
 }

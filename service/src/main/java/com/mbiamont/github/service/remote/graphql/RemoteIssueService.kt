@@ -22,7 +22,7 @@ class RemoteIssueService(
         val query = FetchRepositoryIssuesQuery.builder()
             .name(repositoryName)
             .ownerLogin(ownerLogin)
-            .since("2020-03-01T00:00:00Z") //TODO
+            .since("2000-03-01T00:00:00Z") //TODO
             .build()
 
         val response = apolloClient.query(query)
