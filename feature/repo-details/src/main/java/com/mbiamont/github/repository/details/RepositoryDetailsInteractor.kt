@@ -7,12 +7,13 @@ import com.mbiamont.github.domain.feature.repository.details.FetchRepositoryDeta
 import timber.log.Timber
 
 class RepositoryDetailsInteractor(
-    private val repositoryDataSource: IRepositoryDataSource
+    private val repositoryDataSource: IRepositoryDataSource,
+    private val presenter: IRepositoryDetailsPresenter
 ) : FetchRepositoryDetailsUseCase {
 
     override suspend fun fetchRepositoryDetails(repositoryName: String, ownerLogin: String) {
         repositoryDataSource.getRepositoryWithNameAndOwner(repositoryName, ownerLogin).onSuccess {
-            Timber.i("[MELVIN][DETAILS] $it")
+            presenter.displayRepositoryDetails(it)
         }.onFailure {
             Timber.e(it)
         }

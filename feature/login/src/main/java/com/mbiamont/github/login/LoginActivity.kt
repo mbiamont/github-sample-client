@@ -15,7 +15,7 @@ import timber.log.Timber
 
 class LoginActivity : BaseActivity() {
 
-    private val loginViewModel: LoginViewModel by viewModel()
+    private val viewModel: LoginViewModel by viewModel()
 
     private lateinit var webviewUrl: String
 
@@ -33,14 +33,14 @@ class LoginActivity : BaseActivity() {
 
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                 request?.url?.let { url ->
-                    return loginViewModel.onPageLoaded(url)
+                    return viewModel.onPageLoaded(url)
                 }
 
                 return super.shouldOverrideUrlLoading(view, request)
             }
         }
 
-        loginViewModel.onPrepareWebView { url ->
+        viewModel.onPrepareWebView { url ->
             webviewUrl = url
             resetWebView()
         }
@@ -52,7 +52,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun setupObservers() {
-        observe(loginViewModel.errorMessageLiveData) with {
+        observe(viewModel.errorMessageLiveData) with {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             resetWebView()
         }

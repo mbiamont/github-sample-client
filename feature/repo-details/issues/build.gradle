@@ -1,0 +1,49 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation deps.timber
+
+    implementation deps.ui.constraintLayout
+    implementation deps.ui.shimmerLayout
+
+    implementation deps.androidx.lifecycleViewModel
+    implementation deps.androidx.recyclerView
+
+    implementation deps.kotlin.core
+    implementation deps.kotlin.coroutine
+    implementation deps.kotlin.coroutineAndroid
+
+    implementation deps.koin.core
+    implementation deps.koin.android
+    implementation deps.koin.viewModel
+
+    implementation project(":core")
+    implementation project(":core:android")
+    implementation project(":design")
+    implementation project(":domain")
+}

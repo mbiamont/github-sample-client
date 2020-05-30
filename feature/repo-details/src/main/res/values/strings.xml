@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="repositoryMainLanguageLabel">Main language</string>
+    <string name="repositoryStarsLabel">Stars</string>
+    <string name="repositoryPullRequestsLabel">Pull requests</string>
+    <string name="repositoryForksLabel">Forks</string>
+
+</resources>

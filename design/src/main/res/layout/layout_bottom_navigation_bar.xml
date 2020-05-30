@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline33"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline66"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.66" />
+
+    <ImageView
+        android:id="@+id/menuIssues"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/navigationBarPaddingTop"
+        android:paddingBottom="@dimen/navigationBarPaddingBottom"
+        android:tint="@drawable/selector_tint_bottom_bar"
+        android:src="@drawable/ic_bug"
+        app:layout_constraintEnd_toEndOf="@id/guideline33"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/menuPullRequests"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/navigationBarPaddingTop"
+        android:paddingBottom="@dimen/navigationBarPaddingBottom"
+        android:tint="@drawable/selector_tint_bottom_bar"
+        android:src="@drawable/ic_pull_request"
+        app:layout_constraintEnd_toStartOf="@id/guideline66"
+        app:layout_constraintStart_toEndOf="@id/guideline33" />
+
+    <ImageView
+        android:id="@+id/menuForks"
+        android:tint="@drawable/selector_tint_bottom_bar"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/navigationBarPaddingTop"
+        android:paddingBottom="@dimen/navigationBarPaddingBottom"
+        android:src="@drawable/ic_fork"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline66" />
+
+</merge>

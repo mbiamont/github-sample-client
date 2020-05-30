@@ -20,6 +20,7 @@ class RemoteRepositoryMapper(
     override fun map(repo: FetchRepositoryDetailsQuery.Repository) = RepositoryDetails(
         name = repo.name(),
         owner = userMapper.map(repo.owner()),
+        description = repo.description() ?: "",
         mainLanguage = languageMapper.map(repo.languages()?.nodes()?.firstOrNull()),
         starsCount = repo.stargazers().totalCount(),
         issuesCount = repo.issues().totalCount(),

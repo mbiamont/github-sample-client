@@ -2,7 +2,6 @@ package com.mbiamont.github.splashscreen
 
 import android.os.Bundle
 import android.os.Handler
-import android.transition.Transition
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.mbiamont.github.core.android.BaseActivity
 import kotlinx.android.synthetic.main.activity_splashscreen.*
@@ -10,7 +9,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : BaseActivity() {
 
-    private val splashViewModel: SplashViewModel by viewModel()
+    private val viewModel: SplashViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +24,7 @@ class SplashActivity : BaseActivity() {
             override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) = Unit
 
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-                splashViewModel.onViewReady()
+                viewModel.onViewReady()
             }
 
         })

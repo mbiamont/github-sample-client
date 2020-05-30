@@ -30,7 +30,7 @@ class RepositoryExtractCard @JvmOverloads constructor(
 
         val padding = resources.getDimensionPixelSize(R.dimen.medium)
         setPadding(padding, padding, padding, padding)
-        elevation = resources.getDimensionPixelSize(R.dimen.small).toFloat()
+        //elevation = resources.getDimensionPixelSize(R.dimen.small).toFloat()
     }
 
     fun showLanguage(name: String, color: Int) {

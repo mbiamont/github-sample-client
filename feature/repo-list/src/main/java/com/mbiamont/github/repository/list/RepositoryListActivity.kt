@@ -12,10 +12,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RepositoryListActivity : BaseActivity() {
 
-    private val repositoryListViewModel: RepositoryListViewModel by viewModel()
+    private val viewModel: RepositoryListViewModel by viewModel()
 
     private val repositoryExtractAdapter = RepositoryExtractAdapter { name, ownerLogin ->
-        repositoryListViewModel.onRepositoryExtractClicked(name, ownerLogin)
+        viewModel.onRepositoryExtractClicked(name, ownerLogin)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +24,7 @@ class RepositoryListActivity : BaseActivity() {
         setupView()
         setupObservers()
 
-        repositoryListViewModel.onViewReady()
+        viewModel.onViewReady()
     }
 
     private fun setupView() {
@@ -39,7 +39,7 @@ class RepositoryListActivity : BaseActivity() {
     }
 
     private fun setupObservers() {
-        observe(repositoryListViewModel.repositoriesLiveData) with {
+        observe(viewModel.repositoriesLiveData) with {
             repositoryExtractAdapter.setItems(it)
 
             shimmerLayout.stopShimmerAnimation()
@@ -47,7 +47,7 @@ class RepositoryListActivity : BaseActivity() {
             repositoryList.visibility = View.VISIBLE
         }
 
-        observe(repositoryListViewModel.errorMessageLiveData) with {
+        observe(viewModel.errorMessageLiveData) with {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
     }

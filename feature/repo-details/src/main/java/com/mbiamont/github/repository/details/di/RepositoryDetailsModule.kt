@@ -10,10 +10,12 @@ val repositoryDetailsModule = module {
 
     viewModel { RepositoryDetailsViewModel(get(), get(), get()) }
 
+    single<IRepositoryDetailsViewStateMapper> { RepositoryDetailsViewStateMapper() }
+
     single<IRepositoryDetailsController> { RepositoryDetailsController(get()) }
 
-    single<IRepositoryDetailsPresenter> { RepositoryDetailsPresenter() }
+    single<IRepositoryDetailsPresenter> { RepositoryDetailsPresenter(get()) }
 
-    single { RepositoryDetailsInteractor(get()) } bind FetchRepositoryDetailsUseCase::class
+    single { RepositoryDetailsInteractor(get(), get()) } bind FetchRepositoryDetailsUseCase::class
 
 }

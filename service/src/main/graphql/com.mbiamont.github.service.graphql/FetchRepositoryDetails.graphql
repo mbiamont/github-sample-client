@@ -1,4 +1,4 @@
-query FetchRepositoryDetails($name: String! $ownerLogin: String!) {
+query FetchRepositoryDetails($name: String!, $ownerLogin: String!) {
     repository(name: $name, owner: $ownerLogin) {
         description
         owner {

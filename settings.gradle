@@ -1,3 +1,4 @@
+include ':feature:repo-details:issues'
 include ':feature:repo-details'
 include ':design'
 rootProject.name='Github Client'

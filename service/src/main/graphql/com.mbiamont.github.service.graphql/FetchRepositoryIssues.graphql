@@ -1,6 +1,6 @@
-query FetchRepositoryIssues($name: String! $ownerLogin: String!) {
+query FetchRepositoryIssues($name: String!, $ownerLogin: String!, $since: DateTime!) {
     repository(name: $name, owner: $ownerLogin) {
-        issues(first: 10) {
+        issues(first: 10, filterBy: {since: $since}) {
             totalCount
             nodes {
                 state

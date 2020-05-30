@@ -1,6 +1,7 @@
 package com.mbiamont.github.repository.details
 
 import android.os.Bundle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mbiamont.github.core.CoroutineContextProvider
@@ -15,6 +16,8 @@ class RepositoryDetailsViewModel(
     private val controller: IRepositoryDetailsController,
     private val presenter: IRepositoryDetailsPresenter
 ) : ViewModel(), IRepositoryDetailsView {
+
+    val repositoryDetailsLiveData = MutableLiveData<RepositoryDetailsViewState>()
 
     init {
         presenter.onAttachView(this)
@@ -33,5 +36,9 @@ class RepositoryDetailsViewModel(
         } else {
             Timber.e(IllegalStateException())
         }
+    }
+
+    override fun displayRepositoryDetails(repositoryDetails: RepositoryDetailsViewState) {
+        repositoryDetailsLiveData.postValue(repositoryDetails)
     }
 }

@@ -3,4 +3,7 @@
 
     <dimen name="medium">20dp</dimen>
     <dimen name="small">10dp</dimen>
+
+    <dimen name="navigationBarPaddingTop">15dp</dimen>
+    <dimen name="navigationBarPaddingBottom">20dp</dimen>
 </resources>
