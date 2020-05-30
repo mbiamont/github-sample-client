@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.mbiamont.github.design.card.RepositoryExtractCard
 import kotlinx.android.synthetic.main.card_repository.view.*
 
-class RepositoryExtractAdapter : RecyclerView.Adapter<RepositoryExtractAdapter.ViewHolder>() {
+class RepositoryExtractAdapter(private val onItemClickListener: (name: String, ownerLogin: String) -> Unit) :
+    RecyclerView.Adapter<RepositoryExtractAdapter.ViewHolder>() {
 
     private val dataset: MutableList<RepositoryExtractViewState> = mutableListOf()
 
@@ -27,14 +29,19 @@ class RepositoryExtractAdapter : RecyclerView.Adapter<RepositoryExtractAdapter.V
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(repositoryExtract: RepositoryExtractViewState) {
-            itemView.lblRepositoryName.text = repositoryExtract.name
-            itemView.lblStarCount.text = repositoryExtract.starsCount
+            with(itemView as RepositoryExtractCard) {
+                title = repositoryExtract.name
+                starLabel = repositoryExtract.starsCount
 
-            itemView.lblLanguage.visibility = if (repositoryExtract.languageViewState == null) View.GONE else View.VISIBLE
+                if (repositoryExtract.languageViewState != null) {
+                    showLanguage(repositoryExtract.languageViewState.language, repositoryExtract.languageViewState.languageColor)
+                } else {
+                    hideLanguage()
+                }
 
-            repositoryExtract.languageViewState?.let {
-                itemView.lblLanguage.text = it.language
-                itemView.lblLanguage.setTextColor(it.languageColor)
+                setOnClickListener {
+                    onItemClickListener(repositoryExtract.name, repositoryExtract.ownerLogin)
+                }
             }
         }
 

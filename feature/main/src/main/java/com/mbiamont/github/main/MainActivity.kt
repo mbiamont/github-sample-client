@@ -1,6 +1,7 @@
 package com.mbiamont.github.main
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mbiamont.github.core.android.BaseActivity
@@ -13,7 +14,9 @@ class MainActivity : BaseActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()
 
-    private val repositoryExtractAdapter = RepositoryExtractAdapter()
+    private val repositoryExtractAdapter = RepositoryExtractAdapter { name, ownerLogin ->
+        mainViewModel.onRepositoryExtractClicked(name, ownerLogin)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +28,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setupView() {
+        shimmerLayout.startShimmerAnimation()
+
         with(repositoryList) {
             layoutManager = LinearLayoutManager(this@MainActivity)
             setHasFixedSize(true)
@@ -36,6 +41,10 @@ class MainActivity : BaseActivity() {
     private fun setupObservers() {
         observe(mainViewModel.repositoriesLiveData) with {
             repositoryExtractAdapter.setItems(it)
+
+            shimmerLayout.stopShimmerAnimation()
+            shimmerLayout.visibility = View.GONE
+            repositoryList.visibility = View.VISIBLE
         }
 
         observe(mainViewModel.errorMessageLiveData) with {

@@ -1,11 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/lightViolet">
+
+    <TextView
+        android:id="@+id/lblTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/manrope_regular"
+        android:text="@string/reposTitle"
+        android:textColor="@color/darkGrey"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/repositoryList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblTitle" />
+
+    <io.supercharge.shimmerlayout.ShimmerLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:shimmer_color="@color/lightGrey"
+        app:shimmer_animation_duration="750"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:shimmer_mask_width="1"
+        app:layout_constraintTop_toBottomOf="@id/lblTitle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/shimmer_repository_extract" />
+
+            <include layout="@layout/shimmer_repository_extract" />
+
+            <include layout="@layout/shimmer_repository_extract" />
+
+            <include layout="@layout/shimmer_repository_extract" />
+
+            <include layout="@layout/shimmer_repository_extract" />
+
+            <include layout="@layout/shimmer_repository_extract" />
+
+            <include layout="@layout/shimmer_repository_extract" />
+
+            <include layout="@layout/shimmer_repository_extract" />
+        </LinearLayout>
+
+    </io.supercharge.shimmerlayout.ShimmerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mbiamont.github.core.CoroutineContextProvider
 import com.mbiamont.github.core.android.livedata.SingleEventLiveData
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -27,6 +28,10 @@ class MainViewModel(
 
     fun onViewReady() = viewModelScope.launch(contextProvider.IO) {
         controller.onViewReady()
+    }
+
+    fun onRepositoryExtractClicked(name: String, ownerLogin: String) = viewModelScope.launch(contextProvider.IO) {
+
     }
 
     override fun displayRepositoryExtractList(repositories: List<RepositoryExtractViewState>) = repositoriesLiveData.postValue(repositories)

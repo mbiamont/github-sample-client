@@ -1,3 +1,4 @@
+include ':design'
 rootProject.name='Github Client'
 include ':app'
 include ':domain'

@@ -29,6 +29,7 @@ dependencies {
     implementation deps.timber
 
     implementation deps.ui.constraintLayout
+    implementation deps.ui.shimmerLayout
 
     implementation deps.androidx.lifecycleViewModel
     implementation deps.androidx.recyclerView
@@ -43,5 +44,6 @@ dependencies {
 
     implementation project(":core")
     implementation project(":core:android")
+    implementation project(":design")
     implementation project(":domain")
 }
