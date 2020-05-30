@@ -1,10 +1,11 @@
 package com.mbiamont.github.core.android
 
 import android.os.Bundle
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.android.ext.android.inject
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId) {
 
     private val navigator: INavigator by inject()
 

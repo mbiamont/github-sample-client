@@ -18,13 +18,12 @@ import kotlinx.android.synthetic.main.layout_navigation_view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class RepositoryDetailsActivity : BaseActivity() {
+class RepositoryDetailsActivity : BaseActivity(R.layout.activity_repository_details) {
 
     private val viewModel: RepositoryDetailsViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_repository_details)
         setupNavigation()
         setupObservers()
 

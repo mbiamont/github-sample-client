@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : BaseActivity(R.layout.activity_login) {
 
     private val viewModel: LoginViewModel by viewModel()
 
@@ -21,7 +21,6 @@ class LoginActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
         setupObservers()
         setupWebView()

@@ -7,13 +7,12 @@ import com.mbiamont.github.core.android.BaseActivity
 import kotlinx.android.synthetic.main.activity_splashscreen.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SplashActivity : BaseActivity() {
+class SplashActivity : BaseActivity(R.layout.activity_splashscreen) {
 
     private val viewModel: SplashViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splashscreen)
 
         motionSplashScreen.setTransitionListener(object: MotionLayout.TransitionListener {
 

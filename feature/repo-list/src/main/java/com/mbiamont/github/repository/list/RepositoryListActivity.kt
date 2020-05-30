@@ -12,7 +12,7 @@ import com.mbiamont.github.design.extensions.createInfiniteScrollListener
 import kotlinx.android.synthetic.main.activity_repository_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RepositoryListActivity : BaseActivity() {
+class RepositoryListActivity : BaseActivity(R.layout.activity_repository_list) {
 
     private val viewModel: RepositoryListViewModel by viewModel()
 
@@ -24,7 +24,6 @@ class RepositoryListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_repository_list)
         setupView()
         setupObservers()
 

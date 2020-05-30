@@ -6,13 +6,16 @@ import com.mbiamont.github.service.graphql.type.IssueState
 import java.util.*
 
 class RemoteIssueMapper(
-    private val remoteDateMapper: IRemoteDateMapper
+    private val remoteDateMapper: IRemoteDateMapper,
+    private val userMapper: IRemoteUserMapper
 ) : IRemoteIssueMapper {
 
     override fun map(issue: FetchRepositoryIssuesQuery.Node) = Issue(
         title = issue.title(),
         state = map(issue.state()),
-        createdAt = remoteDateMapper.map(issue.createdAt() as? String ?: "") ?: Date(0)
+        createdAt = remoteDateMapper.map(issue.createdAt() as? String ?: "") ?: Date(0),
+        author = userMapper.map(issue.author()),
+        commentsCount = issue.comments().totalCount()
     )
 
     private fun map(state: IssueState) = when (state) {

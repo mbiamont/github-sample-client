@@ -32,7 +32,6 @@ class RemoteRepositoryService(
             .await()
 
         response.data?.viewer()?.let {
-            val totalCount = it.repositories().totalCount()
             val repositories = mutableListOf<RepositoryExtract>().apply {
                 it.repositories().edges()?.mapNotNull { it.node()?.let { remoteRepositoryMapper.map(it) } }?.let {
                     addAll(it)
@@ -42,7 +41,7 @@ class RemoteRepositoryService(
             val paginatedList = PaginatedList(
                 repositories,
                 it.repositories().pageInfo().hasNextPage(),
-                totalCount,
+                it.repositories().totalCount(),
                 it.repositories().edges()?.lastOrNull()?.cursor()
             )
 
@@ -70,6 +69,6 @@ class RemoteRepositoryService(
     }
 
     companion object {
-        const val SIZE_REPOSITORY_PER_PAGE = 2
+        const val SIZE_REPOSITORY_PER_PAGE = 10
     }
 }

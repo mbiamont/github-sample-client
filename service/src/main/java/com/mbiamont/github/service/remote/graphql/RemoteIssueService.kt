@@ -4,25 +4,35 @@ import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.coroutines.toDeferred
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import com.mbiamont.github.core.Monad
+import com.mbiamont.github.core.PaginatedList
 import com.mbiamont.github.core.failure
 import com.mbiamont.github.core.success
 import com.mbiamont.github.datasource.service.IRemoteIssueService
 import com.mbiamont.github.domain.entity.Issue
 import com.mbiamont.github.service.graphql.FetchRepositoryIssuesQuery
+import com.mbiamont.github.service.mapper.IRemoteDateMapper
 import com.mbiamont.github.service.mapper.IRemoteIssueMapper
 import java.lang.IllegalStateException
 import java.util.*
 
 class RemoteIssueService(
     private val apolloClient: ApolloClient,
-    private val remoteIssueMapper: IRemoteIssueMapper
+    private val remoteIssueMapper: IRemoteIssueMapper,
+    private val remoteDateMapper: IRemoteDateMapper
 ) : IRemoteIssueService {
 
-    override suspend fun getRepositoryIssues(repositoryName: String, ownerLogin: String, since: Date): Monad<List<Issue>> {
+    override suspend fun getRepositoryIssues(
+        repositoryName: String,
+        ownerLogin: String,
+        since: Date,
+        afterCursor: String?
+    ): Monad<PaginatedList<Issue>> {
         val query = FetchRepositoryIssuesQuery.builder()
             .name(repositoryName)
             .ownerLogin(ownerLogin)
-            .since("2000-03-01T00:00:00Z") //TODO
+            .afterCursor(afterCursor)
+            .size(SIZE_REPOSITORY_PER_PAGE)
+            .since(remoteDateMapper.map(since))
             .build()
 
         val response = apolloClient.query(query)
@@ -31,10 +41,26 @@ class RemoteIssueService(
             .await()
 
         response.data?.repository()?.let { repository ->
-            val issues = repository.issues().nodes()?.map { remoteIssueMapper.map(it) } ?: emptyList()
-            return success(issues)
+            val issues = mutableListOf<Issue>().apply {
+                repository.issues().edges()?.mapNotNull { it.node()?.let { remoteIssueMapper.map(it) } }?.let {
+                    addAll(it)
+                }
+            }
+
+            val paginatedList = PaginatedList(
+                issues,
+                repository.issues().pageInfo().hasNextPage(),
+                repository.issues().totalCount(),
+                repository.issues().edges()?.lastOrNull()?.cursor()
+            )
+
+            return success(paginatedList)
         }
 
         return failure(IllegalStateException()) //TODO MORE INFO
+    }
+
+    companion object {
+        const val SIZE_REPOSITORY_PER_PAGE = 10 //TODO SHOULD BE 50
     }
 }

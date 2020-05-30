@@ -1,11 +1,21 @@
-query FetchRepositoryIssues($name: String!, $ownerLogin: String!, $since: DateTime!) {
+query FetchRepositoryIssues($name: String!, $ownerLogin: String!, $since: DateTime!, $size: Int!, $afterCursor: String) {
     repository(name: $name, owner: $ownerLogin) {
-        issues(first: 10, filterBy: {since: $since}) {
+        issues(after: $afterCursor, first: $size, filterBy: {since: $since}, orderBy: {field: CREATED_AT, direction: ASC}) {
             totalCount
-            nodes {
-                state
-                title
-                createdAt
+            edges {
+                cursor
+                node {
+                    state
+                    title
+                    createdAt
+                    author {
+                        avatarUrl
+                        login
+                    }
+                    comments {
+                        totalCount
+                    }
+                }
             }
             pageInfo {
                 endCursor
