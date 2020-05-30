@@ -12,9 +12,9 @@ val repositoryListModule = module {
 
     single<IRepositoryListViewStateMapper> { RepositoryListViewStateMapper() }
 
-    single<IRepositoryListController> { RepositoryListController(get()) }
+    single<IRepositoryListController> { RepositoryListController(get(), get()) }
 
     single<IRepositoryListPresenter> { RepositoryListPresenter(get()) }
 
-    single { RepositoryListInteractor(get(), get(), get()) } bind FetchUserPublicRepositoriesUseCase::class
+    single { RepositoryListInteractor(get(), get()) } bind FetchUserPublicRepositoriesUseCase::class
 }

@@ -1,7 +1,7 @@
 package com.mbiamont.github.login
 
 import com.mbiamont.github.core.android.INavigator
-import com.mbiamont.github.domain.navigation.MAIN
+import com.mbiamont.github.domain.navigation.REPOS_LIST
 
 class LoginPresenter(
     private val navigator: INavigator
@@ -10,7 +10,7 @@ class LoginPresenter(
     override var view: ILoginView? = null
 
     override fun navigateToMainView() {
-        navigator.navigateTo(MAIN)
+        navigator.navigateTo(REPOS_LIST)
     }
 
     override fun displayLoginErrorView() {

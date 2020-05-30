@@ -29,8 +29,8 @@ class RepositoryListViewModel(
         controller.onViewReady()
     }
 
-    fun onRepositoryExtractClicked(name: String, ownerLogin: String) = viewModelScope.launch(contextProvider.IO) {
-
+    fun onRepositoryExtractClicked(repositoryName: String, ownerLogin: String) = viewModelScope.launch(contextProvider.IO) {
+        controller.onRepositoryClicked(repositoryName, ownerLogin)
     }
 
     override fun displayRepositoryExtractList(repositories: List<RepositoryExtractViewState>) = repositoriesLiveData.postValue(repositories)

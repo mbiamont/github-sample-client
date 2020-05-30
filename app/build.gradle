@@ -63,6 +63,7 @@ dependencies {
     implementation project(':feature:splashscreen')
     implementation project(':feature:login')
     implementation project(':feature:repo-list')
+    implementation project(':feature:repo-details')
 
     implementation project(':core')
     implementation project(':core:android')
