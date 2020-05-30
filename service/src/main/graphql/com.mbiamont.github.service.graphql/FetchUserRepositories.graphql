@@ -1,23 +1,30 @@
-query FetchUserPublicRepositories {
+query FetchUserPublicRepositories($size: Int!, $afterCursor: String) {
   viewer {
     avatarUrl
-    repositories(first: 10) {
+    repositories(after: $afterCursor, first: $size, privacy: PUBLIC, ownerAffiliations: [OWNER]) {
       totalCount
-      nodes {
-        name
-        owner {
-          avatarUrl
-          login
-        }
-        stargazers {
-          totalCount
-        }
-        languages(first: 1, orderBy: {field: SIZE, direction: DESC}) {
-          nodes {
-            color
-            name
+      edges {
+        cursor
+        node {
+          name
+          owner {
+            avatarUrl
+            login
+          }
+          stargazers {
+            totalCount
+          }
+          languages(first: 1, orderBy: {field: SIZE, direction: DESC}) {
+            nodes {
+              color
+              name
+            }
           }
         }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }

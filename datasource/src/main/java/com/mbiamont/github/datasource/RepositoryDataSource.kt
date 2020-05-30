@@ -7,7 +7,7 @@ class RepositoryDataSource(
     private val remoteRepositoryService: IRemoteRepositoryService
 ) : IRepositoryDataSource {
 
-    override suspend fun getUserPublicRepositories() = remoteRepositoryService.getUserPublicRepositories()
+    override suspend fun getUserPublicRepositories(afterCursor: String?) = remoteRepositoryService.getUserPublicRepositories(afterCursor)
 
     override suspend fun getRepositoryWithNameAndOwner(name: String, ownerLogin: String) =
         remoteRepositoryService.getRepositoryWithNameAndOwner(name, ownerLogin)

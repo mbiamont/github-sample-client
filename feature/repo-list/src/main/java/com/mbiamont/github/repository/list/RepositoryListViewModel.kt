@@ -29,6 +29,10 @@ class RepositoryListViewModel(
         controller.onViewReady()
     }
 
+    fun onRepositoriesScrolled() = viewModelScope.launch(contextProvider.IO) {
+        controller.onRepositoriesScrolled()
+    }
+
     fun onRepositoryExtractClicked(repositoryName: String, ownerLogin: String) = viewModelScope.launch(contextProvider.IO) {
         controller.onRepositoryClicked(repositoryName, ownerLogin)
     }

@@ -4,6 +4,7 @@ import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.coroutines.toDeferred
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import com.mbiamont.github.core.Monad
+import com.mbiamont.github.core.PaginatedList
 import com.mbiamont.github.core.failure
 import com.mbiamont.github.core.success
 import com.mbiamont.github.domain.entity.RepositoryExtract
@@ -19,8 +20,11 @@ class RemoteRepositoryService(
     private val remoteRepositoryMapper: IRemoteRepositoryMapper
 ) : IRemoteRepositoryService {
 
-    override suspend fun getUserPublicRepositories(): Monad<List<RepositoryExtract>> {
-        val query = FetchUserPublicRepositoriesQuery.builder().build()
+    override suspend fun getUserPublicRepositories(afterCursor: String?): Monad<PaginatedList<RepositoryExtract>> {
+        val query = FetchUserPublicRepositoriesQuery.builder()
+            .afterCursor(afterCursor)
+            .size(SIZE_REPOSITORY_PER_PAGE)
+            .build()
 
         val response = apolloClient.query(query)
             .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
@@ -28,9 +32,21 @@ class RemoteRepositoryService(
             .await()
 
         response.data?.viewer()?.let {
-            val repositories = it.repositories().nodes()?.mapNotNull {remoteRepositoryMapper.map(it) } ?: emptyList()
+            val totalCount = it.repositories().totalCount()
+            val repositories = mutableListOf<RepositoryExtract>().apply {
+                it.repositories().edges()?.mapNotNull { it.node()?.let { remoteRepositoryMapper.map(it) } }?.let {
+                    addAll(it)
+                }
+            }
 
-            return success(repositories)
+            val paginatedList = PaginatedList(
+                repositories,
+                it.repositories().pageInfo().hasNextPage(),
+                totalCount,
+                it.repositories().edges()?.lastOrNull()?.cursor()
+            )
+
+            return success(paginatedList)
         }
 
         return failure(IllegalStateException()) //TODO MORE INFO
@@ -51,5 +67,9 @@ class RemoteRepositoryService(
         }
 
         return failure(IllegalStateException()) //TODO MORE INFO
+    }
+
+    companion object {
+        const val SIZE_REPOSITORY_PER_PAGE = 2
     }
 }

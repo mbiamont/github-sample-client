@@ -7,12 +7,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mbiamont.github.core.android.BaseActivity
 import com.mbiamont.github.core.android.extensions.observe
 import com.mbiamont.github.core.android.extensions.with
+import com.mbiamont.github.design.extensions.InfiniteScrollListener
+import com.mbiamont.github.design.extensions.createInfiniteScrollListener
 import kotlinx.android.synthetic.main.activity_repository_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RepositoryListActivity : BaseActivity() {
 
     private val viewModel: RepositoryListViewModel by viewModel()
+
+    private lateinit var scrollListener: InfiniteScrollListener
 
     private val repositoryExtractAdapter = RepositoryExtractAdapter { name, ownerLogin ->
         viewModel.onRepositoryExtractClicked(name, ownerLogin)
@@ -31,16 +35,23 @@ class RepositoryListActivity : BaseActivity() {
         shimmerLayout.startShimmerAnimation()
 
         with(repositoryList) {
-            layoutManager = LinearLayoutManager(this@RepositoryListActivity)
+            val manager = LinearLayoutManager(this@RepositoryListActivity)
+            layoutManager = manager
             setHasFixedSize(true)
             isNestedScrollingEnabled = false
             adapter = repositoryExtractAdapter
+
+            scrollListener = createInfiniteScrollListener(manager) {
+                viewModel.onRepositoriesScrolled()
+            }
+
+            addOnScrollListener(scrollListener)
         }
     }
 
     private fun setupObservers() {
         observe(viewModel.repositoriesLiveData) with {
-            repositoryExtractAdapter.setItems(it)
+            repositoryExtractAdapter.addAll(it)
 
             shimmerLayout.stopShimmerAnimation()
             shimmerLayout.visibility = View.GONE
@@ -50,5 +61,14 @@ class RepositoryListActivity : BaseActivity() {
         observe(viewModel.errorMessageLiveData) with {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onDestroy() {
+        with(repositoryList){
+            clearOnScrollListeners()
+            layoutManager = null
+            adapter = null
+        }
+        super.onDestroy()
     }
 }

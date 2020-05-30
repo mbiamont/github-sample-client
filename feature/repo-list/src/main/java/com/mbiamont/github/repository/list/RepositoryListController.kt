@@ -13,6 +13,8 @@ class RepositoryListController(
 
     override suspend fun onViewReady() = fetchUserPublicRepositoriesUseCase.fetchUserPublicRepositories()
 
+    override suspend fun onRepositoriesScrolled() = fetchUserPublicRepositoriesUseCase.fetchUserPublicRepositories()
+
     override suspend fun onRepositoryClicked(repositoryName: String, ownerLogin: String) =
         navigator.navigateTo(REPO_DETAILS, mapOf(EXTRA_REPO_NAME to repositoryName, EXTRA_OWNER_LOGIN to ownerLogin))
 }
