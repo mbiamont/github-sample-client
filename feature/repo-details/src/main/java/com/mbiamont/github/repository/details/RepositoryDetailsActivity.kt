@@ -21,6 +21,7 @@ import timber.log.Timber
 class RepositoryDetailsActivity : BaseActivity(R.layout.activity_repository_details) {
 
     private val viewModel: RepositoryDetailsViewModel by viewModel()
+    private val fragmentAdapter = FragmentAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +57,8 @@ class RepositoryDetailsActivity : BaseActivity(R.layout.activity_repository_deta
     }
 
     private fun setupNavigation() {
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentHost, IssuesFragment.create(intent.extras)).commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentHost, fragmentAdapter.getFragmentByTabPosition(intent.extras, TAB_ISSUES)).commit()
 
         supportFragmentManager.addOnBackStackChangedListener {
             when (supportFragmentManager.findFragmentById(R.id.fragmentHost)) {
@@ -68,12 +70,7 @@ class RepositoryDetailsActivity : BaseActivity(R.layout.activity_repository_deta
 
         bottomNavigationBar.onTabItemSelected = {
             supportFragmentManager.beginTransaction().replace(
-                R.id.fragmentHost, when (it) {
-                    TAB_ISSUES -> IssuesFragment.create(intent.extras)
-                    TAB_PULL_REQUESTS -> PullRequestsFragment.create(intent.extras)
-                    TAB_FORKS -> ForksFragment.create(intent.extras)
-                    else -> error("Tab not managed")
-                }
+                R.id.fragmentHost, fragmentAdapter.getFragmentByTabPosition(intent.extras, it)
             ).addToBackStack(null).commit()
         }
     }

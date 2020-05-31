@@ -1,11 +1,11 @@
 package com.mbiamont.github.repository.pullrequests
 
-import com.mbiamont.github.domain.feature.repository.details.issues.FetchRepositoryIssuesUseCase
+import com.mbiamont.github.domain.feature.repository.details.pullrequests.FetchRepositoryPullRequestsUseCase
 
 class PullRequestController(
-    private val fetchRepositoryIssuesUseCase: FetchRepositoryIssuesUseCase
+    private val fetchRepositoryIssuesUseCase: FetchRepositoryPullRequestsUseCase
 ) : IPullRequestController {
 
     override suspend fun onViewReady(repositoryName: String, ownerLogin: String) =
-        fetchRepositoryIssuesUseCase.fetchRepositoryIssues(repositoryName, ownerLogin)
+        fetchRepositoryIssuesUseCase.fetchRepositoryPullRequests(repositoryName, ownerLogin)
 }

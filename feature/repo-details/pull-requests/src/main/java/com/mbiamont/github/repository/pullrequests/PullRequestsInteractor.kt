@@ -9,7 +9,7 @@ class PullRequestsInteractor(
 ) : FetchRepositoryPullRequestsUseCase {
 
     override suspend fun fetchRepositoryPullRequests(repositoryName: String, ownerLogin: String) {
-        TODO("Not yet implemented")
+        //TODO
     }
 
 }

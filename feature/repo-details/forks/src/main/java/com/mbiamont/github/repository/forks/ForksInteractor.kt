@@ -7,7 +7,7 @@ class ForksInteractor(
 ) : FetchRepositoryForksUseCase {
 
     override suspend fun fetchRepositoryForks(repositoryName: String, ownerLogin: String) {
-        TODO("Not yet implemented")
+        //TODO
     }
 
 }

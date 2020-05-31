@@ -9,6 +9,12 @@ class RemoteDateMapper : IRemoteDateMapper {
 
     override fun map(date: Date) = dateFormat.format(date)
 
+    override fun mapToCalendar(date: String) = map(date)?.let {
+        Calendar.getInstance().apply {
+            time = it
+        }
+    }
+
     companion object {
         const val TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         val dateFormat = SimpleDateFormat(TIME_FORMAT)

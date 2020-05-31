@@ -1,11 +1,11 @@
 package com.mbiamont.github.repository.forks
 
-import com.mbiamont.github.domain.feature.repository.details.issues.FetchRepositoryIssuesUseCase
+import com.mbiamont.github.domain.feature.repository.details.forks.FetchRepositoryForksUseCase
 
 class ForksController(
-    private val fetchRepositoryIssuesUseCase: FetchRepositoryIssuesUseCase
+    private val fetchRepositoryIssuesUseCase: FetchRepositoryForksUseCase
 ) : IForksController {
 
     override suspend fun onViewReady(repositoryName: String, ownerLogin: String) =
-        fetchRepositoryIssuesUseCase.fetchRepositoryIssues(repositoryName, ownerLogin)
+        fetchRepositoryIssuesUseCase.fetchRepositoryForks(repositoryName, ownerLogin)
 }

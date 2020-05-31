@@ -1,6 +1,7 @@
 package com.mbiamont.github.repository.issues
 
 import android.os.Bundle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mbiamont.github.core.CoroutineContextProvider
@@ -14,7 +15,11 @@ class IssuesViewModel(
     private val coroutineContextProvider: CoroutineContextProvider,
     private val controller: IIssuesController,
     private val presenter: IIssuesPresenter
-): ViewModel(), IIssuesView {
+) : ViewModel(), IIssuesView {
+
+    val issuesViewStateLiveData = MutableLiveData<IssuesViewState>()
+
+    private var initialized = false
 
     init {
         presenter.onAttachView(this)
@@ -25,6 +30,10 @@ class IssuesViewModel(
     }
 
     fun onViewReady(extras: Bundle?) = viewModelScope.launch(coroutineContextProvider.IO) {
+        if (initialized) {
+            return@launch
+        }
+        initialized = true
 
         val repositoryName = extras?.getString(EXTRA_REPO_NAME)
         val ownerLogin = extras?.getString(EXTRA_OWNER_LOGIN)
@@ -34,5 +43,9 @@ class IssuesViewModel(
         } else {
             Timber.e(IllegalStateException())
         }
+    }
+
+    override fun displayIssueList(issuesViewState: IssuesViewState) {
+        issuesViewStateLiveData.postValue(issuesViewState)
     }
 }
