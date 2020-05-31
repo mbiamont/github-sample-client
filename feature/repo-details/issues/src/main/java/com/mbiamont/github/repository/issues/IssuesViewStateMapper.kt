@@ -10,31 +10,33 @@ class IssuesViewStateMapper(
 ) : IIssuesViewStateMapper {
 
     override fun map(count: Int, totalCount: Int, issuesPerWeek: Array<Int>?): IssueTimeSerieViewState {
-        val percent = (count.toFloat() / totalCount.toFloat()) * 100
+        val percent = ((count.toFloat() / totalCount.toFloat()) * 100).toInt()
         return IssueTimeSerieViewState(
             downloaded = count,
             total = totalCount,
-            progressLabel = format("%.2f", percent) + "%",
+            progressLabel = "$percent%",
             dataset = issuesPerWeek
         )
     }
 
-    override fun map(issue: Issue): IssueViewState {
-        val time = System.currentTimeMillis() - issue.createdAt.timeInMillis
-
-        return IssueViewState(
-            indexColor = context.resources.getColor(R.color.colorAccent),
-            ownerAvatarUrl = issue.author?.avatarUrl,
-            ownerLogin = issue.author?.login,
-            title = issue.title,
-            dateLabel = DateUtils.getRelativeDateTimeString(
-                context,
-                time,
-                DateUtils.DAY_IN_MILLIS,
-                DateUtils.WEEK_IN_MILLIS,
-                0
-            ).toString(),
-            commentCountLabel = issue.commentsCount.toString()
-        )
-    }
+    override fun map(issue: Issue) = IssueViewState(
+        indexColor = context.resources.getColor(
+            when (issue.state) {
+                Issue.State.OPEN -> R.color.green
+                Issue.State.CLOSED -> R.color.red
+                Issue.State.UNKNOWN -> R.color.violet
+            }
+        ),
+        ownerAvatarUrl = issue.author?.avatarUrl,
+        ownerLogin = issue.author?.login,
+        title = issue.title,
+        dateLabel = DateUtils.getRelativeDateTimeString(
+            context,
+            issue.createdAt.timeInMillis,
+            DateUtils.DAY_IN_MILLIS,
+            DateUtils.WEEK_IN_MILLIS,
+            0
+        ).toString(),
+        commentCountLabel = issue.commentsCount.toString()
+    )
 }

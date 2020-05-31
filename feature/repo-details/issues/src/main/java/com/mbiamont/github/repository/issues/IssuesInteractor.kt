@@ -18,12 +18,12 @@ class IssuesInteractor(
     private val presenter: IIssuesPresenter
 ) : FetchRepositoryIssuesUseCase {
 
-    private val sinceDate = Date().minusYears(4) //TODO SHOULD BE 1 HERE
+    private val sinceDate = Date().minusYears(1) //TODO SHOULD BE 1 HERE
 
     private var issues: PaginatedList<Issue> = emptyPaginatedList()
 
     override suspend fun fetchRepositoryIssues(repositoryName: String, ownerLogin: String) {
-        issueDataSource.getRepositoryIssues(repositoryName, ownerLogin, sinceDate, issues.lastItemCursor).onSuccess {
+        issueDataSource.getRepositoryIssues(FAKE_REPOSITORY, FAKE_OWNER_LOGIN, sinceDate, issues.lastItemCursor).onSuccess {
             issues += it
 
             val count = issues.values.size
@@ -39,6 +39,7 @@ class IssuesInteractor(
 
         }.onFailure {
             Timber.e(it)
+            //TODO SHOW ERROR
         }
     }
 

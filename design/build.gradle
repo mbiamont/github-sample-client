@@ -23,12 +23,22 @@ android {
         }
     }
 
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
     implementation deps.ui.constraintLayout
     implementation deps.ui.circularProgressIndicator
     implementation deps.ui.jGraph
+    implementation deps.ui.coil
 
     implementation deps.androidx.lifecycleViewModel
     implementation deps.androidx.recyclerView

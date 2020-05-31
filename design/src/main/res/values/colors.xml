@@ -15,5 +15,7 @@
     <color name="colorPrimaryDark">@color/darkViolet</color>
     <color name="colorAccent">@color/colorPrimary</color>
 
+    <color name="red">#f44336</color>
+    <color name="green">#4caf50</color>
 
 </resources>

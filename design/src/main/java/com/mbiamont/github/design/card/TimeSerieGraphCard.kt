@@ -21,6 +21,11 @@ class TimeSerieGraphCard @JvmOverloads constructor(
         setPadding(padding, padding, padding, padding)
     }
 
+    fun hideAll(){
+        loader.visibility = View.GONE
+        graphLayout.visibility = View.GONE
+    }
+
     fun showLoader(count: Int, totalCount: Int, loaderLabel: String) {
         loader.visibility = View.VISIBLE
         graphLayout.visibility = View.GONE
