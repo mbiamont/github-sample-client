@@ -30,15 +30,12 @@ class TimeSerieGraphCard @JvmOverloads constructor(
         )
     }
 
-    fun showLoader(count: Int, totalCount: Int, loaderLabel: String) {
+    fun showLoader() {
         loader.visibility = View.VISIBLE
-        graphLayout.visibility = View.GONE
+    }
 
-        loader.maxProgress = totalCount.toDouble()
-        loader.setCurrentProgress(count.toDouble())
-        loader.setProgressTextAdapter {
-            loaderLabel
-        }
+    fun hideLoader(){
+        loader.visibility = View.GONE
     }
 
     fun showDatas(datas: Array<Int>) {

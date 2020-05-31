@@ -38,7 +38,11 @@ class IssuesFragment : Fragment(R.layout.fragment_issues) {
         }
 
         observe(viewModel.progressLiveData) with {
-            timeSerieGraph.showLoader(it.progress, it.total, it.progressLabel)
+            if(it.isLoading){
+                timeSerieGraph.showLoader()
+            } else {
+                timeSerieGraph.hideLoader()
+            }
         }
 
         observe(viewModel.timeSerieLiveData) with {

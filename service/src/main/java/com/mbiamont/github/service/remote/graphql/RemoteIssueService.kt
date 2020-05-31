@@ -17,8 +17,7 @@ import java.util.*
 
 class RemoteIssueService(
     private val apolloClient: ApolloClient,
-    private val remoteIssueMapper: IRemoteIssueMapper,
-    private val remoteDateMapper: IRemoteDateMapper
+    private val remoteIssueMapper: IRemoteIssueMapper
 ) : IRemoteIssueService {
 
     override suspend fun getRepositoryIssues(
@@ -32,7 +31,6 @@ class RemoteIssueService(
             .ownerLogin(ownerLogin)
             .afterCursor(afterCursor)
             .size(SIZE_REPOSITORY_PER_PAGE)
-            .since(remoteDateMapper.map(since))
             .build()
 
         val response = apolloClient.query(query)

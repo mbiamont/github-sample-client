@@ -8,7 +8,7 @@ interface IPullRequestsPresenter: BasePresenter<IPullRequestsView> {
 
     fun displayPullRequests(pullRequestsList: List<PullRequest>)
 
-    fun displayTimeSerieProgress(progress: Int, totalCount: Int)
+    fun displayTimeSerieProgress(isLoading: Boolean)
 
     fun displayTimeSerie(pullRequestsPerWeek: Array<Int>)
 }

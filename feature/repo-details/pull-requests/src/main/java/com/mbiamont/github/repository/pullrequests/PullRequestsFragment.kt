@@ -38,7 +38,11 @@ class PullRequestsFragment : Fragment(R.layout.fragment_pull_requests) {
         }
 
         observe(viewModel.progressLiveData) with {
-            timeSerieGraph.showLoader(it.progress, it.total, it.progressLabel)
+            if(it.isLoading){
+                timeSerieGraph.showLoader()
+            } else {
+                timeSerieGraph.hideLoader()
+            }
         }
 
         observe(viewModel.timeSerieLiveData) with {

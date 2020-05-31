@@ -6,7 +6,7 @@ import com.mbiamont.github.domain.entity.Issue
 
 interface IIssuesViewStateMapper {
 
-    fun map(progress: Int, totalCount: Int): ProgressViewState
+    fun map(isLoading: Boolean): ProgressViewState
 
     fun map(issuesPerWeek: Array<Int>): TimeSerieViewState
 

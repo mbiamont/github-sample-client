@@ -12,8 +12,8 @@ class IssuesPresenter(
         view?.displayIssueList(issuesList.map { viewStateMapper.map(it) })
     }
 
-    override fun displayTimeSerieProgress(progress: Int, totalCount: Int) {
-        view?.displayTimeSerieProgress(viewStateMapper.map(progress, totalCount))
+    override fun displayTimeSerieProgress(isLoading: Boolean) {
+        view?.displayTimeSerieProgress(viewStateMapper.map(isLoading))
     }
 
     override fun displayTimeSerie(issuesPerWeek: Array<Int>) {

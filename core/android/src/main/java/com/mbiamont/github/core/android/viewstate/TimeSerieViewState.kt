@@ -5,7 +5,5 @@ data class TimeSerieViewState(
 )
 
 data class ProgressViewState(
-    val progress: Int,
-    val total: Int,
-    val progressLabel: String
+    val isLoading: Boolean
 )

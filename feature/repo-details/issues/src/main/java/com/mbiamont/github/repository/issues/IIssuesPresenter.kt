@@ -7,7 +7,7 @@ interface IIssuesPresenter : BasePresenter<IIssuesView> {
 
     fun displayIssues(issuesList: List<Issue>)
 
-    fun displayTimeSerieProgress(progress: Int, totalCount: Int)
+    fun displayTimeSerieProgress(isLoading: Boolean)
 
     fun displayTimeSerie(issuesPerWeek: Array<Int>)
 }

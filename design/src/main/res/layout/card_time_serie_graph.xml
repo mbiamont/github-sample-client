@@ -38,25 +38,18 @@
                 tools:visibility="visible" />
         </LinearLayout>
 
-
     </HorizontalScrollView>
 
-
-    <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
+    <ProgressBar
         android:id="@+id/loader"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginTop="15dp"
-        android:visibility="gone"
-        app:drawDot="false"
-        app:enableProgressAnimation="true"
-        app:fillBackground="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/violet"
+        android:indeterminateTintMode="src_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleGraph"
-        app:progressBackgroundColor="@color/darkMediumGrey"
-        app:progressColor="@color/violet"
-        app:progressStrokeWidth="10dp"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@id/titleGraph" />
 </merge>

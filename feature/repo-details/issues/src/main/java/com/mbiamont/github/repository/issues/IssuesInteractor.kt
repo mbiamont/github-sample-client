@@ -24,17 +24,15 @@ class IssuesInteractor(
     private var issues: PaginatedList<Issue> = emptyPaginatedList()
 
     override suspend fun fetchRepositoryIssues(repositoryName: String, ownerLogin: String) {
+        presenter.displayTimeSerieProgress(true)
         issueDataSource.getRepositoryIssues(repositoryName, ownerLogin, sinceDate, issues.lastItemCursor).onSuccess {
+            val oldestItem = it.values.firstOrNull()?.createdAt
+
             issues += it
 
             presenter.displayIssues(issues.values)
 
-            if (it.hasNext) {
-                val progress = issues.values.size
-                val totalCount = issues.totalCount
-
-                presenter.displayTimeSerieProgress(progress, totalCount)
-
+            if (it.hasNext && oldestItem?.let { oldestItem.timeInMillis > sinceDate.time } == true) {
                 coroutineContext.ensureActive()
                 fetchRepositoryIssues(repositoryName, ownerLogin)
             } else {
@@ -43,6 +41,7 @@ class IssuesInteractor(
                 }
 
                 presenter.displayTimeSerie(issuesPerWeek)
+                presenter.displayTimeSerieProgress(false)
             }
 
         }.onFailure {

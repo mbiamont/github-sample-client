@@ -10,10 +10,8 @@ class PullRequestsViewStateMapper(
     private val context: Context
 ) : IPullRequestsViewStateMapper {
 
-    override fun map(progress: Int, totalCount: Int) = ProgressViewState(
-        progress = progress,
-        total = totalCount,
-        progressLabel = "${((progress.toFloat() / totalCount.toFloat()) * 100).toInt()}%"
+    override fun map(isLoading: Boolean) = ProgressViewState(
+        isLoading = isLoading
     )
 
     override fun map(pullRequestsPerWeek: Array<Int>) = TimeSerieViewState(

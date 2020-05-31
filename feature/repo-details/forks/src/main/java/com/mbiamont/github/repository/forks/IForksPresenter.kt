@@ -8,7 +8,7 @@ interface IForksPresenter: BasePresenter<IForksView> {
 
     fun displayForks(forkList: List<Fork>)
 
-    fun displayTimeSerieProgress(progress: Int, totalCount: Int)
+    fun displayTimeSerieProgress(isLoading: Boolean)
 
     fun displayTimeSerie(forksPerWeek: Array<Int>)
 }

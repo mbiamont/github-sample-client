@@ -19,20 +19,19 @@ class ForksInteractor(
     private val forkDataSource: IForkDataSource
 ) : FetchRepositoryForksUseCase {
 
+    private val sinceDate = Date().minusYears(1)
+
     private var forks: PaginatedList<Fork> = emptyPaginatedList()
 
     override suspend fun fetchRepositoryForks(repositoryName: String, ownerLogin: String) {
+        presenter.displayTimeSerieProgress(true)
         forkDataSource.getRepositoryForks(repositoryName, ownerLogin, forks.lastItemCursor).onSuccess {
+            val oldestItem = it.values.firstOrNull()?.createdAt
             forks += it
 
             presenter.displayForks(forks.values)
 
-            if (it.hasNext) {
-                val progress = forks.values.size
-                val totalCount = forks.totalCount
-
-                presenter.displayTimeSerieProgress(progress, totalCount)
-
+            if (it.hasNext && oldestItem?.let { oldestItem.timeInMillis > sinceDate.time } == true) {
                 coroutineContext.ensureActive()
                 fetchRepositoryForks(repositoryName, ownerLogin)
             } else {
@@ -41,6 +40,7 @@ class ForksInteractor(
                 }
 
                 presenter.displayTimeSerie(issuesPerWeek)
+                presenter.displayTimeSerieProgress(false)
             }
 
         }.onFailure {

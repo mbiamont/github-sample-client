@@ -6,7 +6,7 @@ import com.mbiamont.github.domain.entity.Fork
 
 interface IForksViewStateMapper {
 
-    fun map(progress: Int, totalCount: Int): ProgressViewState
+    fun map(isLoading: Boolean): ProgressViewState
 
     fun map(forksPerWeek: Array<Int>): TimeSerieViewState
 

@@ -12,8 +12,8 @@ class PullRequestsPresenter(
         view?.displayPullRequestList(pullRequestsList.map { viewStateMapper.map(it) })
     }
 
-    override fun displayTimeSerieProgress(progress: Int, totalCount: Int) {
-        view?.displayTimeSerieProgress(viewStateMapper.map(progress, totalCount))
+    override fun displayTimeSerieProgress(isLoading: Boolean) {
+        view?.displayTimeSerieProgress(viewStateMapper.map(isLoading))
     }
 
     override fun displayTimeSerie(pullRequestsPerWeek: Array<Int>) {
