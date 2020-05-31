@@ -7,24 +7,36 @@ import com.mbiamont.github.core.CoroutineContextProvider
 import com.mbiamont.github.domain.navigation.EXTRA_OWNER_LOGIN
 import com.mbiamont.github.domain.navigation.EXTRA_REPO_NAME
 import kotlinx.coroutines.launch
+import org.koin.ext.getOrCreateScope
 import timber.log.Timber
 import java.lang.IllegalStateException
 
 class PullRequestsViewModel(
-    private val coroutineContextProvider: CoroutineContextProvider,
-    private val controller: IPullRequestController,
-    private val presenter: IPullRequestsPresenter
+    private val coroutineContextProvider: CoroutineContextProvider
 ): ViewModel(), IPullRequestsView {
 
+    private var initialized = false
+    private val koinScope = getOrCreateScope()
+    private val controller: IPullRequestController
+    private val presenter: IPullRequestsPresenter
+
     init {
+        controller = koinScope.get()
+        presenter = koinScope.get()
+
         presenter.onAttachView(this)
     }
 
     override fun onCleared() {
         presenter.onDetachView()
+        koinScope.close()
     }
 
     fun onViewReady(extras: Bundle?) = viewModelScope.launch(coroutineContextProvider.IO) {
+        if (initialized) {
+            return@launch
+        }
+        initialized = true
 
         val repositoryName = extras?.getString(EXTRA_REPO_NAME)
         val ownerLogin = extras?.getString(EXTRA_OWNER_LOGIN)
