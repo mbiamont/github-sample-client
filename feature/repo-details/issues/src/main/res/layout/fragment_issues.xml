@@ -7,7 +7,7 @@
     <com.mbiamont.github.design.card.TimeSerieGraphCard
         android:id="@+id/timeSerieGraph"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="wrap_content"
         android:background="@color/darkGrey"
         app:layout_constraintTop_toTopOf="parent" />
 

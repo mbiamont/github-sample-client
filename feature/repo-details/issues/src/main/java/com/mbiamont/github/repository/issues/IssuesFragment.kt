@@ -22,6 +22,8 @@ class IssuesFragment : Fragment(R.layout.fragment_issues) {
     }
 
     private fun setupView() {
+        timeSerieGraph.title = getString(R.string.issuesTitle)
+
         with(issuesList) {
             val manager = LinearLayoutManager(requireContext())
             layoutManager = manager

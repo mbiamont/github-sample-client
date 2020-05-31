@@ -4,11 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
+    <TextView
+        android:id="@+id/titleGraph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/manrope_bold"
+        tools:text="Issues per week:"
+        android:textColor="@color/violet"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="240dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/titleGraph">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -30,15 +44,19 @@
 
     <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
         android:id="@+id/loader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="15dp"
         android:visibility="gone"
+        app:drawDot="false"
         app:enableProgressAnimation="true"
         app:fillBackground="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:progressStrokeWidth="26dp"
-        app:scrollable="true" />
+        app:layout_constraintTop_toBottomOf="@id/titleGraph"
+        app:progressBackgroundColor="@color/darkMediumGrey"
+        app:progressColor="@color/violet"
+        app:progressStrokeWidth="10dp"
+        tools:visibility="visible" />
 </merge>

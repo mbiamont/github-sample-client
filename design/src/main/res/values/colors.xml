@@ -4,11 +4,12 @@
     <color name="white">#ffffff</color>
     <color name="lightGrey">#EAEAEA</color>
     <color name="lightMediumGrey">#d4d4d4</color>
+    <color name="darkMediumGrey">#424242</color>
     <color name="darkGrey">#212121</color>
     <color name="black">#000000</color>
     <color name="violet">#673AB7</color>
-    <color name="lightViolet">#EBEDFD</color>
-    <color name="darkViolet">#512DA8</color>
+    <color name="lightViolet">#ae52d4</color>
+    <color name="darkViolet">#4a0072</color>
 
 
     <color name="colorPrimary">@color/violet</color>
