@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/white"
+        android:background="@color/darkGrey"
         android:fitsSystemWindows="true">
 
         <include layout="@layout/layout_navigation_view" />
