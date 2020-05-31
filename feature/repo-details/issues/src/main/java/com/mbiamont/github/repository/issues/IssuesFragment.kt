@@ -20,7 +20,11 @@ class IssuesFragment : Fragment(R.layout.fragment_issues) {
 
     private fun setupObservers() {
         observe(viewModel.issuesViewStateLiveData) with {
-            lblIssues.text = it.timeSerie.progressLabel
+            timeSerieGraph.showLoader(it.timeSerie.downloaded, it.timeSerie.total, it.timeSerie.progressLabel)
+
+            it.timeSerie.dataset?.let {
+                timeSerieGraph.showDatas(it)
+            }
         }
     }
 

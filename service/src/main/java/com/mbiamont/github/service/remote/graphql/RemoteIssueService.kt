@@ -61,6 +61,6 @@ class RemoteIssueService(
     }
 
     companion object {
-        const val SIZE_REPOSITORY_PER_PAGE = 10 //TODO SHOULD BE 50
+        const val SIZE_REPOSITORY_PER_PAGE = 50
     }
 }

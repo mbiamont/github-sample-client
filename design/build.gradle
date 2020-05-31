@@ -27,6 +27,8 @@ android {
 
 dependencies {
     implementation deps.ui.constraintLayout
+    implementation deps.ui.circularProgressIndicator
+    implementation deps.ui.jGraph
 
     implementation deps.androidx.lifecycleViewModel
     implementation deps.androidx.recyclerView

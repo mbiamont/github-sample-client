@@ -45,3 +45,13 @@ But, for a smaller project, I could simplify it by using a simpler MVP or MVVM a
 An easy way to change the UI would be to separate all UI components in a dedicated module.
 
 Then, I can easily reuse them where I need.
+
+
+
+#### Issues
+
+The filter by date doesn't work.
+
+See https://github.community/t/how-to-filter-issues-between-two-dates-in-github-v4-graphql-api/14279
+
+I decided to show all issues but taking only the last year in account for the timeserie graph.
