@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mbiamont.github.core.CoroutineContextProvider
+import com.mbiamont.github.core.android.viewstate.ProgressViewState
+import com.mbiamont.github.core.android.viewstate.TimeSerieViewState
 import com.mbiamont.github.domain.navigation.EXTRA_OWNER_LOGIN
 import com.mbiamont.github.domain.navigation.EXTRA_REPO_NAME
 import kotlinx.coroutines.launch
@@ -16,7 +18,9 @@ class PullRequestsViewModel(
     private val coroutineContextProvider: CoroutineContextProvider
 ) : ViewModel(), IPullRequestsView {
 
-    val pullRequestsViewStateLiveData = MutableLiveData<PullRequestsViewState>()
+    val pullRequestsListLiveData = MutableLiveData<List<PullRequestViewState>>()
+    val progressLiveData = MutableLiveData<ProgressViewState>()
+    val timeSerieLiveData = MutableLiveData<TimeSerieViewState>()
 
     private var initialized = false
     private val koinScope = getOrCreateScope()
@@ -51,6 +55,10 @@ class PullRequestsViewModel(
         }
     }
 
-    override fun displayPullRequestList(pullRequestsViewState: PullRequestsViewState) =
-        pullRequestsViewStateLiveData.postValue(pullRequestsViewState)
+    override fun displayPullRequestList(pullRequestListViewState: List<PullRequestViewState>) =
+        pullRequestsListLiveData.postValue(pullRequestListViewState)
+
+    override fun displayTimeSerieProgress(progressViewState: ProgressViewState) = progressLiveData.postValue(progressViewState)
+
+    override fun displayTimeSerie(timeSerieViewState: TimeSerieViewState) = timeSerieLiveData.postValue(timeSerieViewState)
 }

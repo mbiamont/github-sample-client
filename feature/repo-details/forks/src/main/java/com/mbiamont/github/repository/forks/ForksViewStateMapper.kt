@@ -2,16 +2,21 @@ package com.mbiamont.github.repository.forks
 
 import android.content.Context
 import android.text.format.DateUtils
+import com.mbiamont.github.core.android.viewstate.ProgressViewState
+import com.mbiamont.github.core.android.viewstate.TimeSerieViewState
 import com.mbiamont.github.domain.entity.Fork
 
 class ForksViewStateMapper(
     private val context: Context
 ) : IForksViewStateMapper {
 
-    override fun map(count: Int, totalCount: Int, forksPerWeek: Array<Int>?) = ForkTimeSerieViewState(
-        downloaded = count,
+    override fun map(progress: Int, totalCount: Int) = ProgressViewState(
+        progress = progress,
         total = totalCount,
-        progressLabel = "${((count.toFloat() / totalCount.toFloat()) * 100).toInt()}%",
+        progressLabel = "${((progress.toFloat() / totalCount.toFloat()) * 100).toInt()}%"
+    )
+
+    override fun map(forksPerWeek: Array<Int>) = TimeSerieViewState(
         dataset = forksPerWeek
     )
 

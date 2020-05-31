@@ -2,17 +2,21 @@ package com.mbiamont.github.repository.issues
 
 import android.content.Context
 import android.text.format.DateUtils
+import com.mbiamont.github.core.android.viewstate.ProgressViewState
+import com.mbiamont.github.core.android.viewstate.TimeSerieViewState
 import com.mbiamont.github.domain.entity.Issue
-import java.lang.String.format
 
 class IssuesViewStateMapper(
     private val context: Context
 ) : IIssuesViewStateMapper {
 
-    override fun map(count: Int, totalCount: Int, issuesPerWeek: Array<Int>?) = IssueTimeSerieViewState(
-        downloaded = count,
+    override fun map(progress: Int, totalCount: Int) = ProgressViewState(
+        progress = progress,
         total = totalCount,
-        progressLabel = "${((count.toFloat() / totalCount.toFloat()) * 100).toInt()}%",
+        progressLabel = "${((progress.toFloat() / totalCount.toFloat()) * 100).toInt()}%"
+    )
+
+    override fun map(issuesPerWeek: Array<Int>) = TimeSerieViewState(
         dataset = issuesPerWeek
     )
 

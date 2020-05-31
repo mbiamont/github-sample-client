@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mbiamont.github.core.CoroutineContextProvider
+import com.mbiamont.github.core.android.viewstate.ProgressViewState
+import com.mbiamont.github.core.android.viewstate.TimeSerieViewState
 import com.mbiamont.github.domain.navigation.EXTRA_OWNER_LOGIN
 import com.mbiamont.github.domain.navigation.EXTRA_REPO_NAME
 import kotlinx.coroutines.launch
@@ -16,7 +18,9 @@ class ForksViewModel(
     private val coroutineContextProvider: CoroutineContextProvider,
 ) : ViewModel(), IForksView {
 
-    val forksViewStateLiveData = MutableLiveData<ForksViewState>()
+    val forkListLiveData = MutableLiveData<List<ForkViewState>>()
+    val progressLiveData = MutableLiveData<ProgressViewState>()
+    val timeSerieLiveData = MutableLiveData<TimeSerieViewState>()
 
     private var initialized = false
     private val koinScope = getOrCreateScope()
@@ -51,5 +55,9 @@ class ForksViewModel(
         }
     }
 
-    override fun displayForkList(forksViewState: ForksViewState) = forksViewStateLiveData.postValue(forksViewState)
+    override fun displayForkList(forkListViewState: List<ForkViewState>) = forkListLiveData.postValue(forkListViewState)
+
+    override fun displayTimeSerieProgress(progressViewState: ProgressViewState) = progressLiveData.postValue(progressViewState)
+
+    override fun displayTimeSerie(timeSerieViewState: TimeSerieViewState) = timeSerieLiveData.postValue(timeSerieViewState)
 }

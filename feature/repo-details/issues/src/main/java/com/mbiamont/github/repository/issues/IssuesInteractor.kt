@@ -24,31 +24,31 @@ class IssuesInteractor(
     private var issues: PaginatedList<Issue> = emptyPaginatedList()
 
     override suspend fun fetchRepositoryIssues(repositoryName: String, ownerLogin: String) {
-        issueDataSource.getRepositoryIssues(FAKE_REPOSITORY, FAKE_OWNER_LOGIN, sinceDate, issues.lastItemCursor).onSuccess {
+        issueDataSource.getRepositoryIssues(repositoryName, ownerLogin, sinceDate, issues.lastItemCursor).onSuccess {
             issues += it
 
-            val count = issues.values.size
-            val totalCount = issues.totalCount
-            val issuesPerWeek = if (!it.hasNext) issues.values.countItemPerWeekSinceOneYear { issue ->
-                issue.createdAt
-            } else null
-
-            presenter.displayIssues(issues.values, count, totalCount, issuesPerWeek)
+            presenter.displayIssues(issues.values)
 
             if (it.hasNext) {
+                val progress = issues.values.size
+                val totalCount = issues.totalCount
+
+                presenter.displayTimeSerieProgress(progress, totalCount)
+
                 coroutineContext.ensureActive()
                 fetchRepositoryIssues(repositoryName, ownerLogin)
+            } else {
+                val issuesPerWeek = issues.values.countItemPerWeekSinceOneYear { issue ->
+                    issue.createdAt
+                }
+
+                presenter.displayTimeSerie(issuesPerWeek)
             }
 
         }.onFailure {
             Timber.e(it)
             //TODO SHOW ERROR
         }
-    }
-
-    companion object {
-        const val FAKE_REPOSITORY = "kotlinx.coroutines"
-        const val FAKE_OWNER_LOGIN = "Kotlin"
     }
 }
 

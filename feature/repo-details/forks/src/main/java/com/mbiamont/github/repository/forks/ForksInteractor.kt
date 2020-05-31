@@ -22,30 +22,30 @@ class ForksInteractor(
     private var forks: PaginatedList<Fork> = emptyPaginatedList()
 
     override suspend fun fetchRepositoryForks(repositoryName: String, ownerLogin: String) {
-        forkDataSource.getRepositoryForks(FAKE_REPOSITORY, FAKE_OWNER_LOGIN, forks.lastItemCursor).onSuccess {
+        forkDataSource.getRepositoryForks(repositoryName, ownerLogin, forks.lastItemCursor).onSuccess {
             forks += it
 
-            val count = forks.values.size
-            val totalCount = forks.totalCount
-            val issuesPerWeek = if (!it.hasNext) forks.values.countItemPerWeekSinceOneYear {
-                it.createdAt
-            } else null
-
-            presenter.displayForks(forks.values, count, totalCount, issuesPerWeek)
+            presenter.displayForks(forks.values)
 
             if (it.hasNext) {
+                val progress = forks.values.size
+                val totalCount = forks.totalCount
+
+                presenter.displayTimeSerieProgress(progress, totalCount)
+
                 coroutineContext.ensureActive()
                 fetchRepositoryForks(repositoryName, ownerLogin)
+            } else {
+                val issuesPerWeek = forks.values.countItemPerWeekSinceOneYear { issue ->
+                    issue.createdAt
+                }
+
+                presenter.displayTimeSerie(issuesPerWeek)
             }
 
         }.onFailure {
             Timber.e(it)
             //TODO SHOW ERROR
         }
-    }
-
-    companion object {
-        const val FAKE_REPOSITORY = "kotlinx.coroutines"
-        const val FAKE_OWNER_LOGIN = "Kotlin"
     }
 }

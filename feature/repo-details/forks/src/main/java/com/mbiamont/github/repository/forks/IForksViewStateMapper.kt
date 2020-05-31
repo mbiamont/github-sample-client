@@ -1,10 +1,14 @@
 package com.mbiamont.github.repository.forks
 
+import com.mbiamont.github.core.android.viewstate.ProgressViewState
+import com.mbiamont.github.core.android.viewstate.TimeSerieViewState
 import com.mbiamont.github.domain.entity.Fork
 
 interface IForksViewStateMapper {
 
-    fun map(count: Int, totalCount: Int, forksPerWeek: Array<Int>?): ForkTimeSerieViewState
+    fun map(progress: Int, totalCount: Int): ProgressViewState
+
+    fun map(forksPerWeek: Array<Int>): TimeSerieViewState
 
     fun map(fork: Fork): ForkViewState
 }

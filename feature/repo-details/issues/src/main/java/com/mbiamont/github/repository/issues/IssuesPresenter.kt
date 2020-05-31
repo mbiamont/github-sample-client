@@ -8,13 +8,16 @@ class IssuesPresenter(
 
     override var view: IIssuesView? = null
 
-    override fun displayIssues(issuesList: List<Issue>, count: Int, totalCount: Int, issuesPerWeek: Array<Int>?) {
-        view?.displayIssueList(
-            IssuesViewState(
-                issuesList.map { viewStateMapper.map(it) },
-                viewStateMapper.map(count, totalCount, issuesPerWeek)
-            )
-        )
+    override fun displayIssues(issuesList: List<Issue>) {
+        view?.displayIssueList(issuesList.map { viewStateMapper.map(it) })
+    }
+
+    override fun displayTimeSerieProgress(progress: Int, totalCount: Int) {
+        view?.displayTimeSerieProgress(viewStateMapper.map(progress, totalCount))
+    }
+
+    override fun displayTimeSerie(issuesPerWeek: Array<Int>) {
+        view?.displayTimeSerie(viewStateMapper.map(issuesPerWeek))
     }
 
 }

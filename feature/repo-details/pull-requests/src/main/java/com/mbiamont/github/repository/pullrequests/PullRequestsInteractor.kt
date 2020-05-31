@@ -20,31 +20,30 @@ class PullRequestsInteractor(
     private var pullRequests: PaginatedList<PullRequest> = emptyPaginatedList()
 
     override suspend fun fetchRepositoryPullRequests(repositoryName: String, ownerLogin: String) {
-        pullRequestDataSource.getRepositoryPullRequests(FAKE_REPOSITORY, FAKE_OWNER_LOGIN, pullRequests.lastItemCursor).onSuccess {
+        pullRequestDataSource.getRepositoryPullRequests(repositoryName, ownerLogin, pullRequests.lastItemCursor).onSuccess {
             pullRequests += it
 
-            val count = pullRequests.values.size
-            val totalCount = pullRequests.totalCount
-
-            val issuesPerWeek = if (!it.hasNext) pullRequests.values.countItemPerWeekSinceOneYear {pullRequest ->
-                pullRequest.createdAt
-            } else null
-
-            presenter.displayPullRequests(pullRequests.values, count, totalCount, issuesPerWeek)
+            presenter.displayPullRequests(pullRequests.values)
 
             if (it.hasNext) {
+                val progress = pullRequests.values.size
+                val totalCount = pullRequests.totalCount
+
+                presenter.displayTimeSerieProgress(progress, totalCount)
+
                 coroutineContext.ensureActive()
                 fetchRepositoryPullRequests(repositoryName, ownerLogin)
+            } else {
+                val issuesPerWeek = pullRequests.values.countItemPerWeekSinceOneYear { issue ->
+                    issue.createdAt
+                }
+
+                presenter.displayTimeSerie(issuesPerWeek)
             }
 
         }.onFailure {
             Timber.e(it)
             //TODO SHOW ERROR
         }
-    }
-
-    companion object {
-        const val FAKE_REPOSITORY = "kotlinx.coroutines"
-        const val FAKE_OWNER_LOGIN = "Kotlin"
     }
 }

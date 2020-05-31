@@ -8,12 +8,15 @@ class ForksPresenter(
 
     override var view: IForksView? = null
 
-    override fun displayForks(forksList: List<Fork>, count: Int, totalCount: Int, forksPerWeek: Array<Int>?) {
-        view?.displayForkList(
-            ForksViewState(
-                forksList.map { viewStateMapper.map(it) },
-                viewStateMapper.map(count, totalCount, forksPerWeek)
-            )
-        )
+    override fun displayForks(forkList: List<Fork>) {
+        view?.displayForkList(forkList.map { viewStateMapper.map(it) })
+    }
+
+    override fun displayTimeSerieProgress(progress: Int, totalCount: Int) {
+        view?.displayTimeSerieProgress(viewStateMapper.map(progress, totalCount))
+    }
+
+    override fun displayTimeSerie(forksPerWeek: Array<Int>) {
+        view?.displayTimeSerie(viewStateMapper.map(forksPerWeek))
     }
 }

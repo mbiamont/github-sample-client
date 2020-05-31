@@ -8,13 +8,16 @@ class PullRequestsPresenter(
 
     override var view: IPullRequestsView? = null
 
-    override fun displayPullRequests(pullRequestsList: List<PullRequest>, count: Int, totalCount: Int, pullRequestsPerWeek: Array<Int>?) {
-        view?.displayPullRequestList(
-            PullRequestsViewState(
-                pullRequestsList.map { viewStateMapper.map(it) },
-                viewStateMapper.map(count, totalCount, pullRequestsPerWeek)
-            )
-        )
+    override fun displayPullRequests(pullRequestsList: List<PullRequest>) {
+        view?.displayPullRequestList(pullRequestsList.map { viewStateMapper.map(it) })
+    }
+
+    override fun displayTimeSerieProgress(progress: Int, totalCount: Int) {
+        view?.displayTimeSerieProgress(viewStateMapper.map(progress, totalCount))
+    }
+
+    override fun displayTimeSerie(pullRequestsPerWeek: Array<Int>) {
+        view?.displayTimeSerie(viewStateMapper.map(pullRequestsPerWeek))
     }
 
 }

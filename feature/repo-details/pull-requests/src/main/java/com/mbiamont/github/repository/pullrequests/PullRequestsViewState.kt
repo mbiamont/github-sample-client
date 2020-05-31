@@ -1,10 +1,5 @@
 package com.mbiamont.github.repository.pullrequests
 
-data class PullRequestsViewState(
-    val issues: List<PullRequestViewState>,
-    val timeSerie: PullRequestTimeSerieViewState
-)
-
 data class PullRequestTimeSerieViewState(
     val downloaded: Int,
     val total: Int,

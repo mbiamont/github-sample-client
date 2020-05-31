@@ -5,5 +5,9 @@ import com.mbiamont.github.domain.entity.Issue
 
 interface IIssuesPresenter : BasePresenter<IIssuesView> {
 
-    fun displayIssues(issuesList: List<Issue>, count: Int, totalCount: Int, issuesPerWeek: Array<Int>?)
+    fun displayIssues(issuesList: List<Issue>)
+
+    fun displayTimeSerieProgress(progress: Int, totalCount: Int)
+
+    fun displayTimeSerie(issuesPerWeek: Array<Int>)
 }

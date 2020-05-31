@@ -33,14 +33,16 @@ class IssuesFragment : Fragment(R.layout.fragment_issues) {
     }
 
     private fun setupObservers() {
-        observe(viewModel.issuesViewStateLiveData) with {
-            issuesAdapter.updateViewState(it.issues)
+        observe(viewModel.issuesListLiveData) with {
+            issuesAdapter.updateViewState(it)
+        }
 
-            timeSerieGraph.showLoader(it.timeSerie.downloaded, it.timeSerie.total, it.timeSerie.progressLabel)
+        observe(viewModel.progressLiveData) with {
+            timeSerieGraph.showLoader(it.progress, it.total, it.progressLabel)
+        }
 
-            it.timeSerie.dataset?.let {
-                timeSerieGraph.showDatas(it)
-            }
+        observe(viewModel.timeSerieLiveData) with {
+            timeSerieGraph.showDatas(it.dataset)
         }
     }
 

@@ -16,5 +16,11 @@ class RepositoryListController(
     override suspend fun onRepositoriesScrolled() = fetchUserPublicRepositoriesUseCase.fetchUserPublicRepositories()
 
     override suspend fun onRepositoryClicked(repositoryName: String, ownerLogin: String) =
-        navigator.navigateTo(REPO_DETAILS, mapOf(EXTRA_REPO_NAME to repositoryName, EXTRA_OWNER_LOGIN to ownerLogin))
+        navigator.navigateTo(REPO_DETAILS, mapOf(EXTRA_REPO_NAME to FAKE_REPOSITORY, EXTRA_OWNER_LOGIN to FAKE_OWNER_LOGIN))
+
+
+    companion object {
+        const val FAKE_REPOSITORY = "kotlinx.coroutines"
+        const val FAKE_OWNER_LOGIN = "Kotlin"
+    }
 }
