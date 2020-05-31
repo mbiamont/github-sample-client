@@ -1,9 +1,7 @@
 package com.mbiamont.github.service.mapper
 
 import com.mbiamont.github.domain.entity.User
-import com.mbiamont.github.service.graphql.FetchRepositoryDetailsQuery
-import com.mbiamont.github.service.graphql.FetchRepositoryIssuesQuery
-import com.mbiamont.github.service.graphql.FetchUserPublicRepositoriesQuery
+import com.mbiamont.github.service.graphql.*
 
 interface IRemoteUserMapper {
 
@@ -12,4 +10,8 @@ interface IRemoteUserMapper {
     fun map(user: FetchRepositoryDetailsQuery.Owner): User
 
     fun map(user: FetchRepositoryIssuesQuery.Author?): User?
+
+    fun map(user: FetchRepositoryForksQuery.Owner): User
+
+    fun map(user: FetchRepositoryPullRequestsQuery.Author?): User?
 }

@@ -3,6 +3,7 @@ package com.mbiamont.github.repository.forks.di
 import com.mbiamont.github.domain.feature.repository.details.forks.FetchRepositoryForksUseCase
 import com.mbiamont.github.domain.feature.repository.details.issues.FetchRepositoryIssuesUseCase
 import com.mbiamont.github.repository.forks.*
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -14,9 +15,11 @@ val forksModule = module {
     scope<ForksViewModel> {
         scoped<IForksController> { ForksController(get()) }
 
-        scoped<IForksPresenter> { ForksPresenter() }
+        scoped<IForksPresenter> { ForksPresenter(get()) }
 
-        scoped { ForksInteractor(get()) } bind FetchRepositoryForksUseCase::class
+        scoped<IForksViewStateMapper> { ForksViewStateMapper(androidContext()) }
+
+        scoped { ForksInteractor(get(), get()) } bind FetchRepositoryForksUseCase::class
     }
 
 }

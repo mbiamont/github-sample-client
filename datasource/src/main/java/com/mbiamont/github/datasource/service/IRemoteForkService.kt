@@ -1,16 +1,16 @@
-package com.mbiamont.github.domain.datasource
+package com.mbiamont.github.datasource.service
 
 import com.mbiamont.github.core.Monad
 import com.mbiamont.github.core.PaginatedList
+import com.mbiamont.github.domain.entity.Fork
 import com.mbiamont.github.domain.entity.Issue
 import java.util.*
 
-interface IIssueDataSource {
+interface IRemoteForkService {
 
-    suspend fun getRepositoryIssues(
+    suspend fun getRepositoryForks(
         repositoryName: String,
         ownerLogin: String,
-        since: Date,
         afterCursor: String?
-    ): Monad<PaginatedList<Issue>>
+    ): Monad<PaginatedList<Fork>>
 }

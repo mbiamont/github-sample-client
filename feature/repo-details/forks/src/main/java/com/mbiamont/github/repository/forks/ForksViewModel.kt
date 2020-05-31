@@ -1,6 +1,7 @@
 package com.mbiamont.github.repository.forks
 
 import android.os.Bundle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mbiamont.github.core.CoroutineContextProvider
@@ -13,7 +14,9 @@ import java.lang.IllegalStateException
 
 class ForksViewModel(
     private val coroutineContextProvider: CoroutineContextProvider,
-): ViewModel(), IForksView {
+) : ViewModel(), IForksView {
+
+    val forksViewStateLiveData = MutableLiveData<ForksViewState>()
 
     private var initialized = false
     private val koinScope = getOrCreateScope()
@@ -47,4 +50,6 @@ class ForksViewModel(
             Timber.e(IllegalStateException())
         }
     }
+
+    override fun displayForkList(forksViewState: ForksViewState) = forksViewStateLiveData.postValue(forksViewState)
 }

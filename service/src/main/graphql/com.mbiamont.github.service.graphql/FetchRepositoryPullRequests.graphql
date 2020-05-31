@@ -1,0 +1,26 @@
+query FetchRepositoryPullRequests($name: String!, $ownerLogin: String!, $size: Int!, $afterCursor: String) {
+    repository(name: $name, owner: $ownerLogin) {
+        pullRequests(after: $afterCursor, first: $size, orderBy: {field: CREATED_AT, direction: ASC}) {
+            totalCount
+            edges {
+                cursor
+                node {
+                    author {
+                        avatarUrl
+                        login
+                    }
+                    comments {
+                        totalCount
+                    }
+                    createdAt
+                    title
+                    state
+                }
+            }
+            pageInfo {
+                endCursor
+                hasNextPage
+            }
+        }
+    }
+}

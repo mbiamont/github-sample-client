@@ -3,14 +3,14 @@ package com.mbiamont.github.domain.datasource
 import com.mbiamont.github.core.Monad
 import com.mbiamont.github.core.PaginatedList
 import com.mbiamont.github.domain.entity.Issue
+import com.mbiamont.github.domain.entity.PullRequest
 import java.util.*
 
-interface IIssueDataSource {
+interface IPullRequestDataSource {
 
-    suspend fun getRepositoryIssues(
+    suspend fun getRepositoryPullRequests(
         repositoryName: String,
         ownerLogin: String,
-        since: Date,
         afterCursor: String?
-    ): Monad<PaginatedList<Issue>>
+    ): Monad<PaginatedList<PullRequest>>
 }

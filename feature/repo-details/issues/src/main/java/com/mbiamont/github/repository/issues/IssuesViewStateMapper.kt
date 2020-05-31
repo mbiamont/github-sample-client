@@ -9,15 +9,12 @@ class IssuesViewStateMapper(
     private val context: Context
 ) : IIssuesViewStateMapper {
 
-    override fun map(count: Int, totalCount: Int, issuesPerWeek: Array<Int>?): IssueTimeSerieViewState {
-        val percent = ((count.toFloat() / totalCount.toFloat()) * 100).toInt()
-        return IssueTimeSerieViewState(
-            downloaded = count,
-            total = totalCount,
-            progressLabel = "$percent%",
-            dataset = issuesPerWeek
-        )
-    }
+    override fun map(count: Int, totalCount: Int, issuesPerWeek: Array<Int>?) = IssueTimeSerieViewState(
+        downloaded = count,
+        total = totalCount,
+        progressLabel = "${((count.toFloat() / totalCount.toFloat()) * 100).toInt()}%",
+        dataset = issuesPerWeek
+    )
 
     override fun map(issue: Issue) = IssueViewState(
         indexColor = context.resources.getColor(

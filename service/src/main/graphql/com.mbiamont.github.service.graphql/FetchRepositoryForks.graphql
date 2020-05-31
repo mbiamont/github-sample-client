@@ -1,0 +1,21 @@
+query FetchRepositoryForks($name: String!, $ownerLogin: String!, $size: Int!, $afterCursor: String) {
+    repository(name: $name, owner: $ownerLogin) {
+        forks(after: $afterCursor, first: $size, orderBy: {field: CREATED_AT, direction: ASC}) {
+            edges {
+                cursor
+                node {
+                    createdAt
+                    owner {
+                        avatarUrl
+                        login
+                    }
+                }
+            }
+            pageInfo {
+                endCursor
+                hasNextPage
+            }
+            totalCount
+        }
+    }
+}

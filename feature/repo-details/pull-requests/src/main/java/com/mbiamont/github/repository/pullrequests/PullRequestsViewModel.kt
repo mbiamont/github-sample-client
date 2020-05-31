@@ -1,6 +1,7 @@
 package com.mbiamont.github.repository.pullrequests
 
 import android.os.Bundle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mbiamont.github.core.CoroutineContextProvider
@@ -13,7 +14,9 @@ import java.lang.IllegalStateException
 
 class PullRequestsViewModel(
     private val coroutineContextProvider: CoroutineContextProvider
-): ViewModel(), IPullRequestsView {
+) : ViewModel(), IPullRequestsView {
+
+    val pullRequestsViewStateLiveData = MutableLiveData<PullRequestsViewState>()
 
     private var initialized = false
     private val koinScope = getOrCreateScope()
@@ -47,4 +50,7 @@ class PullRequestsViewModel(
             Timber.e(IllegalStateException())
         }
     }
+
+    override fun displayPullRequestList(pullRequestsViewState: PullRequestsViewState) =
+        pullRequestsViewStateLiveData.postValue(pullRequestsViewState)
 }

@@ -2,6 +2,7 @@ package com.mbiamont.github.repository.issues
 
 import com.mbiamont.github.core.PaginatedList
 import com.mbiamont.github.core.emptyPaginatedList
+import com.mbiamont.github.core.extensions.countItemPerWeekSinceOneYear
 import com.mbiamont.github.core.extensions.minusYears
 import com.mbiamont.github.core.onFailure
 import com.mbiamont.github.core.onSuccess
@@ -18,7 +19,7 @@ class IssuesInteractor(
     private val presenter: IIssuesPresenter
 ) : FetchRepositoryIssuesUseCase {
 
-    private val sinceDate = Date().minusYears(1) //TODO SHOULD BE 1 HERE
+    private val sinceDate = Date().minusYears(1)
 
     private var issues: PaginatedList<Issue> = emptyPaginatedList()
 
@@ -28,7 +29,9 @@ class IssuesInteractor(
 
             val count = issues.values.size
             val totalCount = issues.totalCount
-            val issuesPerWeek = if (!it.hasNext) getIssuesPerWeek(issues.values) else null
+            val issuesPerWeek = if (!it.hasNext) issues.values.countItemPerWeekSinceOneYear { issue ->
+                issue.createdAt
+            } else null
 
             presenter.displayIssues(issues.values, count, totalCount, issuesPerWeek)
 
@@ -41,34 +44,6 @@ class IssuesInteractor(
             Timber.e(it)
             //TODO SHOW ERROR
         }
-    }
-
-    fun getIssuesPerWeek(issuesList: List<Issue>): Array<Int> {
-        val since = Calendar.getInstance().apply {
-            time = sinceDate
-        }
-
-        val sinceWeek = since.get(Calendar.WEEK_OF_YEAR)
-        val sinceYear = since.get(Calendar.YEAR)
-
-        val array = Array(52) { 0 }
-
-        issuesList.forEach { issue ->
-            val weekOfYear = issue.createdAt.get(Calendar.WEEK_OF_YEAR)
-            val year = issue.createdAt.get(Calendar.YEAR)
-
-            val diffYear = year - sinceYear
-            val diffWeek = weekOfYear - sinceWeek
-
-            val adjustedWeek = diffWeek + (diffYear * 52)
-
-
-            if (adjustedWeek in 0..51) {
-                array[adjustedWeek]++
-            }
-        }
-
-        return array
     }
 
     companion object {
