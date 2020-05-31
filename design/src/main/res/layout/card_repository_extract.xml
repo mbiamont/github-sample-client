@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_rounded_card"
+    android:background="@color/black"
     android:padding="16dp"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/manrope_medium"
-        android:textColor="@color/darkGrey"
+        android:textColor="@color/lightMediumGrey"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,6 +26,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/manrope_medium"
         android:textSize="14sp"
+        android:textColor="@color/lightMediumGrey"
         app:layout_constraintStart_toStartOf="@id/lblRepositoryName"
         app:layout_constraintTop_toBottomOf="@id/lblRepositoryName"
         tools:text="15" />
@@ -35,6 +36,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="6dp"
         android:src="@drawable/ic_star"
+        android:tint="@color/lightMediumGrey"
         app:layout_constraintBottom_toBottomOf="@id/lblStarCount"
         app:layout_constraintStart_toEndOf="@id/lblStarCount"
         app:layout_constraintTop_toTopOf="@id/lblStarCount" />

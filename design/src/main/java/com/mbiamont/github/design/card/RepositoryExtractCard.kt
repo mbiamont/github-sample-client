@@ -1,10 +1,12 @@
 package com.mbiamont.github.design.card
 
 import android.content.Context
+import android.content.res.Resources
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.mbiamont.github.design.R
+import com.mbiamont.github.design.extensions.enableSelectableBackground
 import kotlinx.android.synthetic.main.card_repository_extract.view.*
 
 class RepositoryExtractCard @JvmOverloads constructor(
@@ -25,12 +27,10 @@ class RepositoryExtractCard @JvmOverloads constructor(
 
     init {
         inflate(context, R.layout.card_repository_extract, this)
-
-        setBackgroundResource(R.drawable.ripple_card)
+        enableSelectableBackground()
 
         val padding = resources.getDimensionPixelSize(R.dimen.medium)
         setPadding(padding, padding, padding, padding)
-        //elevation = resources.getDimensionPixelSize(R.dimen.small).toFloat()
     }
 
     fun showLanguage(name: String, color: Int) {

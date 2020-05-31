@@ -29,7 +29,7 @@ class BottomNavigationBar @JvmOverloads constructor(
 
     init {
         inflate(context, R.layout.layout_bottom_navigation_bar, this)
-        setBackgroundResource(R.color.white)
+        setBackgroundResource(R.color.black)
 
         tabs = arrayOf(menuIssues, menuPullRequests, menuForks)
 

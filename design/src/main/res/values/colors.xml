@@ -5,6 +5,7 @@
     <color name="lightGrey">#EAEAEA</color>
     <color name="lightMediumGrey">#d4d4d4</color>
     <color name="darkGrey">#212121</color>
+    <color name="black">#000000</color>
     <color name="violet">#673AB7</color>
     <color name="lightViolet">#EBEDFD</color>
     <color name="darkViolet">#512DA8</color>

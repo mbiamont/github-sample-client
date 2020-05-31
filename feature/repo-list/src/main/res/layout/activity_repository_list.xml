@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightViolet">
+    android:background="@color/darkGrey">
 
     <TextView
         android:id="@+id/lblTitle"
@@ -12,7 +12,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/manrope_regular"
         android:text="@string/reposTitle"
-        android:textColor="@color/darkGrey"
+        android:textColor="@color/violet"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
-        app:shimmer_color="@color/lightGrey"
+        app:shimmer_color="#424242"
         app:shimmer_animation_duration="750"
         app:layout_constraintBottom_toBottomOf="parent"
         app:shimmer_mask_width="1"
