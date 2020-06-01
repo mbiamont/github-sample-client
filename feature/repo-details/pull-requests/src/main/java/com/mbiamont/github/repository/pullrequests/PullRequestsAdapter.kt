@@ -13,7 +13,7 @@ class PullRequestsAdapter : RecyclerView.Adapter<PullRequestsAdapter.ItemViewHol
 
     fun updateViewState(issues: List<PullRequestViewState>) {
         val diff = calculateDiff(itemDataset, issues) { old, new ->
-            old.ownerLogin == new.ownerLogin && old.dateLabel == new.dateLabel //TODO SHOULD USE IDs INSTEAD
+            old.pullRequestId == new.pullRequestId
         }
         itemDataset.clear()
         itemDataset.addAll(issues)

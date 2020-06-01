@@ -13,7 +13,7 @@ class IssuesAdapter : RecyclerView.Adapter<IssuesAdapter.ItemViewHolder>() {
 
     fun updateViewState(issues: List<IssueViewState>) {
         val diff = calculateDiff(itemDataset, issues) { old, new ->
-            old.title == new.title && old.dateLabel == new.dateLabel //TODO SHOULD USE IDs INSTEAD
+            old.issueId == new.issueId
         }
         itemDataset.clear()
         itemDataset.addAll(issues)

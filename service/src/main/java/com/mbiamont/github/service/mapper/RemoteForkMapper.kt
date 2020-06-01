@@ -10,6 +10,7 @@ class RemoteForkMapper(
 ) : IRemoteForkMapper {
 
     override fun map(fork: FetchRepositoryForksQuery.Node) = Fork(
+        id = fork.id(),
         createdAt = dateMapper.mapToCalendar(fork.createdAt() as? String ?: "") ?: Calendar.getInstance(),
         owner = userMapper.map(fork.owner())
     )

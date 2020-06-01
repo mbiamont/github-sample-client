@@ -37,6 +37,7 @@ class PullRequestsViewStateMapper(
             DateUtils.WEEK_IN_MILLIS,
             0
         ).toString(),
-        commentCountLabel = pullRequest.commentsCount.toString()
+        commentCountLabel = pullRequest.commentsCount.toString(),
+        pullRequestId = pullRequest.id
     )
 }

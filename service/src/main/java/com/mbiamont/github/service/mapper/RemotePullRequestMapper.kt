@@ -10,15 +10,14 @@ class RemotePullRequestMapper(
     private val userMapper: IRemoteUserMapper
 ) : IRemotePullRequestMapper {
 
-    override fun map(pullRequest: FetchRepositoryPullRequestsQuery.Node): PullRequest {
-        return PullRequest(
-            title = pullRequest.title(),
-            state = PullRequest.State.CLOSED,
-            createdAt = dateMapper.mapToCalendar(pullRequest.createdAt() as? String ?: "") ?: Calendar.getInstance(),
-            author = userMapper.map(pullRequest.author()),
-            commentsCount = pullRequest.comments().totalCount()
-        )
-    }
+    override fun map(pullRequest: FetchRepositoryPullRequestsQuery.Node) = PullRequest(
+        id = pullRequest.id(),
+        title = pullRequest.title(),
+        state = PullRequest.State.CLOSED,
+        createdAt = dateMapper.mapToCalendar(pullRequest.createdAt() as? String ?: "") ?: Calendar.getInstance(),
+        author = userMapper.map(pullRequest.author()),
+        commentsCount = pullRequest.comments().totalCount()
+    )
 
     private fun map(state: PullRequestState) = when (state) {
         PullRequestState.OPEN -> PullRequest.State.OPEN

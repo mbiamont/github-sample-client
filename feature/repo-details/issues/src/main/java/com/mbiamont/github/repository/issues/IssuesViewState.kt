@@ -6,5 +6,6 @@ data class IssueViewState(
     val ownerLogin: String?,
     val title: String,
     val dateLabel: String,
-    val commentCountLabel: String
+    val commentCountLabel: String,
+    val issueId: String
 )

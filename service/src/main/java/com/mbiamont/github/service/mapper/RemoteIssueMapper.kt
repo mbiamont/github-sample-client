@@ -11,11 +11,12 @@ class RemoteIssueMapper(
 ) : IRemoteIssueMapper {
 
     override fun map(issue: FetchRepositoryIssuesQuery.Node) = Issue(
+        id = issue.id(),
         title = issue.title(),
         state = map(issue.state()),
         createdAt = remoteDateMapper.mapToCalendar(issue.createdAt() as? String ?: "") ?: Calendar.getInstance(),
         author = userMapper.map(issue.author()),
-        commentsCount = issue.comments().totalCount()
+        commentsCount = issue.comments().totalCount(),
     )
 
     private fun map(state: IssueState) = when (state) {

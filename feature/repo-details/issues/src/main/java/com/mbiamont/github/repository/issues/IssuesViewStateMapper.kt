@@ -36,6 +36,7 @@ class IssuesViewStateMapper(
             DateUtils.WEEK_IN_MILLIS,
             0
         ).toString(),
-        commentCountLabel = issue.commentsCount.toString()
+        commentCountLabel = issue.commentsCount.toString(),
+        issueId = issue.id
     )
 }

@@ -5,6 +5,7 @@ query FetchRepositoryIssues($name: String!, $ownerLogin: String!, $size: Int!, $
             edges {
                 cursor
                 node {
+                    id
                     state
                     title
                     createdAt

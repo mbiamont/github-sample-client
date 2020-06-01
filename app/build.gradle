@@ -17,23 +17,26 @@ android {
     }
 
     buildTypes {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
         debug {
             debuggable true
             minifyEnabled false
-            buildConfigField("String", "GITHUB_CLIENT_ID", "\"f4dc5769b51c3773899b\"")
-            buildConfigField("String", "GITHUB_SECRET", "\"74b7d2492d9715e2984ce9fc10ea689fb5b51a1f\"")
             buildConfigField("String", "GITHUB_REST_BASE_URL", "\"https://github.com\"")
             buildConfigField("String", "GITHUB_GRAPH_QL_URL", "\"https://api.github.com/graphql\"")
+            buildConfigField("String", "GITHUB_CLIENT_ID", "\"${properties.getProperty("GITHUB_CLIENT_ID")}\"")
+            buildConfigField("String", "GITHUB_SECRET", "\"${properties.getProperty("GITHUB_SECRET")}\"")
         }
 
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField("String", "GITHUB_CLIENT_ID", "\"f4dc5769b51c3773899b\"")
-            buildConfigField("String", "GITHUB_SECRET", "\"74b7d2492d9715e2984ce9fc10ea689fb5b51a1f\"")
             buildConfigField("String", "GITHUB_REST_BASE_URL", "\"https://github.com\"")
             buildConfigField("String", "GITHUB_GRAPH_QL_URL", "\"https://api.github.com/graphql\"")
+            buildConfigField("String", "GITHUB_CLIENT_ID", "\"${properties.getProperty("GITHUB_CLIENT_ID")}\"")
+            buildConfigField("String", "GITHUB_SECRET", "\"${properties.getProperty("GITHUB_SECRET")}\"")
         }
     }
 

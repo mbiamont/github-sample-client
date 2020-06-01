@@ -3,6 +3,7 @@ package com.mbiamont.github.domain.entity
 import java.util.*
 
 data class Issue(
+    val id: String,
     val title: String,
     val state: State,
     val createdAt: Calendar,

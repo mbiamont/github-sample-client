@@ -4,6 +4,7 @@ query FetchRepositoryForks($name: String!, $ownerLogin: String!, $size: Int!, $a
             edges {
                 cursor
                 node {
+                    id
                     createdAt
                     owner {
                         avatarUrl

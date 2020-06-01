@@ -5,6 +5,7 @@ query FetchRepositoryPullRequests($name: String!, $ownerLogin: String!, $size: I
             edges {
                 cursor
                 node {
+                    id
                     author {
                         avatarUrl
                         login

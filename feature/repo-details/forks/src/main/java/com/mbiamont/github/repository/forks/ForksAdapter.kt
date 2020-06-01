@@ -13,7 +13,7 @@ class ForksAdapter : RecyclerView.Adapter<ForksAdapter.ItemViewHolder>() {
 
     fun updateViewState(issues: List<ForkViewState>) {
         val diff = calculateDiff(itemDataset, issues) { old, new ->
-            old.ownerLogin == new.ownerLogin && old.dateLabel == new.dateLabel //TODO SHOULD USE IDs INSTEAD
+            old.forkId == new.forkId
         }
         itemDataset.clear()
         itemDataset.addAll(issues)
