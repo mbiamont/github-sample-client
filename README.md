@@ -24,7 +24,7 @@ This project is the implementation of a hiring technical test for Datadog.
 
 <p>
   <img src="art/screenshot.png" width="45%">
-  <img src="art/screencast.mp4" width="45%">
+  <img src="art/screencast.gif" width="45%">
 </p>
 
 ## Build
