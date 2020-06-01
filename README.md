@@ -2,6 +2,7 @@
 
 This project is the implementation of a hiring technical test for Datadog.
 
+
 ## Technical test
 
 #### Overview
@@ -18,40 +19,142 @@ This project is the implementation of a hiring technical test for Datadog.
 - It should include a README that contains the instructions on how to run the application and configure it if needed
 - The application should not be published to the App Store / Play Store
 
-## ⚠️⚠️⚠️⚠️⚠️ To not forget ⚠️⚠️⚠️⚠️⚠️
 
-- [ ] Unit tests
-- [ ] Comments
-- [ ] Complete this README.md with architecture explanations
-- [ ] Remove this section
-- [ ] Explain clean archi dependencies (schema)
-- [ ] Explain classic request flow (schema)
-- [ ] Explain navigation
-- [ ] Explain role of each part of the Clean Archi (why a VM, why a controller, etc...)
-- [ ] What could be improved: ViewModel livedata can we written by the Activity, should be accessible read-only
+## Demo
 
-## How could I improve the design:
+<p>
+  <img src="art/screenshot.png" width="45%">
+  <img src="art/screencast.mp4" width="45%">
+</p>
 
-#### Architecture
+## Build
 
-Do I really need Clean Architecture for this small project?
+#### 1. Create your Github app
 
-Probably not, but I wanted to show how an example of architecture which allow large amount of features without loosing maintainability.
+Follow the steps [here](https://github.com/settings/applications/new) in order to create your own oAuth application.
 
-But, for a smaller project, I could simplify it by using a simpler MVP or MVVM architecture.
+#### 2. Copy your oAuth app keys
 
-#### Design System
+In `local.properties`, add the following parameters using the keys you got in step 1 :
 
-An easy way to change the UI would be to separate all UI components in a dedicated module.
+| Key | Value |
+|---|---|
+| `GITHUB_CLIENT_ID` | Github Client ID (see step 1) |
+| `GITHUB_SECRET` | Github Client Secret (see step 1) |
 
-Then, I can easily reuse them where I need.
+#### 3. Read to launch
+
+Now, you can simply build an apk pointing to the module `:app`.
+
+## Libraries used
+
+| Library | Purpose |
+|---|---|
+| [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) | Multithreading |
+| [ShimmerLayout](https://github.com/team-supercharge/ShimmerLayout) | Loading view |
+| [Coil](https://coil-kt.github.io/coil/) | Image loader |
+| [JGraph](https://github.com/ZuYun/Jgraph) | Graph view |
+| [Koin](https://insert-koin.io/) | Dependency Injection |
+| [Mockito](https://site.mockito.org/) | Mock for Unit tests |
+| [Retrofit](https://site.mockito.org/) | HTTP Rest client |
+| [Apollo](https://www.apollographql.com/docs/android/) | GraphQL client |
+| [Timber](https://github.com/JakeWharton/timber) | You always need Timber |
 
 
+## Architecture explanation
 
-#### Issues
+See `architecture.md`
 
-The filter by date doesn't work.
+## Potential design amelioration
+
+### 1. Optimize GraphQL data model
+
+Some GraphQL data are duplicated. It's due to Apollo's code generation. It makes some RemoteMapper a bit stupid like RemoteUserMapper
+
+
+```kotlin
+    override fun map(user: FetchUserPublicRepositoriesQuery.Owner) = User(
+        login = user.login(),
+        avatarUrl = (user.avatarUrl() as? String)
+    )
+
+    override fun map(user: FetchRepositoryDetailsQuery.Owner) = User(
+        login = user.login(),
+        avatarUrl = (user.avatarUrl() as? String)
+    )
+
+    override fun map(user: FetchRepositoryForksQuery.Owner) = User(
+        login = user.login(),
+        avatarUrl = (user.avatarUrl() as? String)
+    )
+```
+
+It was my first time using GraphQL, so I don't really know what would be the solution here but I expect some kind interface logic here. I need to read more Apollo's doc.
+
+### 2. Redudant interactors and RemoteServices
+
+Some interactors (`IssuesInteractor`, `ForksInteractors` and 
+PullRequestsInteractors`) are doing exactly the same things. It's duplicated.
+
+A better design would probably to use [Composition by Delegation](https://kotlinlang.org/docs/reference/delegation.html) or simply using inheritance with generics.
+
+The same problems occurs for `RemoteIssuesService`, `RemoteForksService` and `RemotePullRequestsService`.
+
+### 3. LiveData exposition in ViewModels
+
+The LiveDatas in the ViewModels are public (so it can be observed by an Activity/Fragment.
+But, it makes it possible to write in it. In my small application, it's not a big deal, but in a large app or library, it could pose problems.
+
+A simple solution would be to expose a getter of LiveData (and not MutableLiveData) like this:
+
+```kotlin
+    val issuesListLiveData: LiveData<List<IssueViewState>>
+        get() = _issuesListLiveData
+
+    override fun displayIssueList(issuesListViewState: List<IssueViewState>) {
+        _issuesListLiveData.postValue(issuesListViewState)
+    }
+```
+
+## Encountered problems
+
+### 1. Filter by date issue
+
+##### Problem
+
+The filter in Github API "since" doesn't work.
 
 See https://github.community/t/how-to-filter-issues-between-two-dates-in-github-v4-graphql-api/14279
 
-I decided to show all issues but taking only the last year in account for the timeserie graph.
+##### Solution
+
+So, I had to fetch issues by pages and stop when I receive an outdated issue.
+It prevent the app to be able to know how many issues are being downloaded, but it avoid to download all issues of a repository before displaying the timeserie.
+
+### 2. Crash in the Jchart library
+
+##### Problem
+
+The library I used to make the timeserie chart was really buggy.
+
+I initially intended to display the chart in a recyclerview so it would scroll as the rest of the issues. Unfortunately, it was systematically crashing. It was probably too late to find another library and I didn't find a solution to this.
+
+##### Solution
+
+The solution is more a workaround. Now the chart is fixed on the top and not in the recyclerview. It's not perfect but at least, it doesn't crash. If I would have more time, maybe I would recode the chart view by myself.
+
+
+### 3. Bug in `kotlin.Result` with coroutines
+
+##### Problem
+
+I initially tried to use the Kotlin `Result`, but I faced issues when using it in coroutines. 
+
+More infos here: https://youtrack.jetbrains.com/issue/KT-27586
+
+
+The problem has been solved, but only in 1.4M2 (and the project uses 1.4M1).
+
+##### Solution
+
+I solved the issue by copying the Result class into another which I called "Monad" because the principle is the same.

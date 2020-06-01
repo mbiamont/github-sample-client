@@ -1,8 +1,5 @@
 package com.mbiamont.github.core
 
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
-
 /**
  * Similar class to kotlin.Result
  * But the original version has unsolved bug: https://youtrack.jetbrains.com/issue/KT-27586
