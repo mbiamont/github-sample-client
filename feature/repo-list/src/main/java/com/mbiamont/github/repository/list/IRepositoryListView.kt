@@ -4,5 +4,5 @@ interface IRepositoryListView {
 
     fun displayRepositoryExtractList(repositories: List<RepositoryExtractViewState>)
 
-    fun displayFetchRepositoryError(messageId: Int)
+    fun displayErrorMessage(messageId: Int)
 }

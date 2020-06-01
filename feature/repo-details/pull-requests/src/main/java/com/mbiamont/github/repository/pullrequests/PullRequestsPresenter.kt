@@ -20,4 +20,8 @@ class PullRequestsPresenter(
         view?.displayTimeSerie(viewStateMapper.map(pullRequestsPerWeek))
     }
 
+    override fun displayFetchPullRequestsError() {
+        view?.displayErrorMessage(R.string.errorsFetchingPullRequests)
+    }
+
 }

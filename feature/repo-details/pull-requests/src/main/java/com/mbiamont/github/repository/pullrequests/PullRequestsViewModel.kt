@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mbiamont.github.core.CoroutineContextProvider
+import com.mbiamont.github.core.android.livedata.SingleEventLiveData
 import com.mbiamont.github.core.android.viewstate.ProgressViewState
 import com.mbiamont.github.core.android.viewstate.TimeSerieViewState
 import com.mbiamont.github.domain.navigation.EXTRA_OWNER_LOGIN
@@ -21,6 +22,7 @@ class PullRequestsViewModel(
     val pullRequestsListLiveData = MutableLiveData<List<PullRequestViewState>>()
     val progressLiveData = MutableLiveData<ProgressViewState>()
     val timeSerieLiveData = MutableLiveData<TimeSerieViewState>()
+    val errorMessageLiveData = SingleEventLiveData<Int>()
 
     private var initialized = false
     private val koinScope = getOrCreateScope()
@@ -61,4 +63,6 @@ class PullRequestsViewModel(
     override fun displayTimeSerieProgress(progressViewState: ProgressViewState) = progressLiveData.postValue(progressViewState)
 
     override fun displayTimeSerie(timeSerieViewState: TimeSerieViewState) = timeSerieLiveData.postValue(timeSerieViewState)
+
+    override fun displayErrorMessage(message: Int) = errorMessageLiveData.postValue(message)
 }

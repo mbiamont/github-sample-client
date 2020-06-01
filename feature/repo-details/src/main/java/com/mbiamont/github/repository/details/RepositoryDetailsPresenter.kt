@@ -12,4 +12,8 @@ class RepositoryDetailsPresenter(
         view?.displayRepositoryDetails(viewStateMapper.map(repositoryDetails))
     }
 
+    override fun displayFetchRepositoryDetailsError() {
+        view?.displayErrorMessage(R.string.errorsFetchRepositoryDetails)
+    }
+
 }

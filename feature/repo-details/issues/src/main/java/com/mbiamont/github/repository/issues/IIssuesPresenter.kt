@@ -10,4 +10,6 @@ interface IIssuesPresenter : BasePresenter<IIssuesView> {
     fun displayTimeSerieProgress(isLoading: Boolean)
 
     fun displayTimeSerie(issuesPerWeek: Array<Int>)
+
+    fun displayFetchIssuesError()
 }

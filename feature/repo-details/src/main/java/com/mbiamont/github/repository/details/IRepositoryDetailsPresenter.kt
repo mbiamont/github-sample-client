@@ -6,4 +6,6 @@ import com.mbiamont.github.domain.entity.RepositoryDetails
 interface IRepositoryDetailsPresenter: BasePresenter<IRepositoryDetailsView> {
 
     fun displayRepositoryDetails(repositoryDetails: RepositoryDetails)
+
+    fun displayFetchRepositoryDetailsError()
 }

@@ -7,5 +7,5 @@ interface IRepositoryListPresenter : BasePresenter<IRepositoryListView> {
 
     fun displayRepositoryExtracts(repositories: List<RepositoryExtract>)
 
-    fun displayFetchRepositoryError()
+    fun displayFetchRepositoriesError()
 }

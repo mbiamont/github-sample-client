@@ -59,6 +59,7 @@ class RepositoryListActivity : BaseActivity(R.layout.activity_repository_list) {
 
         observe(viewModel.errorMessageLiveData) with {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            shimmerLayout.stopShimmerAnimation()
         }
     }
 

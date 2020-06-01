@@ -16,6 +16,7 @@ class RepositoryDetailsInteractor(
             presenter.displayRepositoryDetails(it)
         }.onFailure {
             Timber.e(it)
+            presenter.displayFetchRepositoryDetailsError()
         }
     }
 }

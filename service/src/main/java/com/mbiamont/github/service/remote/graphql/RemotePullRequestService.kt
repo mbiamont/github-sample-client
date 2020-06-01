@@ -1,6 +1,7 @@
 package com.mbiamont.github.service.remote.graphql
 
 import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.coroutines.toDeferred
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import com.mbiamont.github.core.Monad
@@ -9,6 +10,7 @@ import com.mbiamont.github.core.failure
 import com.mbiamont.github.core.success
 import com.mbiamont.github.datasource.service.IRemotePullRequestService
 import com.mbiamont.github.domain.entity.PullRequest
+import com.mbiamont.github.domain.exception.NetworkException
 import com.mbiamont.github.service.graphql.FetchRepositoryPullRequestsQuery
 import com.mbiamont.github.service.mapper.IRemotePullRequestMapper
 import java.lang.IllegalStateException
@@ -30,10 +32,15 @@ class RemotePullRequestService(
             .size(RemoteIssueService.SIZE_REPOSITORY_PER_PAGE)
             .build()
 
-        val response = apolloClient.query(query)
-            .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
-            .toDeferred()
-            .await()
+        lateinit var response: Response<FetchRepositoryPullRequestsQuery.Data>
+        try {
+            response = apolloClient.query(query)
+                .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
+                .toDeferred()
+                .await()
+        } catch (e: Exception) {
+            return failure(NetworkException(e.message))
+        }
 
         response.data?.repository()?.let { repository ->
             val issues = mutableListOf<PullRequest>().apply {

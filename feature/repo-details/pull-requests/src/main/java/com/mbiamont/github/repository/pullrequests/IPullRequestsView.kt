@@ -10,4 +10,6 @@ interface IPullRequestsView {
     fun displayTimeSerieProgress(progressViewState: ProgressViewState)
 
     fun displayTimeSerie(timeSerieViewState: TimeSerieViewState)
+
+    fun displayErrorMessage(message: Int)
 }

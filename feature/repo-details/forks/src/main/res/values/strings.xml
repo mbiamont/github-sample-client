@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="forksTitle">Forks per week:</string>
+
+    <string name="errorsFetchingForks">An error occurred while fetching forks. Please try again later.</string>
 </resources>

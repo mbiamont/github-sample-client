@@ -45,7 +45,7 @@ class ForksInteractor(
 
         }.onFailure {
             Timber.e(it)
-            //TODO SHOW ERROR
+            presenter.displayFetchForksError()
         }
     }
 }

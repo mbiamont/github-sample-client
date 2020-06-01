@@ -12,7 +12,7 @@ class RepositoryListPresenter(
         view?.displayRepositoryExtractList(repositories.map { viewStateMapper.map(it) })
     }
 
-    override fun displayFetchRepositoryError() {
-        view?.displayFetchRepositoryError(R.string.errorsFetchRepository)
+    override fun displayFetchRepositoriesError() {
+        view?.displayErrorMessage(R.string.errorsFetchRepository)
     }
 }

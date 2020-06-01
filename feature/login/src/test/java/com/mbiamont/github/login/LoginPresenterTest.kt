@@ -31,13 +31,13 @@ class LoginPresenterTest {
     @Test
     fun displayLoginErrorView() {
         presenter.displayLoginErrorView()
-        verify(view).displayLoginErrorMessage(R.string.errorsLogin)
+        verify(view).displayErrorMessage(R.string.errorsLogin)
     }
 
     @Test
     fun displayLoginErrorView_Detached() {
         presenter.onDetachView()
         presenter.displayLoginErrorView()
-        verify(view, never()).displayLoginErrorMessage(any())
+        verify(view, never()).displayErrorMessage(any())
     }
 }

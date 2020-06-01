@@ -46,7 +46,7 @@ class PullRequestsInteractor(
 
         }.onFailure {
             Timber.e(it)
-            //TODO SHOW ERROR
+            presenter.displayFetchPullRequestsError()
         }
     }
 }

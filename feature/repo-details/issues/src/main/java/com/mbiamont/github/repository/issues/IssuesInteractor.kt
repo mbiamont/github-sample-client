@@ -46,7 +46,7 @@ class IssuesInteractor(
 
         }.onFailure {
             Timber.e(it)
-            //TODO SHOW ERROR
+            presenter.displayFetchIssuesError()
         }
     }
 }

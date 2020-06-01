@@ -39,5 +39,5 @@ class RepositoryListViewModel(
 
     override fun displayRepositoryExtractList(repositories: List<RepositoryExtractViewState>) = repositoriesLiveData.postValue(repositories)
 
-    override fun displayFetchRepositoryError(messageId: Int) = errorMessageLiveData.postValue(messageId)
+    override fun displayErrorMessage(messageId: Int) = errorMessageLiveData.postValue(messageId)
 }

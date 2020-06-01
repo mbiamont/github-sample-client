@@ -43,5 +43,5 @@ class LoginViewModel(
         return true
     }
 
-    override fun displayLoginErrorMessage(message: Int) = errorMessageLiveData.postValue(message)
+    override fun displayErrorMessage(message: Int) = errorMessageLiveData.postValue(message)
 }

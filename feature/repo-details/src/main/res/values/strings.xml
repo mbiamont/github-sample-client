@@ -6,4 +6,5 @@
     <string name="repositoryPullRequestsLabel">Pull requests</string>
     <string name="repositoryForksLabel">Forks</string>
 
+    <string name="errorsFetchRepositoryDetails">An error occurred while fetching the repository details. Please try again later.</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.mbiamont.github.repository.pullrequests
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mbiamont.github.core.android.extensions.observe
@@ -47,6 +48,10 @@ class PullRequestsFragment : Fragment(R.layout.fragment_pull_requests) {
 
         observe(viewModel.timeSerieLiveData) with {
             timeSerieGraph.showDatas(it.dataset)
+        }
+
+        observe(viewModel.errorMessageLiveData) with { messageId ->
+            activity?.let { Toast.makeText(it, messageId, Toast.LENGTH_SHORT).show() }
         }
     }
 

@@ -2,6 +2,7 @@ package com.mbiamont.github.repository.details
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.mbiamont.github.core.android.BaseActivity
@@ -53,6 +54,10 @@ class RepositoryDetailsActivity : BaseActivity(R.layout.activity_repository_deta
             lblStarCountValue.text = it.starCountLabel
             lblPullRequestsCountValue.text = it.pullRequestCountLabel
             lblForkCountValue.text = it.forkCountLabel
+        }
+
+        observe(viewModel.errorMessageLiveData) with {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mbiamont.github.core.CoroutineContextProvider
+import com.mbiamont.github.core.android.livedata.SingleEventLiveData
 import com.mbiamont.github.domain.navigation.EXTRA_REPO_NAME
 import com.mbiamont.github.domain.navigation.EXTRA_OWNER_LOGIN
 import kotlinx.coroutines.launch
@@ -18,6 +19,7 @@ class RepositoryDetailsViewModel(
 ) : ViewModel(), IRepositoryDetailsView {
 
     val repositoryDetailsLiveData = MutableLiveData<RepositoryDetailsViewState>()
+    val errorMessageLiveData = SingleEventLiveData<Int>()
 
     init {
         presenter.onAttachView(this)
@@ -40,5 +42,9 @@ class RepositoryDetailsViewModel(
 
     override fun displayRepositoryDetails(repositoryDetails: RepositoryDetailsViewState) {
         repositoryDetailsLiveData.postValue(repositoryDetails)
+    }
+
+    override fun displayErrorMessage(message: Int) {
+        errorMessageLiveData.postValue(message)
     }
 }

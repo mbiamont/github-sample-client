@@ -11,4 +11,6 @@ interface IForksPresenter: BasePresenter<IForksView> {
     fun displayTimeSerieProgress(isLoading: Boolean)
 
     fun displayTimeSerie(forksPerWeek: Array<Int>)
+
+    fun displayFetchForksError()
 }

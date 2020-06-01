@@ -19,4 +19,8 @@ class ForksPresenter(
     override fun displayTimeSerie(forksPerWeek: Array<Int>) {
         view?.displayTimeSerie(viewStateMapper.map(forksPerWeek))
     }
+
+    override fun displayFetchForksError() {
+        view?.displayErrorMessage(R.string.errorsFetchingForks)
+    }
 }

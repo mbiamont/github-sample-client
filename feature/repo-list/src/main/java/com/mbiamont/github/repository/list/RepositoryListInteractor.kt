@@ -23,7 +23,7 @@ class RepositoryListInteractor(
             presenter.displayRepositoryExtracts(repositories.values)
         }.onFailure {
             Timber.e(it)
-            //TODO SHOW ERROR
+            presenter.displayFetchRepositoriesError()
         }
     }
 }

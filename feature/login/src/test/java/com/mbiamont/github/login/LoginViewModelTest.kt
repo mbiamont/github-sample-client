@@ -5,7 +5,6 @@ import com.mbiamont.github.core.test.coroutine.MockCoroutineContextProvider
 import com.mbiamont.github.core.test.rule.AsyncLiveDataRule
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
@@ -77,7 +76,7 @@ class LoginViewModelTest {
 
     @Test
     fun displayLoginErrorMessage() {
-        viewModel.displayLoginErrorMessage(32)
+        viewModel.displayErrorMessage(32)
 
         assertEquals(32, viewModel.errorMessageLiveData.value)
     }

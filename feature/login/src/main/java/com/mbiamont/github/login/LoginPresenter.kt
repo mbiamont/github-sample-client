@@ -14,6 +14,6 @@ class LoginPresenter(
     }
 
     override fun displayLoginErrorView() {
-        view?.displayLoginErrorMessage(R.string.errorsLogin)
+        view?.displayErrorMessage(R.string.errorsLogin)
     }
 }

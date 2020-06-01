@@ -2,5 +2,5 @@ package com.mbiamont.github.login
 
 interface ILoginView {
 
-    fun displayLoginErrorMessage(message: Int)
+    fun displayErrorMessage(message: Int)
 }

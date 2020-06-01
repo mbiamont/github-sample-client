@@ -20,4 +20,8 @@ class IssuesPresenter(
         view?.displayTimeSerie(viewStateMapper.map(issuesPerWeek))
     }
 
+    override fun displayFetchIssuesError() {
+        view?.displayErrorMessage(R.string.errorsFetchingIssues)
+    }
+
 }
