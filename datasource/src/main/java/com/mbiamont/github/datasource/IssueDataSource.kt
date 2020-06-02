@@ -8,6 +8,6 @@ class IssueDataSource(
     private val remoteIssueService: IRemoteIssueService
 ) : IIssueDataSource {
 
-    override suspend fun getRepositoryIssues(repositoryName: String, ownerLogin: String, since: Date, afterCursor: String?) =
-        remoteIssueService.getRepositoryIssues(repositoryName, ownerLogin, since, afterCursor)
+    override suspend fun getRepositoryIssues(repositoryName: String, ownerLogin: String, afterCursor: String?) =
+        remoteIssueService.getRepositoryIssues(repositoryName, ownerLogin, afterCursor)
 }

@@ -1,6 +1,6 @@
 package com.mbiamont.github.repository.details
 
-import com.mbiamont.github.core.android.IColorProvider
+import com.mbiamont.github.core.android.provider.IColorProvider
 import com.mbiamont.github.domain.entity.Language
 import com.mbiamont.github.domain.entity.RepositoryDetails
 

@@ -1,6 +1,6 @@
 package com.mbiamont.github.repository.list
 
-import com.mbiamont.github.core.android.IColorProvider
+import com.mbiamont.github.core.android.provider.IColorProvider
 import com.mbiamont.github.domain.entity.RepositoryExtract
 
 class RepositoryListViewStateMapper(

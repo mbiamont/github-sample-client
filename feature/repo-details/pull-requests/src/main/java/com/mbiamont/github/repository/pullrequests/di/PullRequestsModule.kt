@@ -16,7 +16,7 @@ val pullRequestsModule = module {
 
         scoped<IPullRequestsPresenter> { PullRequestsPresenter(get()) }
 
-        scoped<IPullRequestsViewStateMapper> { PullRequestsViewStateMapper(androidContext()) }
+        scoped<IPullRequestsViewStateMapper> { PullRequestsViewStateMapper(androidContext(), get()) }
 
         scoped { PullRequestsInteractor(get(), get()) } bind FetchRepositoryPullRequestsUseCase::class
     }

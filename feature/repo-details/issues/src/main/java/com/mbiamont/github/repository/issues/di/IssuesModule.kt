@@ -13,7 +13,7 @@ val issuesModule = module {
 
     scope<IssuesViewModel> {
 
-        scoped<IIssuesViewStateMapper> { IssuesViewStateMapper(androidContext()) }
+        scoped<IIssuesViewStateMapper> { IssuesViewStateMapper(androidContext(), get()) }
 
         scoped<IIssuesController> { IssuesController(get()) }
 

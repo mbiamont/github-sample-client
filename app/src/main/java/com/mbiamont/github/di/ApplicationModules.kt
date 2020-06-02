@@ -1,5 +1,6 @@
 package com.mbiamont.github.di
 
+import com.mbiamont.github.core.android.di.providerModule
 import com.mbiamont.github.login.di.loginModule
 import com.mbiamont.github.datasource.di.dataSourceModule
 import com.mbiamont.github.repository.details.di.repositoryDetailsModule
@@ -22,7 +23,7 @@ val applicationModules = listOf(
     mapperModule,
     navigationModule,
     coroutineModule,
-
+    providerModule,
     splashModule,
     loginModule,
     repositoryListModule,

@@ -1,5 +1,6 @@
 package com.mbiamont.github.repository.forks
 
+import androidx.annotation.VisibleForTesting
 import com.mbiamont.github.core.PaginatedList
 import com.mbiamont.github.core.emptyPaginatedList
 import com.mbiamont.github.core.extensions.countItemPerWeekSinceOneYear
@@ -45,6 +46,7 @@ class ForksInteractor(
 
         }.onFailure {
             Timber.e(it)
+            presenter.displayTimeSerieProgress(false)
             presenter.displayFetchForksError()
         }
     }

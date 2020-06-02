@@ -2,12 +2,14 @@ package com.mbiamont.github.repository.forks
 
 import android.content.Context
 import android.text.format.DateUtils
+import com.mbiamont.github.core.android.provider.IDateUtilsProvider
 import com.mbiamont.github.core.android.viewstate.ProgressViewState
 import com.mbiamont.github.core.android.viewstate.TimeSerieViewState
 import com.mbiamont.github.domain.entity.Fork
 
 class ForksViewStateMapper(
-    private val context: Context
+    private val context: Context,
+    private val dateUtilsProvider: IDateUtilsProvider
 ) : IForksViewStateMapper {
 
     override fun map(isLoading: Boolean) = ProgressViewState(
@@ -21,13 +23,13 @@ class ForksViewStateMapper(
     override fun map(fork: Fork) = ForkViewState(
         ownerAvatarUrl = fork.owner?.avatarUrl,
         ownerLogin = fork.owner?.login,
-        dateLabel = DateUtils.getRelativeDateTimeString(
+        dateLabel = dateUtilsProvider.getRelativeDateTimeString(
             context,
             fork.createdAt.timeInMillis,
             DateUtils.DAY_IN_MILLIS,
             DateUtils.WEEK_IN_MILLIS,
             0
-        ).toString(),
+        ),
         forkId = fork.id
     )
 }

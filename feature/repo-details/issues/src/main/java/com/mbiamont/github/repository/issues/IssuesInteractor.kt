@@ -25,7 +25,7 @@ class IssuesInteractor(
 
     override suspend fun fetchRepositoryIssues(repositoryName: String, ownerLogin: String) {
         presenter.displayTimeSerieProgress(true)
-        issueDataSource.getRepositoryIssues(repositoryName, ownerLogin, sinceDate, issues.lastItemCursor).onSuccess {
+        issueDataSource.getRepositoryIssues(repositoryName, ownerLogin, issues.lastItemCursor).onSuccess {
             val oldestItem = it.values.firstOrNull()?.createdAt
 
             issues += it
@@ -46,6 +46,7 @@ class IssuesInteractor(
 
         }.onFailure {
             Timber.e(it)
+            presenter.displayTimeSerieProgress(false)
             presenter.displayFetchIssuesError()
         }
     }

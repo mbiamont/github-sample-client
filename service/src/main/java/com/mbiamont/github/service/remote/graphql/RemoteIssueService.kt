@@ -24,7 +24,6 @@ class RemoteIssueService(
     override suspend fun getRepositoryIssues(
         repositoryName: String,
         ownerLogin: String,
-        since: Date,
         afterCursor: String?
     ): Monad<PaginatedList<Issue>> {
         val query = FetchRepositoryIssuesQuery.builder()

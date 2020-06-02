@@ -1,33 +1,56 @@
 package com.mbiamont.github.repository.details
 
-import com.mbiamont.github.core.android.provider.IColorProvider
 import com.mbiamont.github.domain.entity.Language
 import com.mbiamont.github.domain.entity.RepositoryDetails
 import com.mbiamont.github.domain.entity.User
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import org.junit.Test
 
-import org.junit.Assert.*
 import org.junit.Before
 
-class RepositoryDetailsViewStateMapperTest {
+class RepositoryDetailsPresenterTest {
 
-    private val colorProvider: IColorProvider = mock()
+    private val viewStateMapper: IRepositoryDetailsViewStateMapper = mock()
+    private val view: IRepositoryDetailsView = mock()
 
-    private lateinit var viewStateMapper: RepositoryDetailsViewStateMapper
+    private lateinit var presenter: RepositoryDetailsPresenter
 
     @Before
-    fun setup() {
-        viewStateMapper = RepositoryDetailsViewStateMapper(colorProvider)
+    fun setup(){
+        presenter = RepositoryDetailsPresenter(viewStateMapper)
+        presenter.onAttachView(view)
     }
 
     @Test
-    fun map() {
-        whenever(colorProvider.parse(colorStr)).thenReturn(color)
-        val actual = viewStateMapper.map(entity)
+    fun displayRepositoryDetails() {
+        whenever(viewStateMapper.map(entity)).thenReturn(viewState)
 
-        assertEquals(viewState, actual)
+        presenter.displayRepositoryDetails(entity)
+        verify(view).displayRepositoryDetails(viewState)
+    }
+
+    @Test
+    fun displayRepositoryDetails_Detached() {
+        presenter.onDetachView()
+        whenever(viewStateMapper.map(entity)).thenReturn(viewState)
+
+        presenter.displayRepositoryDetails(entity)
+        verify(view, never()).displayRepositoryDetails(any())
+    }
+
+    @Test
+    fun displayFetchRepositoryDetailsError() {
+        presenter.displayFetchRepositoryDetailsError()
+
+        verify(view).displayErrorMessage(R.string.errorsFetchRepositoryDetails)
+    }
+
+    @Test
+    fun displayFetchRepositoryDetailsError_Detached() {
+        presenter.onDetachView()
+        presenter.displayFetchRepositoryDetailsError()
+
+        verify(view, never()).displayErrorMessage(any())
     }
 
     private companion object {

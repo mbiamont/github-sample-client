@@ -46,6 +46,7 @@ class PullRequestsInteractor(
 
         }.onFailure {
             Timber.e(it)
+            presenter.displayTimeSerieProgress(false)
             presenter.displayFetchPullRequestsError()
         }
     }

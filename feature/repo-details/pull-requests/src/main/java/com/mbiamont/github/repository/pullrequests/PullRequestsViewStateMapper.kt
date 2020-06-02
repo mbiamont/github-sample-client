@@ -2,12 +2,14 @@ package com.mbiamont.github.repository.pullrequests
 
 import android.content.Context
 import android.text.format.DateUtils
+import com.mbiamont.github.core.android.provider.IDateUtilsProvider
 import com.mbiamont.github.core.android.viewstate.ProgressViewState
 import com.mbiamont.github.core.android.viewstate.TimeSerieViewState
 import com.mbiamont.github.domain.entity.PullRequest
 
 class PullRequestsViewStateMapper(
-    private val context: Context
+    private val context: Context,
+    private val dateUtilsProvider: IDateUtilsProvider
 ) : IPullRequestsViewStateMapper {
 
     override fun map(isLoading: Boolean) = ProgressViewState(
@@ -30,7 +32,7 @@ class PullRequestsViewStateMapper(
         ownerAvatarUrl = pullRequest.author?.avatarUrl,
         ownerLogin = pullRequest.author?.login,
         title = pullRequest.title,
-        dateLabel = DateUtils.getRelativeDateTimeString(
+        dateLabel = dateUtilsProvider.getRelativeDateTimeString(
             context,
             pullRequest.createdAt.timeInMillis,
             DateUtils.DAY_IN_MILLIS,

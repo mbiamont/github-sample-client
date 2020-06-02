@@ -10,7 +10,6 @@ interface IIssueDataSource {
     suspend fun getRepositoryIssues(
         repositoryName: String,
         ownerLogin: String,
-        since: Date,
         afterCursor: String?
     ): Monad<PaginatedList<Issue>>
 }

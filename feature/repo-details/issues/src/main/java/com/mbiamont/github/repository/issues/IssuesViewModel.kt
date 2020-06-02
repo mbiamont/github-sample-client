@@ -1,6 +1,7 @@
 package com.mbiamont.github.repository.issues
 
 import android.os.Bundle
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,7 +25,8 @@ class IssuesViewModel(
     val timeSerieLiveData = MutableLiveData<TimeSerieViewState>()
     val errorMessageLiveData = SingleEventLiveData<Int>()
 
-    private var initialized = false
+    @VisibleForTesting
+    var initialized = false
     private val koinScope = getOrCreateScope()
     private val controller: IIssuesController
     private val presenter: IIssuesPresenter

@@ -2,12 +2,14 @@ package com.mbiamont.github.repository.issues
 
 import android.content.Context
 import android.text.format.DateUtils
+import com.mbiamont.github.core.android.provider.IDateUtilsProvider
 import com.mbiamont.github.core.android.viewstate.ProgressViewState
 import com.mbiamont.github.core.android.viewstate.TimeSerieViewState
 import com.mbiamont.github.domain.entity.Issue
 
 class IssuesViewStateMapper(
-    private val context: Context
+    private val context: Context,
+    private val dateUtilsProvider: IDateUtilsProvider
 ) : IIssuesViewStateMapper {
 
     override fun map(isLoading: Boolean) = ProgressViewState(
@@ -29,13 +31,13 @@ class IssuesViewStateMapper(
         ownerAvatarUrl = issue.author?.avatarUrl,
         ownerLogin = issue.author?.login,
         title = issue.title,
-        dateLabel = DateUtils.getRelativeDateTimeString(
+        dateLabel = dateUtilsProvider.getRelativeDateTimeString(
             context,
             issue.createdAt.timeInMillis,
             DateUtils.DAY_IN_MILLIS,
             DateUtils.WEEK_IN_MILLIS,
             0
-        ).toString(),
+        ),
         commentCountLabel = issue.commentsCount.toString(),
         issueId = issue.id
     )
