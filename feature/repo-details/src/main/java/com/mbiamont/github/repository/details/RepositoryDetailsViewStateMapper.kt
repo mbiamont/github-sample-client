@@ -1,10 +1,12 @@
 package com.mbiamont.github.repository.details
 
-import android.graphics.Color
+import com.mbiamont.github.core.android.IColorProvider
 import com.mbiamont.github.domain.entity.Language
 import com.mbiamont.github.domain.entity.RepositoryDetails
 
-class RepositoryDetailsViewStateMapper : IRepositoryDetailsViewStateMapper {
+class RepositoryDetailsViewStateMapper(
+    private val colorProvider: IColorProvider
+) : IRepositoryDetailsViewStateMapper {
 
     override fun map(repositoryDetails: RepositoryDetails) = RepositoryDetailsViewState(
         ownerName = repositoryDetails.owner.login,
@@ -17,5 +19,5 @@ class RepositoryDetailsViewStateMapper : IRepositoryDetailsViewStateMapper {
         forkCountLabel = repositoryDetails.forksCount.toString()
     )
 
-    private fun map(language: Language?) = language?.let { MainLanguageViewState(it.name, Color.parseColor(it.color)) }
+    private fun map(language: Language?) = language?.let { MainLanguageViewState(it.name, colorProvider.parse(it.color)) }
 }

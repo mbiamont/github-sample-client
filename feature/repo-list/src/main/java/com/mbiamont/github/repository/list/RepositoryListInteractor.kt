@@ -1,5 +1,6 @@
 package com.mbiamont.github.repository.list
 
+import androidx.annotation.VisibleForTesting
 import com.mbiamont.github.core.PaginatedList
 import com.mbiamont.github.core.emptyPaginatedList
 import com.mbiamont.github.core.onFailure
@@ -14,7 +15,8 @@ class RepositoryListInteractor(
     private val presenter: IRepositoryListPresenter
 ) : FetchUserPublicRepositoriesUseCase {
 
-    private var repositories: PaginatedList<RepositoryExtract> = emptyPaginatedList()
+    @VisibleForTesting
+    var repositories: PaginatedList<RepositoryExtract> = emptyPaginatedList()
 
     override suspend fun fetchUserPublicRepositories() {
         repositoryDataSource.getUserPublicRepositories(repositories.lastItemCursor).onSuccess {

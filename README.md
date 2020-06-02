@@ -42,7 +42,23 @@ In `local.properties`, add the following parameters using the keys you got in st
 | `GITHUB_CLIENT_ID` | Github Client ID (see step 1) |
 | `GITHUB_SECRET` | Github Client Secret (see step 1) |
 
-#### 3. Read to launch
+#### 3. (optional) Force to use a repository with a large amount of issues
+
+If you want to test using a repository with a large amount of issues, go in `RepositoryListController.onRepositoryClicked()` and change the following line :
+
+```kotlin
+navigator.navigateTo(REPO_DETAILS, mapOf(EXTRA_REPO_NAME to repositoryName, EXTRA_OWNER_LOGIN to ownerLogin))
+```
+
+by 
+
+```kotlin
+navigator.navigateTo(REPO_DETAILS, mapOf(EXTRA_REPO_NAME to FAKE_REPOSITORY, EXTRA_OWNER_LOGIN to FAKE_OWNER_LOGIN))
+```
+
+It'll fetch Kotlin's coroutines Github repository.
+
+#### 4. Read to launch
 
 Now, you can simply build an apk pointing to the module `:app`.
 

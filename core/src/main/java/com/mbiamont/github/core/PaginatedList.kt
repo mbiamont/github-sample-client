@@ -14,8 +14,4 @@ data class PaginatedList<T>(
     )
 }
 
-fun <T> MutableList<T>.toPaginatedList(hasNext: Boolean, totalCount: Int, lastItemCursor: String): PaginatedList<T> {
-    return PaginatedList(this, hasNext, totalCount, lastItemCursor)
-}
-
 fun <T> emptyPaginatedList(hasNext: Boolean = true) = PaginatedList<T>(mutableListOf(), hasNext, 0, null)

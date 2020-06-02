@@ -15,7 +15,7 @@ class RemoteDateMapper : IRemoteDateMapper {
         }
     }
 
-    companion object {
+    private companion object {
         const val TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         val dateFormat = SimpleDateFormat(TIME_FORMAT)
     }

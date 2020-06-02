@@ -10,7 +10,7 @@ val repositoryListModule = module {
 
     viewModel { RepositoryListViewModel(get(), get(), get()) }
 
-    single<IRepositoryListViewStateMapper> { RepositoryListViewStateMapper() }
+    single<IRepositoryListViewStateMapper> { RepositoryListViewStateMapper(get()) }
 
     single<IRepositoryListController> { RepositoryListController(get(), get()) }
 

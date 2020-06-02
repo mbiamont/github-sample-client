@@ -4,10 +4,11 @@ import com.mbiamont.github.core.failure
 import com.mbiamont.github.core.success
 import com.mbiamont.github.domain.exception.CacheException
 import com.mbiamont.github.datasource.service.ICacheUserService
+import com.mbiamont.github.service.prefs.IPreference
 import com.mbiamont.github.service.prefs.StringPref
 
 class CacheUserService(
-    private val bearerTokenPref: StringPref,
+    private val bearerTokenPref: IPreference<String>
 ) : ICacheUserService {
 
     override suspend fun saveBearerToken(bearerToken: String) = bearerTokenPref.set(bearerToken)

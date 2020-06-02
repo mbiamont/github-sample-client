@@ -1,11 +1,11 @@
 package com.mbiamont.github.service.remote.graphql
 
-import com.mbiamont.github.service.prefs.StringPref
+import com.mbiamont.github.service.prefs.IPreference
 import okhttp3.Interceptor
 import okhttp3.Response
 
 class AuthenticationInterceptor(
-    private val bearerTokenPref: StringPref
+    private val bearerTokenPref: IPreference<String>
 ): Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {

@@ -7,6 +7,8 @@ dependencies {
     implementation deps.koin.core
 
     testImplementation deps.test.coroutinesTest
+    testImplementation deps.test.junit
+    testImplementation deps.test.mockito
 }
 
 sourceCompatibility = 1.8

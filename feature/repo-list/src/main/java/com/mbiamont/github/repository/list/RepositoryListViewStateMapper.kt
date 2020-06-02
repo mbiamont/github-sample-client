@@ -1,9 +1,11 @@
 package com.mbiamont.github.repository.list
 
-import android.graphics.Color
+import com.mbiamont.github.core.android.IColorProvider
 import com.mbiamont.github.domain.entity.RepositoryExtract
 
-class RepositoryListViewStateMapper : IRepositoryListViewStateMapper {
+class RepositoryListViewStateMapper(
+    private val colorProvider: IColorProvider
+) : IRepositoryListViewStateMapper {
 
     override fun map(repositoryExtract: RepositoryExtract) = RepositoryExtractViewState(
         name = repositoryExtract.name,
@@ -11,7 +13,7 @@ class RepositoryListViewStateMapper : IRepositoryListViewStateMapper {
         languageViewState = repositoryExtract.mainLanguage?.let {
             LanguageViewState(
                 it.name,
-                Color.parseColor(it.color)
+                colorProvider.parse(it.color)
             )
         },
         ownerLogin = repositoryExtract.owner.login

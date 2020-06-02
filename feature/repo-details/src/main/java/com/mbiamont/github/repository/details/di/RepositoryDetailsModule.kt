@@ -10,7 +10,7 @@ val repositoryDetailsModule = module {
 
     viewModel { RepositoryDetailsViewModel(get(), get(), get()) }
 
-    single<IRepositoryDetailsViewStateMapper> { RepositoryDetailsViewStateMapper() }
+    single<IRepositoryDetailsViewStateMapper> { RepositoryDetailsViewStateMapper(get()) }
 
     single<IRepositoryDetailsController> { RepositoryDetailsController(get()) }
 

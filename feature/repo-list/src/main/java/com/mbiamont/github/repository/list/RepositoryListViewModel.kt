@@ -14,7 +14,6 @@ class RepositoryListViewModel(
 ) : ViewModel(), IRepositoryListView {
 
     val repositoriesLiveData = MutableLiveData<List<RepositoryExtractViewState>>()
-
     val errorMessageLiveData = SingleEventLiveData<Int>()
 
     init {

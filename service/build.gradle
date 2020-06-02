@@ -53,6 +53,10 @@ dependencies {
     implementation deps.apollo.runtime
     implementation deps.apollo.coroutineSupport
 
+    implementation deps.test.junit
+    implementation deps.test.mockito
+    implementation deps.test.coroutinesTest
+
     implementation project(":domain")
     implementation project(":core")
     implementation project(':datasource')
