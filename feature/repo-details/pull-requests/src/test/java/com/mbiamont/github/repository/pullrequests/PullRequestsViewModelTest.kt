@@ -1,6 +1,6 @@
 package com.mbiamont.github.repository.pullrequests
 
-import android.os.Bundle
+import android.os.BaseBundle
 import com.mbiamont.github.core.android.viewstate.ProgressViewState
 import com.mbiamont.github.core.android.viewstate.TimeSerieViewState
 import com.mbiamont.github.core.test.coroutine.MockCoroutineContextProvider
@@ -49,7 +49,7 @@ class PullRequestsViewModelTest {
 
     @Test
     fun onViewReady() = runBlockingTest {
-        val bundle: Bundle = mock()
+        val bundle: BaseBundle = mock()
         whenever(bundle.getString(EXTRA_REPO_NAME)).thenReturn("foo")
         whenever(bundle.getString(EXTRA_OWNER_LOGIN)).thenReturn("bar")
 
@@ -62,7 +62,7 @@ class PullRequestsViewModelTest {
     fun onViewReady_AlreadyInitialized() = runBlockingTest {
         viewModel.initialized = true
 
-        val bundle: Bundle = mock()
+        val bundle: BaseBundle = mock()
         whenever(bundle.getString(EXTRA_REPO_NAME)).thenReturn("foo")
         whenever(bundle.getString(EXTRA_OWNER_LOGIN)).thenReturn("bar")
 
@@ -75,7 +75,7 @@ class PullRequestsViewModelTest {
     fun onViewReady_InvalidExtras() = runBlockingTest {
         viewModel.initialized = true
 
-        val bundle: Bundle = mock()
+        val bundle: BaseBundle = mock()
         whenever(bundle.getString(EXTRA_REPO_NAME)).thenReturn(null)
         whenever(bundle.getString(EXTRA_OWNER_LOGIN)).thenReturn("bar")
 

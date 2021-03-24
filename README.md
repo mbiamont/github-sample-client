@@ -29,6 +29,13 @@ This project is the implementation of a hiring technical test for Datadog.
 
 ## Build
 
+
+#### 0. Requirement
+
+This project requires Android Studio **4.0**.
+
+There's a Gradle wrapper, otherwise, it requires Gradle **6.4.1**.
+
 #### 1. Create your Github app
 
 Follow the steps [here](https://github.com/settings/applications/new) in order to create your own oAuth application.
@@ -61,6 +68,10 @@ It'll fetch Kotlin's coroutines Github repository.
 #### 4. Read to launch
 
 Now, you can simply build an apk pointing to the module `:app`.
+
+#### APK
+
+There's also an APK (with my Github oAuth App keys) in the root folder (`demo.apk)`.
 
 ## Libraries used
 

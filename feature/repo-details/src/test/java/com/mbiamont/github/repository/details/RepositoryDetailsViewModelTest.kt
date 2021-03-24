@@ -1,7 +1,6 @@
 package com.mbiamont.github.repository.details
 
-import android.os.Bundle
-import com.mbiamont.github.core.CoroutineContextProvider
+import android.os.BaseBundle
 import com.mbiamont.github.core.test.coroutine.MockCoroutineContextProvider
 import com.mbiamont.github.core.test.rule.AsyncLiveDataRule
 import com.mbiamont.github.domain.navigation.EXTRA_OWNER_LOGIN
@@ -36,7 +35,7 @@ class RepositoryDetailsViewModelTest {
 
     @Test
     fun onViewReady() = runBlockingTest {
-        val bundle: Bundle = mock()
+        val bundle: BaseBundle = mock()
         whenever(bundle.getString(EXTRA_REPO_NAME)).thenReturn("foo")
         whenever(bundle.getString(EXTRA_OWNER_LOGIN)).thenReturn("bar")
 
@@ -47,7 +46,7 @@ class RepositoryDetailsViewModelTest {
 
     @Test
     fun onViewReady_InvalidExtras() = runBlockingTest {
-        val bundle: Bundle = mock()
+        val bundle: BaseBundle = mock()
         whenever(bundle.getString(EXTRA_REPO_NAME)).thenReturn(null)
         whenever(bundle.getString(EXTRA_OWNER_LOGIN)).thenReturn("bar")
 

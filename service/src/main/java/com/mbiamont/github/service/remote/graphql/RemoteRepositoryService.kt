@@ -2,8 +2,7 @@ package com.mbiamont.github.service.remote.graphql
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
-import com.apollographql.apollo.coroutines.toDeferred
-import com.apollographql.apollo.fetcher.ApolloResponseFetchers
+import com.apollographql.apollo.coroutines.await
 import com.mbiamont.github.core.Monad
 import com.mbiamont.github.core.PaginatedList
 import com.mbiamont.github.core.failure
@@ -13,10 +12,8 @@ import com.mbiamont.github.datasource.service.IRemoteRepositoryService
 import com.mbiamont.github.domain.entity.RepositoryDetails
 import com.mbiamont.github.domain.exception.NetworkException
 import com.mbiamont.github.service.graphql.FetchRepositoryDetailsQuery
-import com.mbiamont.github.service.graphql.FetchRepositoryPullRequestsQuery
 import com.mbiamont.github.service.graphql.FetchUserPublicRepositoriesQuery
 import com.mbiamont.github.service.mapper.IRemoteRepositoryMapper
-import java.io.IOException
 import java.lang.IllegalStateException
 
 class RemoteRepositoryService(
@@ -32,10 +29,7 @@ class RemoteRepositoryService(
 
         lateinit var response: Response<FetchUserPublicRepositoriesQuery.Data>
         try {
-            response = apolloClient.query(query)
-                .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
-                .toDeferred()
-                .await()
+            response = apolloClient.query(query).await()
         } catch (e: Exception) {
             return failure(NetworkException(e.message))
         }
@@ -69,10 +63,7 @@ class RemoteRepositoryService(
 
         lateinit var response: Response<FetchRepositoryDetailsQuery.Data>
         try {
-            response = apolloClient.query(query)
-                .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
-                .toDeferred()
-                .await()
+            response = apolloClient.query(query).await()
         } catch (e: Exception) {
             return failure(NetworkException(e.message))
         }

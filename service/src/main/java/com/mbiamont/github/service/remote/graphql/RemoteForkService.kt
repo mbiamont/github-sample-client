@@ -2,8 +2,7 @@ package com.mbiamont.github.service.remote.graphql
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
-import com.apollographql.apollo.coroutines.toDeferred
-import com.apollographql.apollo.fetcher.ApolloResponseFetchers
+import com.apollographql.apollo.coroutines.await
 import com.mbiamont.github.core.Monad
 import com.mbiamont.github.core.PaginatedList
 import com.mbiamont.github.core.failure
@@ -30,10 +29,7 @@ class RemoteForkService(
 
         lateinit var response: Response<FetchRepositoryForksQuery.Data>
         try {
-            response = apolloClient.query(query)
-                .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
-                .toDeferred()
-                .await()
+            response = apolloClient.query(query).await()
         } catch (e: Exception) {
             return failure(NetworkException(e.message))
         }

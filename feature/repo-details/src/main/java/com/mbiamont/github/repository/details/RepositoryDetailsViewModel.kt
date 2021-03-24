@@ -1,5 +1,6 @@
 package com.mbiamont.github.repository.details
 
+import android.os.BaseBundle
 import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,7 +30,7 @@ class RepositoryDetailsViewModel(
         presenter.onDetachView()
     }
 
-    fun onViewReady(extras: Bundle?) = viewModelScope.launch(contextProvider.IO) {
+    fun onViewReady(extras: BaseBundle?) = viewModelScope.launch(contextProvider.IO) {
         val repositoryName = extras?.getString(EXTRA_REPO_NAME)
         val ownerLogin = extras?.getString(EXTRA_OWNER_LOGIN)
 

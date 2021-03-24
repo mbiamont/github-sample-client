@@ -2,8 +2,7 @@ package com.mbiamont.github.service.remote.graphql
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
-import com.apollographql.apollo.coroutines.toDeferred
-import com.apollographql.apollo.fetcher.ApolloResponseFetchers
+import com.apollographql.apollo.coroutines.await
 import com.mbiamont.github.core.Monad
 import com.mbiamont.github.core.PaginatedList
 import com.mbiamont.github.core.failure
@@ -14,7 +13,6 @@ import com.mbiamont.github.domain.exception.NetworkException
 import com.mbiamont.github.service.graphql.FetchRepositoryIssuesQuery
 import com.mbiamont.github.service.mapper.IRemoteIssueMapper
 import java.lang.IllegalStateException
-import java.util.*
 
 class RemoteIssueService(
     private val apolloClient: ApolloClient,
@@ -35,10 +33,7 @@ class RemoteIssueService(
 
         lateinit var response: Response<FetchRepositoryIssuesQuery.Data>
         try {
-            response = apolloClient.query(query)
-                .responseFetcher(ApolloResponseFetchers.NETWORK_FIRST)
-                .toDeferred()
-                .await()
+            response = apolloClient.query(query).await()
         } catch (e: Exception) {
             return failure(NetworkException(e.message))
         }

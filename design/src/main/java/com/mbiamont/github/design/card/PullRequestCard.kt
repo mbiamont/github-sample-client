@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import coil.api.load
+import coil.load
 import coil.transform.CircleCropTransformation
 import com.mbiamont.github.design.R
 import kotlinx.android.synthetic.main.card_pull_request.view.*

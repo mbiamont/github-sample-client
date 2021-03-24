@@ -3,7 +3,7 @@ package com.mbiamont.github.repository.details
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import coil.api.load
+import coil.load
 import coil.transform.CircleCropTransformation
 import com.mbiamont.github.core.android.BaseActivity
 import com.mbiamont.github.core.android.extensions.observe
@@ -17,7 +17,6 @@ import com.mbiamont.github.repository.pullrequests.PullRequestsFragment
 import kotlinx.android.synthetic.main.activity_repository_details.*
 import kotlinx.android.synthetic.main.layout_navigation_view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class RepositoryDetailsActivity : BaseActivity(R.layout.activity_repository_details) {
 

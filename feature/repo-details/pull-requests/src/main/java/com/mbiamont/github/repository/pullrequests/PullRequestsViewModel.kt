@@ -1,5 +1,6 @@
 package com.mbiamont.github.repository.pullrequests
 
+import android.os.BaseBundle
 import android.os.Bundle
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
@@ -43,7 +44,7 @@ class PullRequestsViewModel(
         koinScope.close()
     }
 
-    fun onViewReady(extras: Bundle?) = viewModelScope.launch(coroutineContextProvider.IO) {
+    fun onViewReady(extras: BaseBundle?) = viewModelScope.launch(coroutineContextProvider.IO) {
         if (initialized) {
             return@launch
         }

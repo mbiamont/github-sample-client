@@ -1,6 +1,6 @@
 package com.mbiamont.github.repository.forks
 
-import android.os.Bundle
+import android.os.BaseBundle
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -43,7 +43,7 @@ class ForksViewModel(
         koinScope.close()
     }
 
-    fun onViewReady(extras: Bundle?) = viewModelScope.launch(coroutineContextProvider.IO) {
+    fun onViewReady(extras: BaseBundle?) = viewModelScope.launch(coroutineContextProvider.IO) {
         if (initialized) {
             return@launch
         }

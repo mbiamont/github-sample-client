@@ -29,6 +29,7 @@ class LoginViewModel(
     fun onPrepareWebView(callback: (url: String) -> Unit) = controller.onPrepareWebView(callback)
 
     fun onPageLoaded(uri: Uri): Boolean {
+        Timber.i("[MELVIN] page loaded: $uri")
         val codeQueryParam = uri.getQueryParameter("code") ?: ""
 
         if (codeQueryParam.isEmpty()) {

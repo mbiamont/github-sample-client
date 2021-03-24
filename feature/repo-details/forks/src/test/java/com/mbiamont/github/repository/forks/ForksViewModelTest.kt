@@ -1,6 +1,6 @@
 package com.mbiamont.github.repository.forks
 
-import android.os.Bundle
+import android.os.BaseBundle
 import com.mbiamont.github.core.android.viewstate.ProgressViewState
 import com.mbiamont.github.core.android.viewstate.TimeSerieViewState
 import com.mbiamont.github.core.test.coroutine.MockCoroutineContextProvider
@@ -40,7 +40,6 @@ class ForksViewModelTest : KoinTest {
         )
     }
 
-
     private lateinit var viewModel: ForksViewModel
 
     @Before
@@ -52,7 +51,7 @@ class ForksViewModelTest : KoinTest {
 
     @Test
     fun onViewReady() = runBlockingTest {
-        val bundle: Bundle = mock()
+        val bundle: BaseBundle = mock()
         whenever(bundle.getString(EXTRA_REPO_NAME)).thenReturn("foo")
         whenever(bundle.getString(EXTRA_OWNER_LOGIN)).thenReturn("bar")
 
@@ -65,7 +64,7 @@ class ForksViewModelTest : KoinTest {
     fun onViewReady_AlreadyInitialized() = runBlockingTest {
         viewModel.initialized = true
 
-        val bundle: Bundle = mock()
+        val bundle: BaseBundle = mock()
         whenever(bundle.getString(EXTRA_REPO_NAME)).thenReturn("foo")
         whenever(bundle.getString(EXTRA_OWNER_LOGIN)).thenReturn("bar")
 
@@ -78,7 +77,7 @@ class ForksViewModelTest : KoinTest {
     fun onViewReady_InvalidExtras() = runBlockingTest {
         viewModel.initialized = true
 
-        val bundle: Bundle = mock()
+        val bundle: BaseBundle = mock()
         whenever(bundle.getString(EXTRA_REPO_NAME)).thenReturn(null)
         whenever(bundle.getString(EXTRA_OWNER_LOGIN)).thenReturn("bar")
 
