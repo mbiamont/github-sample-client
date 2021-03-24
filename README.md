@@ -1,8 +1,5 @@
 # Github Android client
 
-This project is the implementation of a hiring technical test for Datadog.
-
-
 ## Technical test
 
 #### Overview

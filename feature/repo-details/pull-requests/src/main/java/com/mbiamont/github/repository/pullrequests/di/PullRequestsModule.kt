@@ -9,16 +9,14 @@ import org.koin.dsl.module
 
 val pullRequestsModule = module {
 
-    viewModel { PullRequestsViewModel(get()) }
+    viewModel { PullRequestsViewModel(get(), get(), get()) }
 
-    scope<PullRequestsViewModel> {
-        scoped<IPullRequestController> { PullRequestController(get()) }
+    single<IPullRequestController> { PullRequestController(get()) }
 
-        scoped<IPullRequestsPresenter> { PullRequestsPresenter(get()) }
+    single<IPullRequestsPresenter> { PullRequestsPresenter(get()) }
 
-        scoped<IPullRequestsViewStateMapper> { PullRequestsViewStateMapper(androidContext(), get()) }
+    single<IPullRequestsViewStateMapper> { PullRequestsViewStateMapper(androidContext(), get()) }
 
-        scoped { PullRequestsInteractor(get(), get()) } bind FetchRepositoryPullRequestsUseCase::class
-    }
+    single { PullRequestsInteractor(get(), get()) } bind FetchRepositoryPullRequestsUseCase::class
 
 }

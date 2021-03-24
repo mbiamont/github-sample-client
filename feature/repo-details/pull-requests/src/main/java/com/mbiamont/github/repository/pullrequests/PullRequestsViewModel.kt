@@ -1,7 +1,6 @@
 package com.mbiamont.github.repository.pullrequests
 
 import android.os.BaseBundle
-import android.os.Bundle
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,12 +12,13 @@ import com.mbiamont.github.core.android.viewstate.TimeSerieViewState
 import com.mbiamont.github.domain.navigation.EXTRA_OWNER_LOGIN
 import com.mbiamont.github.domain.navigation.EXTRA_REPO_NAME
 import kotlinx.coroutines.launch
-import org.koin.ext.getOrCreateScope
 import timber.log.Timber
 import java.lang.IllegalStateException
 
 class PullRequestsViewModel(
-    private val coroutineContextProvider: CoroutineContextProvider
+    private val coroutineContextProvider: CoroutineContextProvider,
+    private val controller: IPullRequestController,
+    private val presenter: IPullRequestsPresenter
 ) : ViewModel(), IPullRequestsView {
 
     val pullRequestsListLiveData = MutableLiveData<List<PullRequestViewState>>()
@@ -28,20 +28,13 @@ class PullRequestsViewModel(
 
     @VisibleForTesting
     var initialized = false
-    private val koinScope = getOrCreateScope()
-    private val controller: IPullRequestController
-    private val presenter: IPullRequestsPresenter
 
     init {
-        controller = koinScope.get()
-        presenter = koinScope.get()
-
         presenter.onAttachView(this)
     }
 
     override fun onCleared() {
         presenter.onDetachView()
-        koinScope.close()
     }
 
     fun onViewReady(extras: BaseBundle?) = viewModelScope.launch(coroutineContextProvider.IO) {

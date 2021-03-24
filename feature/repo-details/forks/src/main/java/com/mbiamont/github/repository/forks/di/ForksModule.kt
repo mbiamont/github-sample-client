@@ -9,16 +9,14 @@ import org.koin.dsl.module
 
 val forksModule = module {
 
-    viewModel { ForksViewModel(get()) }
+    viewModel { ForksViewModel(get(), get(), get()) }
 
-    scope<ForksViewModel> {
-        scoped<IForksController> { ForksController(get()) }
+    single<IForksController> { ForksController(get()) }
 
-        scoped<IForksPresenter> { ForksPresenter(get()) }
+    single<IForksPresenter> { ForksPresenter(get()) }
 
-        scoped<IForksViewStateMapper> { ForksViewStateMapper(androidContext(), get()) }
+    single<IForksViewStateMapper> { ForksViewStateMapper(androidContext(), get()) }
 
-        scoped { ForksInteractor(get(), get()) } bind FetchRepositoryForksUseCase::class
-    }
+    single { ForksInteractor(get(), get()) } bind FetchRepositoryForksUseCase::class
 
 }

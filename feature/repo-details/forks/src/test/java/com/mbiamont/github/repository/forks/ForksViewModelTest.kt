@@ -15,9 +15,7 @@ import org.junit.Test
 import org.junit.Before
 import org.junit.Rule
 import org.junit.rules.TestRule
-import org.koin.dsl.module
 import org.koin.test.KoinTest
-import org.koin.test.KoinTestRule
 
 @ExperimentalCoroutinesApi
 class ForksViewModelTest : KoinTest {
@@ -28,23 +26,11 @@ class ForksViewModelTest : KoinTest {
     @get:Rule
     var rule: TestRule = AsyncLiveDataRule()
 
-    @get:Rule
-    val koinTestRule = KoinTestRule.create {
-        modules(
-            module {
-                scope<ForksViewModel> {
-                    scoped { controller }
-                    scoped { presenter }
-                }
-            }
-        )
-    }
-
     private lateinit var viewModel: ForksViewModel
 
     @Before
     fun setup() {
-        viewModel = ForksViewModel(MockCoroutineContextProvider)
+        viewModel = ForksViewModel(MockCoroutineContextProvider, controller, presenter)
 
         verify(presenter).onAttachView(viewModel)
     }

@@ -11,12 +11,9 @@ import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
-
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.rules.TestRule
-import org.koin.dsl.module
-import org.koin.test.KoinTestRule
 
 class PullRequestsViewModelTest {
     private val controller: IPullRequestController = mock()
@@ -25,24 +22,11 @@ class PullRequestsViewModelTest {
     @get:Rule
     var rule: TestRule = AsyncLiveDataRule()
 
-    @get:Rule
-    val koinTestRule = KoinTestRule.create {
-        modules(
-            module {
-                scope<PullRequestsViewModel> {
-                    scoped { controller }
-                    scoped { presenter }
-                }
-            }
-        )
-    }
-
-
     private lateinit var viewModel: PullRequestsViewModel
 
     @Before
     fun setup() {
-        viewModel = PullRequestsViewModel(MockCoroutineContextProvider)
+        viewModel = PullRequestsViewModel(MockCoroutineContextProvider, controller, presenter)
 
         verify(presenter).onAttachView(viewModel)
     }

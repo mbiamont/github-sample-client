@@ -9,17 +9,14 @@ import org.koin.dsl.module
 
 val issuesModule = module {
 
-    viewModel { IssuesViewModel(get()) }
+    viewModel { IssuesViewModel(get(), get(), get()) }
 
-    scope<IssuesViewModel> {
+    single<IIssuesViewStateMapper> { IssuesViewStateMapper(androidContext(), get()) }
 
-        scoped<IIssuesViewStateMapper> { IssuesViewStateMapper(androidContext(), get()) }
+    single<IIssuesController> { IssuesController(get()) }
 
-        scoped<IIssuesController> { IssuesController(get()) }
+    single<IIssuesPresenter> { IssuesPresenter(get()) }
 
-        scoped<IIssuesPresenter> { IssuesPresenter(get()) }
-
-        scoped { IssuesInteractor(get(), get()) } bind FetchRepositoryIssuesUseCase::class
-    }
+    single { IssuesInteractor(get(), get()) } bind FetchRepositoryIssuesUseCase::class
 
 }

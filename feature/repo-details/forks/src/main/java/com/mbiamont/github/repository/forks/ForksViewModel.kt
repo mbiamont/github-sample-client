@@ -12,12 +12,13 @@ import com.mbiamont.github.core.android.viewstate.TimeSerieViewState
 import com.mbiamont.github.domain.navigation.EXTRA_OWNER_LOGIN
 import com.mbiamont.github.domain.navigation.EXTRA_REPO_NAME
 import kotlinx.coroutines.launch
-import org.koin.ext.getOrCreateScope
 import timber.log.Timber
 import java.lang.IllegalStateException
 
 class ForksViewModel(
     private val coroutineContextProvider: CoroutineContextProvider,
+    private val controller: IForksController,
+    private val presenter: IForksPresenter
 ) : ViewModel(), IForksView {
 
     val forkListLiveData = MutableLiveData<List<ForkViewState>>()
@@ -27,20 +28,13 @@ class ForksViewModel(
 
     @VisibleForTesting
     var initialized = false
-    private val koinScope = getOrCreateScope()
-    private val controller: IForksController
-    private val presenter: IForksPresenter
 
     init {
-        controller = koinScope.get()
-        presenter = koinScope.get()
-
         presenter.onAttachView(this)
     }
 
     override fun onCleared() {
         presenter.onDetachView()
-        koinScope.close()
     }
 
     fun onViewReady(extras: BaseBundle?) = viewModelScope.launch(coroutineContextProvider.IO) {

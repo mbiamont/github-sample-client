@@ -10,14 +10,11 @@ import com.mbiamont.github.domain.navigation.EXTRA_REPO_NAME
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
-
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.rules.TestRule
-import org.koin.dsl.module
 import org.koin.test.KoinTest
-import org.koin.test.KoinTestRule
 
 class IssuesViewModelTest : KoinTest {
     private val controller: IIssuesController = mock()
@@ -26,24 +23,11 @@ class IssuesViewModelTest : KoinTest {
     @get:Rule
     var rule: TestRule = AsyncLiveDataRule()
 
-    @get:Rule
-    val koinTestRule = KoinTestRule.create {
-        modules(
-            module {
-                scope<IssuesViewModel> {
-                    scoped { controller }
-                    scoped { presenter }
-                }
-            }
-        )
-    }
-
-
     private lateinit var viewModel: IssuesViewModel
 
     @Before
     fun setup() {
-        viewModel = IssuesViewModel(MockCoroutineContextProvider)
+        viewModel = IssuesViewModel(MockCoroutineContextProvider, controller, presenter)
 
         verify(presenter).onAttachView(viewModel)
     }
